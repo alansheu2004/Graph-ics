@@ -38,3 +38,5 @@ const LINE = new ComponentType(
         }
     ],
 );
+
+const componentTypes = [LINE];

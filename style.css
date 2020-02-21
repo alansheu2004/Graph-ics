@@ -35,10 +35,6 @@ input[type=number] {
   -moz-appearance:textfield;
 }
 
-div[id$="Template"] {
-    display: none;
-}
-
 header {
     background-color: var(--dark-theme-background);
     width: 100vw;
@@ -55,23 +51,56 @@ div#main {
 canvas#graph {
 }
 
-div#entries {
-    position: relative;
+div#sidePanel {
     background-color: var(--light-theme-background);
     float: right;
     height: 100%;
     width: 25vw;
     box-shadow: 0 0 1vw;
+    overflow-y: auto;
+    text-align: center;
+}
+
+div#sidePanel > p {
+    text-align: center;
+    font-size: 4vh;
+    color: var(--light-theme-text);
+    margin-top: 1vh;
+}
+
+div#sidePanel > button.new {
+    background-color: transparent;
+    background-size: 80% 80%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 6vh;
+    height: 6vh;
+    padding: 1vh;
+    border-radius: 0.5vh;
+    border: 1px solid var(--light-theme-light);
+    margin: 0.5vh 0.5vw;
+}
+
+div#entries {
+    width: 100%;
 }
 
 div.entry {
+    text-align: initial;
+    position: relative;
     width: 100%;
     box-sizing: border-box;
     padding: 2vw 2vw;
     border-bottom: 1px solid var(--light-theme-light);
 }
 
-div.entry img {
+div.entry > p {
+    color: var(--light-theme-text);
+    font-size: 4vh;
+    margin-bottom: 0.5vh;
+}
+
+div.entry > p > img {
     width: 3.5vh;
     height: 3.5vh;
     padding: 0.5vh;
@@ -80,13 +109,7 @@ div.entry img {
     margin-right: 0.5vw;
 }
 
-div.entry p {
-    color: var(--light-theme-text);
-    font-size: 4vh;
-    margin-bottom: 0.5vh;
-}
-
-div.entry button {
+div.entry > button {
     position: absolute;
     background-image: url("icons/cross.png");
     background-size: 100% 100%;
@@ -101,20 +124,20 @@ div.property {
     width: 8vw;
     display: inline-flex;
     flex-direction: row;
-    margin-right: 2vw;
+    margin: 0 0.75vw;
     align-items: baseline;
 }
 
-div.property label {
+div.property > label {
     flex: 0 0 initial;
     font-size: 3vh;
 }
 
-div.property label sub {
+div.property > label sub {
     font-size: 2vh;
 }
 
-div.property input {
+div.property > input {
     flex: 1 1 initial;
     min-width: 0;
     font-size: 2vh;
@@ -133,6 +156,10 @@ div.property input:focus {
 article {
     background-color: var(--dark-theme-background);
     width: 100vw;
-    height: 100vh;
+    height: 10vh;
     max-width: 100%;
+}
+
+[id$="Template"] {
+    display: none !important;
 }
