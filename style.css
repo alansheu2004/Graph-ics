@@ -1,0 +1,138 @@
+@font-face {
+    font-family: "Montserrat";
+    src: url("montserrat/Montserrat-Regular.otf");
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    font-family: "Montserrat";
+    box-sizing: border-box;
+}
+
+*:focus {
+    outline: none;
+}
+
+:root {
+    --dark-theme-background: #222222;
+
+    --light-theme-background: #dddddd;
+    --light-theme-text: #111111;
+    --light-theme-light: #999999;
+    --light-theme-highlight: #3388ff;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance:textfield;
+}
+
+div[id$="Template"] {
+    display: none;
+}
+
+header {
+    background-color: var(--dark-theme-background);
+    width: 100vw;
+    height: 10vh;
+    max-width: 100%;
+}
+
+div#main {
+    width: 100vw;
+    height: 80vh;
+    max-width: 100%;
+}
+
+canvas#graph {
+}
+
+div#entries {
+    position: relative;
+    background-color: var(--light-theme-background);
+    float: right;
+    height: 100%;
+    width: 25vw;
+    box-shadow: 0 0 1vw;
+}
+
+div.entry {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2vw 2vw;
+    border-bottom: 1px solid var(--light-theme-light);
+}
+
+div.entry img {
+    width: 3.5vh;
+    height: 3.5vh;
+    padding: 0.5vh;
+    border-radius: 0.5vh;
+    border: 1px solid var(--light-theme-light);
+    margin-right: 0.5vw;
+}
+
+div.entry p {
+    color: var(--light-theme-text);
+    font-size: 4vh;
+    margin-bottom: 0.5vh;
+}
+
+div.entry button {
+    position: absolute;
+    background-image: url("icons/cross.png");
+    background-size: 100% 100%;
+    border: none;
+    width: 3vh;
+    height: 3vh;
+    top: 2.5vw;
+    right: 2.5vw;
+}
+
+div.property {
+    width: 8vw;
+    display: inline-flex;
+    flex-direction: row;
+    margin-right: 2vw;
+    align-items: baseline;
+}
+
+div.property label {
+    flex: 0 0 initial;
+    font-size: 3vh;
+}
+
+div.property label sub {
+    font-size: 2vh;
+}
+
+div.property input {
+    flex: 1 1 initial;
+    min-width: 0;
+    font-size: 2vh;
+    background-color: Transparent;
+    border: none;
+    padding: 0 0.5vw 0 0.5vw;
+    border-bottom: 2px solid var(--light-theme-light);
+    text-align: right;
+    margin-left: 0.25vw;
+}
+
+div.property input:focus {
+    border-bottom-color: var(--light-theme-highlight);
+}
+
+article {
+    background-color: var(--dark-theme-background);
+    width: 100vw;
+    height: 100vh;
+    max-width: 100%;
+}
