@@ -1,4 +1,4 @@
-var components = [new Component(LINE),new Component(LINE),new Component(LINE)];
+var components = [new Component(LINE),new Component(ARC),new Component(QUADRATIC)];
 
 var sidePanel = document.getElementById("sidePanel");
 var entriesDiv = document.getElementById("entries");

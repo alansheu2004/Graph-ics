@@ -20,6 +20,7 @@
     --light-theme-background: #dddddd;
     --light-theme-text: #111111;
     --light-theme-light: #999999;
+    --light-theme-dark: #555555;
     --light-theme-highlight: #3388ff;
 }
 
@@ -55,7 +56,7 @@ div#sidePanel {
     background-color: var(--light-theme-background);
     float: right;
     height: 100%;
-    width: 25vw;
+    width: 30vw;
     box-shadow: 0 0 1vw;
     overflow-y: auto;
     text-align: center;
@@ -68,7 +69,7 @@ div#sidePanel > p {
     margin-top: 1vh;
 }
 
-div#sidePanel > button.new {
+button.new {
     background-color: transparent;
     background-size: 80% 80%;
     background-position: center center;
@@ -79,6 +80,15 @@ div#sidePanel > button.new {
     border-radius: 0.5vh;
     border: 1px solid var(--light-theme-light);
     margin: 0.5vh 0.5vw;
+}
+
+button.new:hover {
+    background-color: var(--light-theme-light);
+}
+
+button.new:active {
+    border-color: var(--light-theme-dark);
+    background-color: var(--light-theme-dark);
 }
 
 div#entries {
@@ -118,13 +128,22 @@ div.entry > button {
     height: 3vh;
     top: 2.5vw;
     right: 2.5vw;
+    filter: opacity(0.25);
+}
+
+div.entry > button:hover {
+    filter: opacity(0.75);
+}
+
+div.entry > button:active {
+    filter: opacity(1);
 }
 
 div.property {
     width: 8vw;
     display: inline-flex;
     flex-direction: row;
-    margin: 0 0.75vw;
+    margin: 0.5vh 1vw;
     align-items: baseline;
 }
 
@@ -146,7 +165,7 @@ div.property > input {
     padding: 0 0.5vw 0 0.5vw;
     border-bottom: 2px solid var(--light-theme-light);
     text-align: right;
-    margin-left: 0.25vw;
+    margin: 0 0.25vw;
 }
 
 div.property input:focus {
