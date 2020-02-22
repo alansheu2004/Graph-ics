@@ -21,70 +21,64 @@ function add(type) {
 }
 
 function update() {
-    entriesDiv.textContent = "";
+    while (entriesDiv.firstChild) {
+        entriesDiv.removeChild(entriesDiv.lastChild);
+    }
 
     for(let component of components) {
-        var entry = entryTemplate.cloneNode(true);
+        let entry = entryTemplate.cloneNode(true);
         entry.component = component;
 
         entry.children[0].children[0].src = "icons/" + component.type.icon;
         entry.children[0].innerHTML += component.type.name;
-        entry.addEventListener("focus", function(e) {e.target.entry.children[2].classList.add("focused")}, true);
-        entry.addEventListener("blur", function(e) {e.target.entry.children[2].classList.remove("focused")}, true);
+        entry.addEventListener("focus", function(e) {if(!e.target.classList.contains("delete")) {e.target.entry.classList.add("focused")}}, true);
+        entry.addEventListener("blur", function(e) {e.target.entry.classList.remove("focused")}, true);
+        entry.children[2].style.backgroundColor = component.color;
 
-        var deleteButton = entry.children[1];
+        let deleteButton = entry.children[1];
         deleteButton.entry = entry;
         deleteButton.addEventListener("click", function(e) {remove(e.target.entry);});
 
         for(let property of component.type.properties) {
-            var propertyDiv = document.getElementById(property.type + "Template").cloneNode(true);
+            let propertyDiv = document.getElementById(property.type + "Template").cloneNode(true);
             if(property["double-size"]) {
                 propertyDiv.classList.add("double");
             }
 
+            let label = propertyDiv.children[0];
+            label.innerHTML = property.name + ": (" ;
+            label.entry = entry;
+
             switch(property.type) {
                 case "number":
-                    var label = propertyDiv.children[0];
-                    label.for = property.name;
-                    label.innerHTML = property.name + ":" ;
-                    label.entry = entry;
 
-                    var input = propertyDiv.children[1];
-                    input.name = property.name;
+                    let input = propertyDiv.children[1];
                     input.value = component.properties[property.name];
                     input.entry = entry;
                     input.propertyName = property.name;
-                    input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = parseInt(e.target.value,10)});
+                    //input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
 
                     break;
 
                 case "point":
-                    var label = propertyDiv.children[0];
-                    label.for = property.name;
-                    label.innerHTML = property.name + ": (" ;
-                    label.entry = entry;
-
-                    var inputx = propertyDiv.children[1];
-                    inputx.name = property.name + " x";
+                    
+                    let inputx = propertyDiv.children[1];
                     inputx.value = component.properties[property.name][0];
                     inputx.entry = entry;
                     inputx.propertyName = property.name;
-                    inputx.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][0] = parseInt(e.target.value,10)});
+                    inputx.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][0] = Number(e.target.value); drawComponents();});
 
-                    var comma = propertyDiv.children[2];
-                    comma.for = property.name;
+                    let comma = propertyDiv.children[2];
                     comma.innerHTML = ",";
                     comma.entry = entry;
 
-                    var inputy = propertyDiv.children[3];
-                    inputy.name = property.name + " y";
+                    let inputy = propertyDiv.children[3];
                     inputy.value = component.properties[property.name][1];
                     inputy.entry = entry;
                     inputy.propertyName = property.name;
-                    inputy.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][1] = parseInt(e.target.value,10)});
+                    //inputy.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][1] = Number(e.target.value); drawComponents();});
 
-                    var close = propertyDiv.children[4];
-                    close.for = property.name;
+                    let close = propertyDiv.children[4];
                     close.innerHTML = ")";
                     close.entry = entry;
                     break;
@@ -92,18 +86,22 @@ function update() {
 
             
 
-            propertyDiv.id = "";
+            propertyDiv.removeAttribute("id");
             entry.appendChild(propertyDiv);
         }
 
-        entry.id = "";
+        entry.removeAttribute("id");
         entriesDiv.appendChild(entry);
     }
+
+    drawComponents();
 }
 
 window.onload = function() {
+    setGraphParameters();
+
     for(let type of componentTypes) {
-        var button = newTemplate.cloneNode(true);
+        let button = newTemplate.cloneNode(true);
         button.componentType = type;
         button.addEventListener("click", function(e) {add(e.target.componentType);});
         button.style.backgroundImage = "url(\"icons/" + type.icon + "\")"; 
@@ -111,6 +109,9 @@ window.onload = function() {
         button.id = "";
         sidePanel.appendChild(button);
     }
+
+    drawGraph();
+    graph.appendChild(componentsGroup);
 
     update();
 }

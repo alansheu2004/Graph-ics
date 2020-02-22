@@ -1,7 +1,19 @@
-function ComponentType(name, icon, properties) {
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var dark = '89AB';
+    var color = '#';
+    for (var i = 0; i < 3; i++) {
+        color += dark[Math.floor(Math.random() * 4)];
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+function ComponentType(name, icon, properties, svg) {
     this.name = name;
     this.icon = icon;
     this.properties = properties;
+    this.svg = svg
 }
 
 function Component(type) {
@@ -11,6 +23,10 @@ function Component(type) {
         this.properties[property.name] = property["default"];
     }
     this.entry = null;
+    this.color = getRandomColor();
+    this.getSvg = function() {
+        return this.type.svg(this.properties, this.color);
+    };
 }
 
 
@@ -29,7 +45,20 @@ const LINE = new ComponentType(
             "default" : [1,1],
             "double-size" : true
         }
-    ]
+    ],
+    function(properties, color) {
+        var container = createSvg("g", {
+            "class" : "component"
+        });
+        container.appendChild(createSvg("line", {
+            "x1" : toSvgX(properties["Point 1"][0]),
+            "y1" : toSvgY(properties["Point 1"][1]),
+            "x2" : toSvgX(properties["Point 2"][0]),
+            "y2" : toSvgY(properties["Point 2"][1]),
+            "stroke" : color
+        }));
+        return container;
+    }
 );
 
 const ARC = new ComponentType(

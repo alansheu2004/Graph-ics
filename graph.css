@@ -1,4 +1,24 @@
 line.axis {
-    stroke: black;
+    stroke: #444444;
+    stroke-width: 2;
+}
+
+line.bigTick {
+    stroke: #999999;
+    stroke-width: 1;
+}
+
+line.smallTick {
+    stroke: #cccccc;
+    stroke-width: 1;
+}
+
+text.tickLabel {
+    stroke: #555555;
+    font-size: 5;
+}
+
+g.component * {
     stroke-width: 3;
+    opacity: 0.75;
 }
