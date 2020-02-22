@@ -4,6 +4,7 @@
     <head>
         <title>Graph-ics</title>
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="graph.css" />
     </head>
 
     <body>
@@ -12,14 +13,15 @@
         </header>
 
         <div id="main">
-            <canvas id="graph">
-            </canvas>
+            <svg id="graph">
+
+            </svg>
 
             <div id="sidePanel">
                 <div id="entries">
                 </div>
 
-                <p>New</p>
+                <p>Create...</p>
             </div>
         </div>
 
@@ -31,16 +33,25 @@
     <div id="entryTemplate" class="entry">
         <p><img></p>
         <button></button>
+        <div class="marker"></div>
     </div>
 
-    <div id="propertyTemplate" class="property">
+    <div id="numberTemplate" class="property">
         <label></label>
-        <input /> 
+        <input type="number" /> 
+    </div>
+
+    <div id="pointTemplate" class="property">
+        <label></label>
+        <input type="number" /> 
+        <label></label>
+        <input type="number" /> 
+        <label></label>
     </div>
 
     <button id="newTemplate" class="new"></button>
 
     <script src="components.js"></script>
-    <script src="canvas.js"></script>
+    <script src="graph.js"></script>
     <script src="entries.js"></script>  
 </html>

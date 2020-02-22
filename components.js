@@ -13,44 +13,39 @@ function Component(type) {
     this.entry = null;
 }
 
+
 const LINE = new ComponentType(
     "Line", "line.png",
     [
         {
-            "name" : "x<sub>1</sub>",
-            "type" : "number",
-            "default" : 0
+            "name" : "Point 1",
+            "type" : "point",
+            "default" : [0,0],
+            "double-size" : true
         },
         {
-            "name" : "y<sub>1</sub>",
-            "type" : "number",
-            "default" : 1
-        },
-        {
-            "name" : "x<sub>2</sub>",
-            "type" : "number",
-            "default" : 0
-        },
-        {
-            "name" : "y<sub>2</sub>",
-            "type" : "number",
-            "default" : 1
+            "name" : "Point 2",
+            "type" : "point",
+            "default" : [1,1],
+            "double-size" : true
         }
-    ],
+    ]
 );
 
 const ARC = new ComponentType(
     "Arc", "arc.png",
     [
         {
-            "name" : "c<sub>x</sub>",
-            "type" : "number",
-            "default" : 0
+            "name" : "Center",
+            "type" : "point",
+            "default" : [0,0],
+            "double-size" : true
         },
         {
-            "name" : "c<sub>y</sub>",
+            "name" : "r",
             "type" : "number",
-            "default" : 0
+            "default" : 1,
+            "double-size" : true
         },
         {
             "name" : "&theta;<sub>1</sub>",
@@ -61,44 +56,86 @@ const ARC = new ComponentType(
             "name" : "&theta;<sub>2</sub>",
             "type" : "number",
             "default" : 360
-        },
-        {
-            "name" : "r",
-            "type" : "number",
-            "default" : 1
         }
-    ],
+    ]
 );
 
 const QUADRATIC = new ComponentType(
     "Quadratic", "quadratic.png",
     [
         {
-            "name" : "c<sub>x</sub>",
-            "type" : "number",
-            "default" : 0
+            "name" : "End 1",
+            "type" : "point",
+            "default" : [-1,1],
+            "double-size" : true
         },
         {
-            "name" : "c<sub>y</sub>",
-            "type" : "number",
-            "default" : 0
+            "name" : "Control",
+            "type" : "point",
+            "default" : [0,-1],
+            "double-size" : true
         },
         {
-            "name" : "&theta;<sub>1</sub>",
-            "type" : "number",
-            "default" : 0
-        },
-        {
-            "name" : "&theta;<sub>2</sub>",
-            "type" : "number",
-            "default" : 360
-        },
-        {
-            "name" : "r",
-            "type" : "number",
-            "default" : 1
+            "name" : "End 2",
+            "type" : "point",
+            "default" : [1,1],
+            "double-size" : true
         }
-    ],
+    ]
 );
 
-const componentTypes = [LINE, ARC, QUADRATIC];
+const CUBIC = new ComponentType(
+    "Cubic", "cubic.png",
+    [
+        {
+            "name" : "End 1",
+            "type" : "point",
+            "default" : [-1,-1],
+            "double-size" : true
+        },
+        {
+            "name" : "Control 1",
+            "type" : "point",
+            "default" : [-1, 0],
+            "double-size" : true
+        },
+        {
+            "name" : "Control 2",
+            "type" : "point",
+            "default" : [0, 1],
+            "double-size" : true
+        },
+        {
+            "name" : "End 2",
+            "type" : "point",
+            "default" : [1,1],
+            "double-size" : true
+        }
+    ]
+);
+
+const SQUARE = new ComponentType(
+    "Square", "square.png",
+    [
+        {
+            "name" : "Center",
+            "type" : "point",
+            "default" : [0, 0],
+            "double-size" : true
+        },
+        {
+            "name" : "Side",
+            "type" : "number",
+            "default" : 1,
+            "double-size" : true
+        },
+        {
+            "name" : "Rotate",
+            "type" : "number",
+            "default" : 0,
+            "double-size" : true
+        }
+    ]
+);
+
+const componentTypes = [LINE, ARC, QUADRATIC, CUBIC, SQUARE];
