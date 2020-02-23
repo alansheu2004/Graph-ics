@@ -126,3 +126,17 @@ function toCoorX(x) {
 function toCoorY(y) {
     return -(y - originy)/interval;
 }
+
+function toSvgDim(val) {
+    return val*interval;
+}
+
+function toCoorDim(val) {
+    return val/interval;
+}
+
+graph.onload = function () {
+    setGraphParameters();
+    drawGraph();
+    graph.appendChild(componentsGroup);
+}

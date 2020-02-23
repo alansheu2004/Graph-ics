@@ -58,16 +58,25 @@ svg#graph {
 }
 
 div#sidePanel {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     background-color: var(--light-theme-background);
     flex: 0 0 30vw;
     box-shadow: 0 0 1vw;
-    overflow-y: auto;
     text-align: center;
     padding-bottom: 25vh;
 }
 
-div#sidePanel > p {
+div#newButtonDiv {
+    flex: 0 0 initial;
+    text-align: center;
+    font-size: 4vh;
+    color: var(--light-theme-text);
+    padding: 2vh 0;
+    background-color: red;
+}
+
+div#newButtonDiv > p {
     text-align: center;
     font-size: 4vh;
     color: var(--light-theme-text);
@@ -98,6 +107,8 @@ button.new:active {
 
 div#entries {
     width: 100%;
+    flex: 1 1 0;
+    overflow-y: auto;
 }
 
 div.entry {
@@ -110,7 +121,7 @@ div.entry {
     transition: 0.25s;
 }
 
-div.entry.focused {
+div.entry.focused, div.entry:hover {
     background-color: #eeeeee;
 }
 
@@ -136,10 +147,10 @@ div.marker {
     left: 0;
     top: 0;
     opacity: 75%;
-    transition: 0.25s;
+    transition: 0.15s;
 }
 
-div.entry.focused > div.marker {
+div.entry.focused > div.marker, div.entry:hover > div.marker {
     width: 1.25vw;
     opacity: 100%;
 }
@@ -186,7 +197,7 @@ div.property > label sub {
     font-size: 2vh;
 }
 
-div.property > input {
+div.property input {
     flex: 1 1 0;
     min-width: 0;
     font-size: 2vh;
@@ -196,6 +207,12 @@ div.property > input {
     border-bottom: 2px solid var(--light-theme-light);
     text-align: right;
     margin: 0 0.25vw;
+    transition: 0.1s;
+}
+
+div.property input:hover {
+    border-bottom-color: var(--light-theme-dark);
+    transition: 0.1s;
 }
 
 div.property input:focus {

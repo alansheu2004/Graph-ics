@@ -2,6 +2,7 @@ var components = [new Component(LINE)];
 
 var sidePanel = document.getElementById("sidePanel");
 var entriesDiv = document.getElementById("entries");
+var newButtonDiv = document.getElementById("newButtonDiv");
 var entryTemplate = document.getElementById("entryTemplate");
 var newTemplate = document.getElementById("newTemplate");
 
@@ -45,22 +46,41 @@ function update() {
                 propertyDiv.classList.add("double");
             }
 
-            let label = propertyDiv.children[0];
-            label.innerHTML = property.name + ": (" ;
-            label.entry = entry;
-
             switch(property.type) {
                 case "number":
 
-                    let input = propertyDiv.children[1];
+                    var label = propertyDiv.children[0];
+                    label.innerHTML = property.name + ":";
+                    label.entry = entry;
+
+                    var input = propertyDiv.children[1];
                     input.value = component.properties[property.name];
                     input.entry = entry;
                     input.propertyName = property.name;
-                    //input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
+                    input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
+
+                    break;
+
+                case "angle":
+
+                    var label = propertyDiv.children[0];
+                    label.innerHTML = property.name + ":";
+                    label.entry = entry;
+
+                    var input = propertyDiv.children[1];
+                    input.value = component.properties[property.name];
+                    input.entry = entry;
+                    input.propertyName = property.name;
+                    input.style.marginRight = "0";
+                    input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
 
                     break;
 
                 case "point":
+
+                    var label = propertyDiv.children[0];
+                    label.innerHTML = property.name + ": (" ;
+                    label.entry = entry;
                     
                     let inputx = propertyDiv.children[1];
                     inputx.value = component.properties[property.name][0];
@@ -76,11 +96,7 @@ function update() {
                     inputy.value = component.properties[property.name][1];
                     inputy.entry = entry;
                     inputy.propertyName = property.name;
-                    //inputy.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][1] = Number(e.target.value); drawComponents();});
-
-                    let close = propertyDiv.children[4];
-                    close.innerHTML = ")";
-                    close.entry = entry;
+                    inputy.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][1] = Number(e.target.value); drawComponents();});
                     break;
             }
 
@@ -98,7 +114,6 @@ function update() {
 }
 
 window.onload = function() {
-    setGraphParameters();
 
     for(let type of componentTypes) {
         let button = newTemplate.cloneNode(true);
@@ -107,11 +122,8 @@ window.onload = function() {
         button.style.backgroundImage = "url(\"icons/" + type.icon + "\")"; 
 
         button.id = "";
-        sidePanel.appendChild(button);
+        newButtonDiv.appendChild(button);
     }
-
-    drawGraph();
-    graph.appendChild(componentsGroup);
 
     update();
 }
