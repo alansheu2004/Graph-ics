@@ -261,11 +261,24 @@ const SQUARE = new ComponentType(
         },
         {
             "name" : "Rotate",
-            "type" : "number",
+            "type" : "angle",
             "default" : 0,
             "double-size" : true
         }
-    ]
+    ],
+    function(properties) {
+        var radius = properties["Side"] * Math.sqrt(2) / 2;
+        var radians = properties["Rotate"] * Math.PI / 180;
+        console.log(radians);
+        return createSvg("path", {
+            "class" : "component",
+            "d" : "M " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+Math.PI/4)) + 
+                " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+3*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+3*Math.PI/4)) + 
+                " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+5*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+5*Math.PI/4)) + 
+                " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+7*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+7*Math.PI/4)) + 
+                " Z"
+        });
+    }
 );
 
 const componentTypes = [LINE, CIRCLE, ELLIPSE, QUADRATIC, CUBIC, SQUARE];

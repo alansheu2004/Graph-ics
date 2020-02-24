@@ -64,23 +64,22 @@ div#sidePanel {
     flex: 0 0 30vw;
     box-shadow: 0 0 1vw;
     text-align: center;
-    padding-bottom: 25vh;
 }
 
 div#newButtonDiv {
+    width: 100%;
     flex: 0 0 initial;
     text-align: center;
     font-size: 4vh;
     color: var(--light-theme-text);
     padding: 2vh 0;
-    background-color: red;
+    border-top: 2px solid var(--light-theme-light);
 }
 
 div#newButtonDiv > p {
     text-align: center;
     font-size: 4vh;
     color: var(--light-theme-text);
-    margin-top: 2vh;
 }
 
 button.new {
