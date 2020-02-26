@@ -135,8 +135,15 @@ function toCoorDim(val) {
     return val/interval;
 }
 
-graph.onload = function () {
+graph.onload = loadGraph;
+
+function loadGraph() {
     setGraphParameters();
-    drawGraph();
-    graph.appendChild(componentsGroup);
+    if(width == 0) {
+        setTimeout(loadGraph, 100);
+    } else {
+        drawGraph();
+        graph.appendChild(componentsGroup);
+        drawComponents();
+    }
 }

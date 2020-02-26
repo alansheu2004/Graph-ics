@@ -21,6 +21,18 @@ function add(type) {
     update();
 }
 
+function focus(e) {
+    if(!e.target.classList.contains("delete")) {
+        e.target.entry.classList.add("focused");
+        e.target.component.svgElement.classList.add("focused");
+    }
+}
+
+function blur(e) {
+    e.target.entry.classList.remove("focused");
+    e.target.component.svgElement.classList.remove("focused");
+}
+
 function update() {
     while (entriesDiv.firstChild) {
         entriesDiv.removeChild(entriesDiv.lastChild);
@@ -32,8 +44,8 @@ function update() {
 
         entry.children[0].children[0].src = "icons/" + component.type.icon;
         entry.children[0].innerHTML += component.type.name;
-        entry.addEventListener("focus", function(e) {if(!e.target.classList.contains("delete")) {e.target.entry.classList.add("focused")}}, true);
-        entry.addEventListener("blur", function(e) {e.target.entry.classList.remove("focused")}, true);
+        entry.addEventListener("focus", function(e) {focus(e)}, true);
+        entry.addEventListener("blur", function(e) {blur(e)}, true);
         entry.children[2].style.backgroundColor = component.color;
 
         let deleteButton = entry.children[1];
@@ -113,6 +125,23 @@ function update() {
     drawComponents();
 }
 
+function addDefaultComponents() {
+    var head = new Component(CIRCLE);
+    head.properties = {"Center": [0,0], "Radius": 5};
+    var wink = new Component(QUADRATIC);
+    wink.properties = {"End 1": [-3,1], "Control": [-2,2], "End 2": [-1,1]};
+    var eye = new Component(ELLIPSE);
+    eye.properties = {"Center": [2,1.25], "r<sub>x</sub>": 1, "r<sub>y</sub>": 0.5};
+    var mouth = new Component(LINE);
+    mouth.properties = {"Point 1": [-3,-1], "Point 2": [3,-1]};
+    var tongue = new Component(CUBIC);
+    tongue.properties = {"End 1": [0,-1], "Control 1": [0,-5], "Control 2": [3,-5], "End 2": [2.5,-1]};
+    var uuhhh = new Component(LINE);
+    uuhhh.properties = {"Point 1": [1.25,-1], "Point 2": [1.5,-3]};
+
+    components = [head, wink, eye, mouth, tongue, uuhhh];
+}
+
 window.onload = function() {
 
     for(let type of componentTypes) {
@@ -125,5 +154,6 @@ window.onload = function() {
         newButtonDiv.appendChild(button);
     }
 
+    addDefaultComponents();
     update();
 }

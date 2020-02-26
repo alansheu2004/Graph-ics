@@ -1,12 +1,7 @@
 function getRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var dark = '89AB';
-    var color = '#';
-    for (var i = 0; i < 3; i++) {
-        color += dark[Math.floor(Math.random() * 4)];
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
+    return "hsl(" + 360 * Math.random() + ',' +
+        '75%,' + 
+        (50 + 25 * Math.random()) + '%)'
 }
 
 function ComponentType(name, icon, properties, svg) {
@@ -23,10 +18,13 @@ function Component(type) {
         this.properties[property.name] = JSON.parse(JSON.stringify(property["default"]));
     }
     this.entry = null;
+    this.svgElement = null;
     this.color = getRandomColor();
     this.getSvg = function() {
         var path = this.type.svg(this.properties);
         path.setAttribute("stroke", this.color);
+        this.svgElement = path;
+        path.component = this;
         return path;
     };
 }
@@ -38,13 +36,13 @@ const LINE = new ComponentType(
         {
             "name" : "Point 1",
             "type" : "point",
-            "default" : [0,0],
+            "default" : [-5,-5],
             "double-size" : true
         },
         {
             "name" : "Point 2",
             "type" : "point",
-            "default" : [1,1],
+            "default" : [5,5],
             "double-size" : true
         }
     ],
@@ -71,7 +69,7 @@ const CIRCLE = new ComponentType(
         {
             "name" : "Radius",
             "type" : "number",
-            "default" : 1,
+            "default" : 5,
             "double-size" : true
         }
     ],
@@ -97,12 +95,12 @@ const ELLIPSE = new ComponentType(
         {
             "name" : "r<sub>x</sub>",
             "type" : "number",
-            "default" : 2
+            "default" : 5
         },
         {
             "name" : "r<sub>y</sub>",
             "type" : "number",
-            "default" : 1
+            "default" : 3
         },
     ],
     function(properties) {
@@ -182,19 +180,19 @@ const QUADRATIC = new ComponentType(
         {
             "name" : "End 1",
             "type" : "point",
-            "default" : [-1,1],
+            "default" : [-5,5],
             "double-size" : true
         },
         {
             "name" : "Control",
             "type" : "point",
-            "default" : [0,-1],
+            "default" : [0,-10],
             "double-size" : true
         },
         {
             "name" : "End 2",
             "type" : "point",
-            "default" : [1,1],
+            "default" : [5,5],
             "double-size" : true
         }
     ],
@@ -213,25 +211,25 @@ const CUBIC = new ComponentType(
         {
             "name" : "End 1",
             "type" : "point",
-            "default" : [-1,-1],
+            "default" : [-5,-5],
             "double-size" : true
         },
         {
             "name" : "Control 1",
             "type" : "point",
-            "default" : [-1, 1],
+            "default" : [-5, 10],
             "double-size" : true
         },
         {
             "name" : "Control 2",
             "type" : "point",
-            "default" : [1, -1],
+            "default" : [5, -10],
             "double-size" : true
         },
         {
             "name" : "End 2",
             "type" : "point",
-            "default" : [1,1],
+            "default" : [5,5],
             "double-size" : true
         }
     ],
@@ -256,7 +254,7 @@ const SQUARE = new ComponentType(
         {
             "name" : "Side",
             "type" : "number",
-            "default" : 1,
+            "default" : 10,
             "double-size" : true
         },
         {

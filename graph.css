@@ -20,6 +20,16 @@ text.tickLabel {
 
 .component {
     stroke-width: 3;
-    opacity: 0.75;
+    opacity: 0.5;
     fill: none;
+    transition: 0.15s;
+}
+
+.component:hover:not([class=focused]) {
+    stroke-width: 8;
+}
+
+.component.focused {
+    stroke-width: 5;
+    opacity: 1;
 }
