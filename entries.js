@@ -15,7 +15,7 @@ function remove(entry) {
     update();
 }
 
-function add(type) {
+function addCom(type) {
     components.push(new Component(type));
     
     update();
@@ -29,8 +29,10 @@ function focus(e) {
 }
 
 function blur(e) {
-    e.target.entry.classList.remove("focused");
-    e.target.component.svgElement.classList.remove("focused");
+    if(!e.target.classList.contains("delete")) {
+        e.target.entry.classList.remove("focused");
+        e.target.component.svgElement.classList.remove("focused");
+    } 
 }
 
 function update() {
@@ -68,6 +70,7 @@ function update() {
                     var input = propertyDiv.children[1];
                     input.value = component.properties[property.name];
                     input.entry = entry;
+                    input.component = component;
                     input.propertyName = property.name;
                     input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
 
@@ -82,6 +85,7 @@ function update() {
                     var input = propertyDiv.children[1];
                     input.value = component.properties[property.name];
                     input.entry = entry;
+                    input.component = component;
                     input.propertyName = property.name;
                     input.style.marginRight = "0";
                     input.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
@@ -97,6 +101,7 @@ function update() {
                     let inputx = propertyDiv.children[1];
                     inputx.value = component.properties[property.name][0];
                     inputx.entry = entry;
+                    inputx.component = component;
                     inputx.propertyName = property.name;
                     inputx.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][0] = Number(e.target.value); drawComponents();});
 
@@ -107,6 +112,7 @@ function update() {
                     let inputy = propertyDiv.children[3];
                     inputy.value = component.properties[property.name][1];
                     inputy.entry = entry;
+                    inputy.component = component;
                     inputy.propertyName = property.name;
                     inputy.addEventListener("input", function(e) {e.target.entry.component.properties[e.target.propertyName][1] = Number(e.target.value); drawComponents();});
                     break;
@@ -139,7 +145,7 @@ function addDefaultComponents() {
     var uuhhh = new Component(LINE);
     uuhhh.properties = {"Point 1": [1.25,-1], "Point 2": [1.5,-3]};
 
-    components = [head, wink, eye, mouth, tongue, uuhhh];
+    components = [uuhhh];
 }
 
 window.onload = function() {
@@ -147,13 +153,14 @@ window.onload = function() {
     for(let type of componentTypes) {
         let button = newTemplate.cloneNode(true);
         button.componentType = type;
-        button.addEventListener("click", function(e) {add(e.target.componentType);});
+        button.addEventListener("click", function(e) {addCom(e.target.componentType);});
         button.style.backgroundImage = "url(\"icons/" + type.icon + "\")"; 
 
         button.id = "";
         newButtonDiv.appendChild(button);
     }
 
+    setUpHiddenDiv();
     addDefaultComponents();
     update();
 }

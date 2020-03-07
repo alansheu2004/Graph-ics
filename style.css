@@ -24,6 +24,10 @@
     --light-theme-highlight: #3388ff;
 }
 
+body {
+    background-color: #222222;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -246,7 +250,6 @@ div.property input:focus {
 article {
     background-color: var(--dark-theme-background);
     width: 100vw;
-    height: 10vh;
     max-width: 100%;
     text-align: center;
 }
@@ -265,6 +268,14 @@ button#generate {
 
 button#generate:hover {
     background-color: blue;
+}
+
+div#hiddenDiv {
+    display: none;
+}
+
+p#equation {
+    color: white;
 }
 
 [id$="Template"] {

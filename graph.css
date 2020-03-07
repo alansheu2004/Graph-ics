@@ -1,3 +1,7 @@
+svg {
+    background-color: white;
+}
+
 line.axis {
     stroke: #444444;
     stroke-width: 2;

@@ -1,14 +1,15 @@
 function getRandomColor() {
     return "hsl(" + 360 * Math.random() + ',' +
-        '75%,' + 
-        (50 + 25 * Math.random()) + '%)'
+        '80%,' + 
+        (25 + 50 * Math.random()) + '%)'
 }
 
-function ComponentType(name, icon, properties, svg) {
+function ComponentType(name, icon, properties, svg, equation) {
     this.name = name;
     this.icon = icon;
     this.properties = properties;
-    this.svg = svg
+    this.svg = svg;
+    this.equation = equation;
 }
 
 function Component(type) {
@@ -27,6 +28,9 @@ function Component(type) {
         path.component = this;
         return path;
     };
+    this.getEquation = function() {
+        return this.type.equation(this.properties);
+    }
 }
 
 
@@ -54,6 +58,16 @@ const LINE = new ComponentType(
             "x2" : toSvgX(properties["Point 2"][0]),
             "y2" : toSvgY(properties["Point 2"][1])
         });
+    },
+    function(properties) {
+        var yTerm = add("y", neg(properties["Point 1"][1]));
+        var slope = fraction(properties["Point 2"][1]-properties["Point 1"][1], properties["Point 2"][0]-properties["Point 1"][0]);
+        var xTerm = par(add("x", neg(properties["Point 1"][0])));
+        var domain = restrict(
+            {"dir":"min", "value":"x", "limit":Math.min(properties["Point 1"][0],properties["Point 2"][0])},
+            {"dir":"max", "value":"x", "limit":Math.max(properties["Point 1"][0],properties["Point 2"][0])}
+        );
+        return add(yTerm, neg(multiply(slope, xTerm, domain)));
     }
 );
 
@@ -80,6 +94,11 @@ const CIRCLE = new ComponentType(
             "cy" : toSvgY(properties["Center"][1]),
             "r" : toSvgDim(properties["Radius"])
         });
+    },
+    function(properties) {
+        var xTerm = par(add("x", neg(properties["Center"][0]))) + "^2";
+        var yTerm = par(add("y", neg(properties["Center"][1]))) + "^2";
+        return add(xTerm, yTerm, neg(Math.pow(properties["Radius"], 2)));
     }
 );
 
@@ -111,6 +130,11 @@ const ELLIPSE = new ComponentType(
             "rx" : toSvgDim(properties["r<sub>x</sub>"]),
             "ry" : toSvgDim(properties["r<sub>y</sub>"])
         });
+    },
+    function(properties) {
+        var xTerm = par(divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"])) + "^2";
+        var yTerm = par(divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"])) + "^2";
+        return add(xTerm, yTerm, "-1");
     }
 );
 
