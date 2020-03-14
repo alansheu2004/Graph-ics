@@ -15,32 +15,7 @@ function setUpHiddenDiv() {
 }
 
 function fraction(numerator, denominator) {
-    var gcd = function gcd(a,b){
-        return b ? gcd(b, a%b) : a;
-    };
-    gcd = gcd(numerator,denominator);
-
-    numerator = numerator/gcd;
-    denominator - denominator/gcd;
-
-    if(numerator<0 && denominator<0) {
-        numerator *= -1;
-        denominator *= -1;
-    }
-
-    if (denominator == 1) {
-        return numerator;
-    } else if (numerator == 0) {
-        return 0;
-    } else {
-        var negative = "";
-        if(numerator<0 || denominator<0) {
-            numerator = Math.abs(numerator);
-            denominator = Math.abs(denominator);
-            negative = "-";
-        }
-        return negative + "{" + numerator + " \\over " + denominator + "}";
-    }
+    
 }
 
 function multiply() {
@@ -57,19 +32,63 @@ function multiply() {
 }
 
 function divide(numerator, denominator) {
-    return "{" + numerator + " \\over " + denominator + "}";
+    if (isConstant(numerator) && isConstant(denominator)) {
+        var gcd = function gcd(a,b){
+            return b ? gcd(b, a%b) : a;
+        };
+        gcd = gcd(numerator,denominator);
+
+        numerator = numerator/gcd;
+        denominator = denominator/gcd;
+
+        if(numerator<0 && denominator<0) {
+            numerator *= -1;
+            denominator *= -1;
+        }
+
+        if (denominator == 1) {
+            return numerator;
+        } else if (numerator == 0) {
+            return 0;
+        } else {
+            var negative = "";
+            if(numerator<0 || denominator<0) {
+                numerator = Math.abs(numerator);
+                denominator = Math.abs(denominator);
+                negative = "-";
+            }
+            return negative + "{" + numerator + " \\over " + denominator + "}";
+        }
+    }
+
+    if (denominator == 1 || denominator == "1") {
+        return numerator;
+    } else if (numerator == 0 || numerator == "0" || numerator == "-0") {
+        return 0;
+    } else {
+        var negative = "";
+        if(numerator<0 || denominator<0) {
+            numerator = Math.abs(numerator);
+            denominator = Math.abs(denominator);
+            negative = "-";
+        }
+        return negative + "{" + numerator + " \\over " + denominator + "}";
+    }
 }
 
 function add() {
     var addends = Array.prototype.slice.call(arguments);
     var sum = "";
+    var constant = 0;
     for(let addend of addends) {
         if(typeof addend == "number") {
             addend = addend.toString();
         }
 
         if (addend != "0" && addend != "-0") {
-            if (addend.startsWith("-")) {
+            if (isConstant(addend)) {
+                constant += Number(addend);
+            } else if (addend.startsWith("-")) {
                 sum += addend;
             } else if (sum == "") {
                 sum += addend;
@@ -78,6 +97,15 @@ function add() {
             }
         }
     }
+
+    if (constant != 0) {
+        if(constant > 0 && sum != "") {
+            sum += "+" + constant;
+        } else {
+            sum += constant;
+        }
+    }
+
     return sum;
 }
 
@@ -104,6 +132,14 @@ function neg(expression) {
     } else {
         return "-"+ expression;
     }
+}
+
+function isConstant(expression) {
+    if(typeof expression == "number") {
+        expression = expression.toString();
+    }
+
+    return expression.match(/^[-]?\d*\.?\d*$/g) != null;
 }
 
 function par(expression) {

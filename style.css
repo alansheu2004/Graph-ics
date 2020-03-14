@@ -254,6 +254,12 @@ article {
     text-align: center;
 }
 
+article p {
+    color: white;
+    font-size: 3vh;
+    margin-top: 5vh;
+}
+
 button#generate {
     font-size: 3vh;
     padding: 1vh 3vh;
@@ -274,8 +280,19 @@ div#hiddenDiv {
     display: none;
 }
 
+div#equationDiv {
+    margin: 5vh auto;
+    width: 75vw;
+    padding: 2vw;
+    border-radius: 2vw;
+    overflow-x: hidden;
+    background-color: #333333;
+}
+
 p#equation {
-    color: white;
+    padding: 0;
+    margin: 0;
+    font-size: 3vh;
 }
 
 [id$="Template"] {

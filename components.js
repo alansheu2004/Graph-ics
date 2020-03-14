@@ -61,7 +61,7 @@ const LINE = new ComponentType(
     },
     function(properties) {
         var yTerm = add("y", neg(properties["Point 1"][1]));
-        var slope = fraction(properties["Point 2"][1]-properties["Point 1"][1], properties["Point 2"][0]-properties["Point 1"][0]);
+        var slope = divide(add(properties["Point 2"][1], neg(properties["Point 1"][1])), add(properties["Point 2"][0], neg(properties["Point 1"][0])));
         var xTerm = par(add("x", neg(properties["Point 1"][0])));
         var domain = restrict(
             {"dir":"min", "value":"x", "limit":Math.min(properties["Point 1"][0],properties["Point 2"][0])},
@@ -96,8 +96,16 @@ const CIRCLE = new ComponentType(
         });
     },
     function(properties) {
-        var xTerm = par(add("x", neg(properties["Center"][0]))) + "^2";
-        var yTerm = par(add("y", neg(properties["Center"][1]))) + "^2";
+        var xTerm = add("x", neg(properties["Center"][0]));
+        var yTerm = add("y", neg(properties["Center"][1]));
+        if (properties["Center"][0] != 0) {
+            xTerm = par(xTerm);
+        }
+        if (properties["Center"][1] != 0) {
+            yTerm = par(yTerm);
+        }
+        xTerm += "^2";
+        yTerm += "^2";
         return add(xTerm, yTerm, neg(Math.pow(properties["Radius"], 2)));
     }
 );
@@ -132,8 +140,16 @@ const ELLIPSE = new ComponentType(
         });
     },
     function(properties) {
-        var xTerm = par(divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"])) + "^2";
-        var yTerm = par(divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"])) + "^2";
+        var xTerm = divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"]);
+        var yTerm = divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"]);
+        if (properties["Center"][0] != 0 || properties["r<sub>x</sub>"] != 1) {
+            xTerm = par(xTerm);
+        }
+        if (properties["Center"][1] != 0 || properties["r<sub>y</sub>"] != 1) {
+            yTerm = par(yTerm);
+        }
+        xTerm += "^2";
+        yTerm += "^2";
         return add(xTerm, yTerm, "-1");
     }
 );
@@ -291,7 +307,6 @@ const SQUARE = new ComponentType(
     function(properties) {
         var radius = properties["Side"] * Math.sqrt(2) / 2;
         var radians = properties["Rotate"] * Math.PI / 180;
-        console.log(radians);
         return createSvg("path", {
             "class" : "component",
             "d" : "M " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+Math.PI/4)) + 
@@ -300,7 +315,23 @@ const SQUARE = new ComponentType(
                 " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+7*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+7*Math.PI/4)) + 
                 " Z"
         });
+    },
+    function(properties) {
+        var radius = multiply("{\\sqrt{2} \\over 2}", par(properties["Side"]));
+        var radians = properties["Rotate"] * Math.PI / 180;
+
+        var point1 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]+45)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]+45)+"^{\\circ}}"))];
+        var point2 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]+135)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]+135)+"^{\\circ}}"))];
+        var point3 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]-135)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]-135)+"^{\\circ}}"))];
+        var point4 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]-45)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]-45)+"^{\\circ}}"))];
+
+        var line1 = LINE.equation({"Point 1" : point1, "Point 2" : point2});
+        var line2 = LINE.equation({"Point 1" : point2, "Point 2" : point3});
+        var line3 = LINE.equation({"Point 1" : point3, "Point 2" : point4});
+        var line4 = LINE.equation({"Point 1" : point4, "Point 2" : point1});
+
+        return par(line1) +par(line2) + par(line3) + par(line4);
     }
 );
 
-const componentTypes = [LINE, CIRCLE, ELLIPSE, QUADRATIC, CUBIC, SQUARE];
+const componentTypes = [LINE, CIRCLE, ELLIPSE, SQUARE];
