@@ -5,6 +5,16 @@ var originx;
 var originy;
 var interval;
 
+var zooms = [
+    {"unitsOnAxis":2, "smallTick":0.1, "bigTick":0.5}
+    {"unitsOnAxis":5, "smallTick":0.5, "bigTick":1},
+    {"unitsOnAxis":10, "smallTick":1, "bigTick":5},
+    {"unitsOnAxis":20, "smallTick":2, "bigTick":10},
+    {"unitsOnAxis":50, "smallTick":5, "bigTick":25}
+];
+var zoomNum = 0;
+var zoom = zooms[zoomNum];
+
 var componentsGroup = createSvg("g", {"class":"componentGroup"});
 
 function setGraphParameters() {
@@ -12,11 +22,11 @@ function setGraphParameters() {
     height = graph.height.baseVal.value;
     originx = width/2;
     originy = height/2;
-    interval = Math.min(width, height)/20;
+    interval = Math.min(width, height)/(2*zoom.unitsOnAxis);
 }
 
 function drawGraph() {
-    for(var x = originx%interval; x <= width; x += interval) {
+    for(var x = originx%(zoom.smallTick*interval); x <= width; x += zoom.smallTick*interval) {
         graph.appendChild(createSvg("line", {
             "x1" : x,
             "y1" : 0,
@@ -26,7 +36,7 @@ function drawGraph() {
         }));
     }
 
-    for(var y = originy%interval; y <= height; y += interval) {
+    for(var y = originy%(zoom.smallTick*interval); y <= height; y += zoom.smallTick*interval) {
         graph.appendChild(createSvg("line", {
             "x1" : 0,
             "y1" : y,
@@ -36,7 +46,7 @@ function drawGraph() {
         }));
     }
 
-    var bigInterval = 5*interval;
+    var bigInterval = (zoom.bigTick*interval);
 
     for(var x = originx%bigInterval; x <= width; x += bigInterval) {
         graph.appendChild(createSvg("line", {
@@ -136,6 +146,7 @@ function toCoorDim(val) {
 }
 
 graph.onload = loadGraph;
+window.onresize = reloadGraph;
 
 function loadGraph() {
     setGraphParameters();
@@ -146,4 +157,12 @@ function loadGraph() {
         graph.appendChild(componentsGroup);
         drawComponents();
     }
+}
+
+function reloadGraph() {
+    graph.textContent = "";
+    setGraphParameters();
+    drawGraph();
+    graph.appendChild(componentsGroup);
+    drawComponents();
 }

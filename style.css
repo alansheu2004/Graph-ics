@@ -335,9 +335,18 @@ line.smallAxis {
 }
 
 footer {
+    position: relative;
     width: 100%;
     height: 40vh;
     background-image: linear-gradient(to bottom, var(--dark-theme-background), black);
+}
+
+footer small {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    bottom: 20vh;
 }
 
 [id$="Template"] {

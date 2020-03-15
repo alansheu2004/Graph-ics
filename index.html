@@ -14,6 +14,11 @@
         </header>
 
         <div id="main">
+
+            <div id="zoomGroup">
+                
+            </div>
+
             <svg id="graph" stroke-linecap="round" stroke-linejoin="round">
 
             </svg>
@@ -150,6 +155,7 @@
                         <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
                         <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
                         <line class="smallComponent" x1="70%" y1="40%" x2="100%" y2="40%" />
+                        <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
                     </svg>
                     <p>\[ y = \sqrt{ \left| x-2 \right| \over x-2 } \]</p>
                 </div>
@@ -158,6 +164,7 @@
                         <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
                         <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
                         <line class="smallComponent" x1="0%" y1="40%" x2="70%" y2="40%" />
+                        <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
                     </svg>
                     <p>\[ y = \sqrt{ \left| 2-x \right| \over 2-x } \]</p>
                 </div>
@@ -166,6 +173,8 @@
                         <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
                         <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
                         <line class="smallComponent" x1="40%" y1="40%" x2="70%" y2="40%" />
+                        <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
+                        <line class="dashed" x1="40%" y1="0%" x2="40%" y2="100%" />
                     </svg>
                     <p>\[ y = \sqrt{ \left| (x+1)(2-x) \right| \over (x+1)(2-x) } \]</p>
                 </div>
@@ -221,6 +230,10 @@
                     Now, armed with the tools of graph combination and domain restriction, it becomes quite literal that if you can graph it, you can make an equation for it. Whether it be line art so intricate it deserves a place in the Louvre or a secret message encoded in an equation, the bounds for your creativity are limitless!
                 </p>
 
+                <p><small><small><small>
+                    Note: For some graphing utilities, the equation will not produce a correct graph. When restricting the domain of a graph, the equation produces a complex number where the graph should be undefined. This is all fine and dandy, but as soon as you start combining graphs, it falls apart. Combining graphs relies on the zero product property, and if a given point satisfies one equation but falls out of the domain of another, it produces 0(a+bi), which clearly equals 0 regardless of the complex factor and should check out with the zero-product property. However, some graphing utilities freak out when they see any imaginary number, even if it is multiplied by 0, and automatically mark it undefined. Thus domain restrictions, even if they only apply to one component of the equation, will instead apply to the entire graph because the graphing utility fails to realize that 0i is still 0. For these cases, you will have to split the equation into multiple components for the graph to render properly.
+                </small></small></small></p>
+
                 <p>
                     Thank you for spending your time.
                 </p>
@@ -230,12 +243,13 @@
                         <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
                         <circle class="smallComponent" cx="30%" cy="30%" r="10%" />
                         <circle class="smallComponent" cx="70%" cy="30%" r="10%" />
+                        <path class="smallComponent" d="M 20 60 C 30 80, 30 80, 50 80 C 70 80, 70 80, 80 60" />
                     </svg>
-                    <p>\[ \left( (|x|-2)^2 + (y-2)^2 - 1 \right) \left( y - {x^4 \over 27} + 3 \sqrt{ \left| -(y-(4-x)) \right| \over -(y-(4-x)) } \right) = 0 \]</p>
+                    <p>\[ \left( (|x|-2)^2 + (y-2)^2 - 1 \right) \left( y - {x^4 \over 27} + 3 \sqrt{ \left| -(y+1) \right| \over -(y+1) } \right) = 0 \]</p>
                 </div>
 
                 <footer>
-                    
+                    <p><small>Equations rendered with MathJax and LaTeX. Graphs rendered with SVGs.</small></p>
                 </footer>
             </div>
         </article>
