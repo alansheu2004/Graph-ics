@@ -35,7 +35,7 @@ function Component(type) {
 
 
 const LINE = new ComponentType(
-    "Line", "line.png",
+    "Line", "line.svg",
     [
         {
             "name" : "Point 1",
@@ -72,7 +72,7 @@ const LINE = new ComponentType(
 );
 
 const CIRCLE = new ComponentType(
-    "Circle", "circle.png",
+    "Circle", "circle.svg",
     [
         {
             "name" : "Center",
@@ -111,7 +111,7 @@ const CIRCLE = new ComponentType(
 );
 
 const ELLIPSE = new ComponentType(
-    "Ellipse", "ellipse.png",
+    "Ellipse", "ellipse.svg",
     [
         {
             "name" : "Center",
@@ -155,7 +155,7 @@ const ELLIPSE = new ComponentType(
 );
 
 const ARC = new ComponentType(
-    "Arc", "arc.png",
+    "Arc", "arc.svg",
     [
         {
             "name" : "Center",
@@ -215,7 +215,7 @@ function describeArc(x, y, radius, startAngle, endAngle){
 }
 
 const QUADRATIC = new ComponentType(
-    "Quadratic", "quadratic.png",
+    "Quadratic", "quadratic.svg",
     [
         {
             "name" : "End 1",
@@ -226,7 +226,7 @@ const QUADRATIC = new ComponentType(
         {
             "name" : "Control",
             "type" : "point",
-            "default" : [0,-10],
+            "default" : [0,-8],
             "double-size" : true
         },
         {
@@ -246,7 +246,7 @@ const QUADRATIC = new ComponentType(
 );
 
 const CUBIC = new ComponentType(
-    "Cubic", "cubic.png",
+    "Cubic", "cubic.svg",
     [
         {
             "name" : "End 1",
@@ -283,7 +283,7 @@ const CUBIC = new ComponentType(
 );
 
 const SQUARE = new ComponentType(
-    "Square", "square.png",
+    "Square", "square.svg",
     [
         {
             "name" : "Center",
@@ -334,4 +334,4 @@ const SQUARE = new ComponentType(
     }
 );
 
-const componentTypes = [LINE, CIRCLE, ELLIPSE, SQUARE];
+const componentTypes = [LINE, QUADRATIC, CIRCLE, ELLIPSE, SQUARE];

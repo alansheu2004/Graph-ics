@@ -6,14 +6,24 @@ var originy;
 var interval;
 
 var zooms = [
-    {"unitsOnAxis":2, "smallTick":0.1, "bigTick":0.5}
-    {"unitsOnAxis":5, "smallTick":0.5, "bigTick":1},
+    {"unitsOnAxis":2, "smallTick":0.1, "bigTick":0.5},
+    {"unitsOnAxis":4, "smallTick":0.25, "bigTick":1},
     {"unitsOnAxis":10, "smallTick":1, "bigTick":5},
-    {"unitsOnAxis":20, "smallTick":2, "bigTick":10},
+    {"unitsOnAxis":20, "smallTick":1, "bigTick":5},
     {"unitsOnAxis":50, "smallTick":5, "bigTick":25}
 ];
-var zoomNum = 0;
+var zoomNum = 2;
 var zoom = zooms[zoomNum];
+document.getElementById("zoomIn").addEventListener("click", function() {
+    zoomNum--;
+    zoom = zooms[zoomNum];
+    reloadGraph();
+});
+document.getElementById("zoomOut").addEventListener("click", function() {
+    zoomNum++;
+    zoom = zooms[zoomNum];
+    reloadGraph();
+});
 
 var componentsGroup = createSvg("g", {"class":"componentGroup"});
 
