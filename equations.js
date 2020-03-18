@@ -4,17 +4,48 @@ var equationP = document.getElementById("equation");
 
 function setUpHiddenDiv() {
     generateButton.addEventListener("click", function() {
-        var equation = "";
-        for (let component of components) {
-            equation += par(component.getEquation());
-        }
-        equationP.textContent = "\\[" + equation + "=0\\]";
-        MathJax.typeset();
         hiddenDiv.style.display = "initial";
+        scrollEaseTo(hiddenDiv, 1000);
+        var equation = "";
+        // for (let component of components) {
+        //     equation += par(component.getEquation());
+        // }
+        // equationP.textContent = "\\[" + equation + "=0\\]";
+        // MathJax.typeset();
     });
 }
 
-function fraction(numerator, denominator) {
+function scrollEaseTo(element, duration) {
+    var startingY = window.pageYOffset;
+    var elementY = element.getBoundingClientRect().top - 15
+    // If element is close to page's bottom then window will scroll only to some position above the element.
+    var targetY = document.body.scrollHeight - elementY < window.innerHeight ? document.body.scrollHeight - window.innerHeight : elementY
+    var diff = targetY - startingY
+    // Easing function: easeInOutCubic
+    // From: https://gist.github.com/gre/1650294
+    var easing = function (t) { return -0.5 * Math.cos(Math.PI * t) + 0.5 }
+    var start
+
+    if (!diff) {return;}
+
+    window.requestAnimationFrame(function step(timestamp) {
+        console.log("works")
+        if (!start) start = timestamp
+        // Elapsed miliseconds since start of scrolling.
+        var time = timestamp - start
+            // Get percent of completion in range [0, 1].
+        var percent = Math.min(time / duration, 1)
+        // Apply the easing.
+        // It can cause bad-looking slow frames in browser performance tool, so be careful.
+        percent = easing(percent)
+
+        window.scrollTo(0, startingY + diff * percent)
+
+            // Proceed with animation as long as we wanted it to.
+        if (time < duration) {
+            window.requestAnimationFrame(step)
+        }
+    });
     
 }
 
@@ -127,11 +158,15 @@ function neg(expression) {
         expression = expression.toString();
     }
 
-    if (expression.startsWith("-")) {
-        return expression.substring(1);
+    if(isConstant(expression)) {
+        if (expression.startsWith("-")) {
+            return expression.substring(1);
+        } else {
+            return "-"+ expression;
+        }
     } else {
-        return "-"+ expression;
-    }
+        return "- \\left(" + expression + "\\right)";
+    }  
 }
 
 function isConstant(expression) {

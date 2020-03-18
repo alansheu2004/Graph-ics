@@ -164,6 +164,8 @@ button.new {
     border-radius: 0.5vh;
     border: 1px solid var(--light-theme-light);
     margin: 0.5vh 0.5vw;
+    text-align: center;
+    vertical-align: middle;
 }
 
 button.new:hover {
@@ -174,6 +176,11 @@ button.new:hover {
 button.new:active {
     border-color: var(--light-theme-dark);
     background-color: var(--light-theme-dark);
+}
+
+img.new {
+    max-height: 100%;
+    max-width: 100%;
 }
 
 div#entries {

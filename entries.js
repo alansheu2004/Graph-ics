@@ -154,7 +154,7 @@ window.onload = function() {
         let button = newTemplate.cloneNode(true);
         button.componentType = type;
         button.addEventListener("click", function(e) {addCom(e.target.componentType);});
-        button.style.backgroundImage = "url(\"icons/" + type.icon + "\")"; 
+        button.children[0].src = "icons/" + type.icon; 
 
         button.id = "";
         newButtonDiv.appendChild(button);

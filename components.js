@@ -242,6 +242,27 @@ const QUADRATIC = new ComponentType(
             "d" : "M " + toSvgX(properties["End 1"][0]) + " " + toSvgY(properties["End 1"][1]) +
                 " Q " + toSvgX(properties["Control"][0]) + " " + toSvgY(properties["Control"][1]) + " " + toSvgX(properties["End 2"][0]) + " " + toSvgY(properties["End 2"][1])
         });
+    },
+    function(properties) {
+        var x1 = properties["End 1"][0];
+        var y1 = properties["End 1"][1];
+        var x2 = properties["Control"][0];
+        var y2 = properties["Control"][1];
+        var x3 = properties["End 2"][0];
+        var y3 = properties["End 2"][1];
+
+        var A = y1*y1 - 4*y1*y2 + 2*y1*y3 + 4*y2*y2 - 4*y2*y3 + y3*y3;
+        var B = x1*x1 - 4*x1*x2 + 2*x1*x3 + 4*x2*x2 - 4*x2*x3 + x3*x3;
+        var C = -2*x1*y1 + 4*x1*y2 - 2*x1*y3 + 4*x2*y1 - 8*x2*y2 + 4*x2*y3 - 2*x3*y1 + 4*x3*y2 - 2*x3*y3;
+        var D = 2*x1*y1*y3 - 4*x1*y2*y2 + 4*x1*y2*y3 - 2*x1*y3*y3 + 4*x2*y1*y2 - 8*x2*y1*y3 + 4*x2*y2*y3 - 2*x3*y1*y1 + 4*x3*y1*y2 + 2*x3*y1*y3 - 4*x3*y2*y2;
+        var E = -2*x1*x1*y3 + 4*x1*x2*y2 + 4*x1*x2*y3 + 2*x1*x3*y1 - 8*x1*x3*y2 + 2*x1*x3*y3 - 4*x2*x2*y1 - 4*x2*x2*y3 + 4*x2*x3*y1 + 4*x2*x3*y2 - 2*x3*x3*y1;
+        var F = x1*x1*y3*y3 - 4*x1*x2*y2*y3 - 2*x1*x3*y1*y3 + 4*x1*x3*y2*y2 + 4*x2*x2*y1*y3 - 4*x2*x3*y1*y2 + x3*x3*y1*y1;
+    
+        var restriction = restrict(
+            {"dir": y2>((y3-y1)/(x3-x1))*(x2-x1)+y1 ? "min" : "max", "value":"y", "limit":add(multiply(divide(add(y3,-y1), add(x3,-x1)),add("x",-x1)),y1)}
+        );
+
+        return add(multiply(A, "x^2"), multiply(B, "y2"), multiply(C, "xy"), multiply(D, "x"), multiply(E, "y"), multiply(F, restriction));
     }
 );
 
@@ -306,6 +327,64 @@ const SQUARE = new ComponentType(
     ],
     function(properties) {
         var radius = properties["Side"] * Math.sqrt(2) / 2;
+        var radians = properties["Rotate"] * Math.PI / 180;
+        return createSvg("path", {
+            "class" : "component",
+            "d" : "M " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+Math.PI/4)) + 
+                " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+3*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+3*Math.PI/4)) + 
+                " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+5*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+5*Math.PI/4)) + 
+                " L " + toSvgX(properties["Center"][0]+radius*Math.cos(radians+7*Math.PI/4)) + " " + toSvgY(properties["Center"][1]+radius*Math.sin(radians+7*Math.PI/4)) + 
+                " Z"
+        });
+    },
+    function(properties) {
+        var radius = multiply("{\\sqrt{2} \\over 2}", par(properties["Side"]));
+        var radians = properties["Rotate"] * Math.PI / 180;
+
+        var point1 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]+45)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]+45)+"^{\\circ}}"))];
+        var point2 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]+135)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]+135)+"^{\\circ}}"))];
+        var point3 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]-135)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]-135)+"^{\\circ}}"))];
+        var point4 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]-45)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]-45)+"^{\\circ}}"))];
+
+        var line1 = LINE.equation({"Point 1" : point1, "Point 2" : point2});
+        var line2 = LINE.equation({"Point 1" : point2, "Point 2" : point3});
+        var line3 = LINE.equation({"Point 1" : point3, "Point 2" : point4});
+        var line4 = LINE.equation({"Point 1" : point4, "Point 2" : point1});
+
+        return par(line1) +par(line2) + par(line3) + par(line4);
+    }
+);
+
+const RECTANGLE = new ComponentType(
+    "Rectangle", "rectangle.svg",
+    [
+        {
+            "name" : "Center",
+            "type" : "point",
+            "default" : [0, 0],
+            "double-size" : true
+        },
+        {
+            "name" : "Width",
+            "type" : "number",
+            "default" : 10,
+            "double-size" : false
+        },
+        {
+            "name" : "Height",
+            "type" : "number",
+            "default" : 6,
+            "double-size" : false
+        },
+        {
+            "name" : "Rotate",
+            "type" : "angle",
+            "default" : 0,
+            "double-size" : true
+        }
+    ],
+    function(properties) {
+        var radius = Math.sqrt(properties["Width"]/2, properties["Height"]/2);
         var radians = properties["Rotate"] * Math.PI / 180;
         return createSvg("path", {
             "class" : "component",
