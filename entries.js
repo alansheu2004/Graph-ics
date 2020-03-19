@@ -153,7 +153,7 @@ window.onload = function() {
     for(let type of componentTypes) {
         let button = newTemplate.cloneNode(true);
         button.componentType = type;
-        button.addEventListener("click", function(e) {addCom(e.target.componentType);});
+        button.addEventListener("click", function(e) {addCom(type);});
         button.children[0].src = "icons/" + type.icon; 
 
         button.id = "";
