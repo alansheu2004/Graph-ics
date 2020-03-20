@@ -5,7 +5,7 @@ var equationP = document.getElementById("equation");
 function setUpHiddenDiv() {
     generateButton.addEventListener("click", function() {
         hiddenDiv.style.display = "initial";
-        scrollEaseTo(hiddenDiv, 750);
+        scrollEaseTo(hiddenDiv.getBoundingClientRect().top - 15, 750);
     });
 }
 
@@ -18,15 +18,13 @@ function setUpEquation() {
     MathJax.typeset();
 }
 
-function scrollEaseTo(element, duration) {
+function scrollEaseTo(elementY, duration) {
     var startingY = window.pageYOffset;
-    var elementY = element.getBoundingClientRect().top - 15
     // If element is close to page's bottom then window will scroll only to some position above the element.
     var targetY = document.body.scrollHeight - elementY < window.innerHeight ? document.body.scrollHeight - window.innerHeight : elementY + document.documentElement.scrollTop;
     
     var diff = targetY - startingY
-    // Easing function: easeInOutCubic
-    // From: https://gist.github.com/gre/1650294
+    
     var easing = function (t) { return -0.5 * Math.cos(Math.PI * t) + 0.5 }
     var start;
 

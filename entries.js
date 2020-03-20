@@ -1,5 +1,7 @@
 var components = [new Component(LINE)];
 
+var focusedEntry;
+
 var sidePanel = document.getElementById("sidePanel");
 var entriesDiv = document.getElementById("entries");
 var newButtonDiv = document.getElementById("newButtonDiv");
@@ -22,18 +24,24 @@ function addCom(type) {
 }
 
 function focus(e) {
-    if(!e.target.classList.contains("delete")) {
+    if (!e.target.classList.contains("delete")) {
         e.target.entry.classList.add("focused");
-        e.target.component.svgElement.classList.add("focused");
+        e.target.entry.component.svgElement.classList.add("focused");
+        focusedEntry = e.target.entry;
+        drawFocusedComponent(e.target.entry);
+        e.stopPropagation();
     }
 }
 
 function blur(e) {
-    if(!e.target.classList.contains("delete")) {
-        e.target.entry.classList.remove("focused");
-        e.target.component.svgElement.classList.remove("focused");
-    } 
+    if(e.target.entry != focusedEntry && focusedEntry) {
+        focusedEntry.classList.remove("focused");
+        focusedEntry.component.svgElement.classList.remove("focused");
+        focusedEntry = null;
+        drawFocusedComponent(null);
+    }
 }
+document.body.addEventListener("click", blur)
 
 function update() {
     while (entriesDiv.firstChild) {
@@ -42,13 +50,16 @@ function update() {
 
     for(let component of components) {
         let entry = entryTemplate.cloneNode(true);
+        entry.entry = entry;
         entry.component = component;
+
+        entry.addEventListener("click", focus);
 
         entry.children[0].children[0].src = "icons/" + component.type.icon;
         entry.children[0].innerHTML += component.type.name;
-        entry.addEventListener("focus", function(e) {focus(e)}, true);
-        entry.addEventListener("blur", function(e) {blur(e)}, true);
+        entry.children[0].entry = entry;
         entry.children[2].style.backgroundColor = component.color;
+        entry.children[2].entry = entry;
 
         let deleteButton = entry.children[1];
         deleteButton.entry = entry;

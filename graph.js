@@ -25,7 +25,9 @@ document.getElementById("zoomOut").addEventListener("click", function() {
     reloadGraph();
 });
 
-var componentsGroup = createSvg("g", {"class":"componentGroup"});
+var grid = document.getElementById("grid");
+var componentsGroup = document.getElementById("componentsGroup");
+var draggablePointsGroup = document.getElementById("draggablePointsGroup");
 
 function setGraphParameters() {
     width = graph.width.baseVal.value;
@@ -37,7 +39,7 @@ function setGraphParameters() {
 
 function drawGraph() {
     for(var x = originx%(zoom.smallTick*interval); x <= width; x += zoom.smallTick*interval) {
-        graph.appendChild(createSvg("line", {
+        grid.appendChild(createSvg("line", {
             "x1" : x,
             "y1" : 0,
             "x2" : x,
@@ -47,7 +49,7 @@ function drawGraph() {
     }
 
     for(var y = originy%(zoom.smallTick*interval); y <= height; y += zoom.smallTick*interval) {
-        graph.appendChild(createSvg("line", {
+        grid.appendChild(createSvg("line", {
             "x1" : 0,
             "y1" : y,
             "x2" : width,
@@ -59,14 +61,14 @@ function drawGraph() {
     var bigInterval = (zoom.bigTick*interval);
 
     for(var x = originx%bigInterval; x <= width; x += bigInterval) {
-        graph.appendChild(createSvg("line", {
+        grid.appendChild(createSvg("line", {
             "x1" : x,
             "y1" : 0,
             "x2" : x,
             "y2" : height,
             "class" : "bigTick"
         }));
-        graph.appendChild(createSvg("text", {
+        grid.appendChild(createSvg("text", {
             "x" : x-3,
             "y" : originy+3,
             "text-anchor" : "end",
@@ -77,14 +79,14 @@ function drawGraph() {
     }
 
     for(var y = originy%bigInterval; y <= height; y += bigInterval) {
-        graph.appendChild(createSvg("line", {
+        grid.appendChild(createSvg("line", {
             "x1" : 0,
             "y1" : y,
             "x2" : width,
             "y2" : y,
             "class" : "bigTick"
         }));
-        graph.appendChild(createSvg("text", {
+        grid.appendChild(createSvg("text", {
             "x" : originx-3,
             "y" : y+3,
             "text-anchor" : "end",
@@ -94,7 +96,7 @@ function drawGraph() {
         }));
     }
 
-    graph.appendChild(createSvg("line", {
+    grid.appendChild(createSvg("line", {
         "x1" : 0,
         "y1" : originy,
         "x2" : width,
@@ -102,7 +104,7 @@ function drawGraph() {
         "class" : "axis"
     }));
 
-    graph.appendChild(createSvg("line", {
+    grid.appendChild(createSvg("line", {
         "x1" : originx,
         "y1" : 0,
         "x2" : originx,
@@ -113,8 +115,37 @@ function drawGraph() {
 
 function drawComponents() {
     componentsGroup.textContent = "";
-    for(let component of components) {
-        componentsGroup.appendChild(component.getSvg());
+    for(let entry of entriesDiv.children) {
+        let svg = entry.component.getSvg();
+        svg.entry = entry;
+        svg.component = entry.component;
+        svg.addEventListener("click", focus);
+
+        if(entry == focusedEntry) {
+            svg.classList.add("focused");
+            drawFocusedComponent(entry);
+        }
+
+        componentsGroup.appendChild(svg);
+    }
+}
+
+function drawFocusedComponent(entry) {
+    draggablePointsGroup.textContent = "";
+    if (entry) {
+        for(let point of Object.values(entry.component.getDraggablePoints())) {
+            let svg = createSvg("circle", {
+                "cx" : toSvgX(point.x),
+                "cy" : toSvgY(point.y),
+                "fill" : entry.component.color,
+                "stroke" : entry.component.color,
+                "class" : "draggablePoint"
+            });
+            svg.entry = entry;
+            svg.component = entry.component;
+            svg.addEventListener("click", focus);
+            draggablePointsGroup.appendChild(svg);
+        }
     }
 }
 
@@ -164,7 +195,6 @@ function loadGraph() {
         setTimeout(loadGraph, 100);
     } else {
         drawGraph();
-        graph.appendChild(componentsGroup);
         drawComponents();
     }
 }

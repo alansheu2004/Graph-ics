@@ -1,14 +1,15 @@
 function getRandomColor() {
     return "hsl(" + 360 * Math.random() + ',' +
         '80%,' + 
-        (25 + 50 * Math.random()) + '%)'
+        (25 + 25 * Math.random()) + '%)'
 }
 
-function ComponentType(name, icon, properties, svg, equation) {
+function ComponentType(name, icon, properties, svg, draggablePoints, equation) {
     this.name = name;
     this.icon = icon;
     this.properties = properties;
     this.svg = svg;
+    this.draggablePoints = draggablePoints;
     this.equation = equation;
 }
 
@@ -28,11 +29,13 @@ function Component(type) {
         path.component = this;
         return path;
     };
+    this.getDraggablePoints = function() {
+        return this.type.draggablePoints(this.properties);
+    }
     this.getEquation = function() {
         return this.type.equation(this.properties);
     }
 }
-
 
 const LINE = new ComponentType(
     "Line", "line.svg",
@@ -60,14 +63,35 @@ const LINE = new ComponentType(
         });
     },
     function(properties) {
-        var yTerm = add("y", neg(properties["Point 1"][1]));
-        var slope = divide(add(properties["Point 2"][1], neg(properties["Point 1"][1])), add(properties["Point 2"][0], neg(properties["Point 1"][0])));
-        var xTerm = par(add("x", neg(properties["Point 1"][0])));
-        var domain = restrict(
-            {"dir":"min", "value":"x", "limit":Math.min(properties["Point 1"][0],properties["Point 2"][0])},
-            {"dir":"max", "value":"x", "limit":Math.max(properties["Point 1"][0],properties["Point 2"][0])}
-        );
-        return add(yTerm, neg(multiply(slope, xTerm, domain)));
+        return {
+            "Point 1": {
+                "x": properties["Point 1"][0],
+                "y": properties["Point 1"][1]
+            },
+            "Point 2": {
+                "x": properties["Point 2"][0],
+                "y": properties["Point 2"][1]
+            }
+        } 
+    },
+    function(properties) {
+        if(properties["Point 1"][0] - properties["Point 2"][0] == 0) {
+            var xTerm = add("x", neg(properties["Point 1"][0]));
+            var domain = restrict(
+                {"dir":"min", "value":"y", "limit":Math.min(properties["Point 1"][1],properties["Point 2"][1])},
+                {"dir":"max", "value":"y", "limit":Math.max(properties["Point 1"][1],properties["Point 2"][1])}
+            );
+            return multiply(xTerm, domain);
+        } else {
+            var yTerm = add("y", neg(properties["Point 1"][1]));
+            var slope = divide(add(properties["Point 2"][1], neg(properties["Point 1"][1])), add(properties["Point 2"][0], neg(properties["Point 1"][0])));
+            var xTerm = par(add("x", neg(properties["Point 1"][0])));
+            var domain = restrict(
+                {"dir":"min", "value":"x", "limit":Math.min(properties["Point 1"][0],properties["Point 2"][0])},
+                {"dir":"max", "value":"x", "limit":Math.max(properties["Point 1"][0],properties["Point 2"][0])}
+            );
+            return add(yTerm, neg(multiply(slope, xTerm, domain)));
+        }
     }
 );
 
@@ -95,6 +119,8 @@ const CIRCLE = new ComponentType(
             "r" : toSvgDim(properties["Radius"])
         });
     },
+    {}
+    ,
     function(properties) {
         var xTerm = add("x", neg(properties["Center"][0]));
         var yTerm = add("y", neg(properties["Center"][1]));
@@ -139,6 +165,8 @@ const ELLIPSE = new ComponentType(
             "ry" : toSvgDim(properties["r<sub>y</sub>"])
         });
     },
+    {}
+    ,
     function(properties) {
         var xTerm = divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"]);
         var yTerm = divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"]);
@@ -243,6 +271,8 @@ const QUADRATIC = new ComponentType(
                 " Q " + toSvgX(properties["Control"][0]) + " " + toSvgY(properties["Control"][1]) + " " + toSvgX(properties["End 2"][0]) + " " + toSvgY(properties["End 2"][1])
         });
     },
+    {}
+    ,
     function(properties) {
         var x1 = properties["End 1"][0];
         var y1 = properties["End 1"][1];
@@ -337,6 +367,8 @@ const SQUARE = new ComponentType(
                 " Z"
         });
     },
+    {}
+    ,
     function(properties) {
         var radius = multiply("{\\sqrt{2} \\over 2}", par(properties["Side"]));
         var radians = properties["Rotate"] * Math.PI / 180;

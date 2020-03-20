@@ -29,11 +29,25 @@ text.tickLabel {
     transition: 0.15s;
 }
 
-.component:hover:not([class=focused]) {
+.component:hover:not(.focused) {
     stroke-width: 8;
 }
 
 .component.focused {
-    stroke-width: 5;
+    stroke-width: 3;
     opacity: 1;
+}
+
+circle.draggablePoint {
+    r: 4;
+    stroke-width: 12;
+    stroke-opacity: 0.4;
+    transition: 0.15s;
+}
+
+circle.draggablePoint:hover {
+    cursor: all-scroll;
+    r: 10;
+    stroke-width: 0;
+    transition: 0.15s;
 }
