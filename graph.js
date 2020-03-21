@@ -37,62 +37,64 @@ function setGraphParameters() {
     interval = Math.min(width, height)/(2*zoom.unitsOnAxis);
 }
 
-function drawGraph() {
-    for(var x = originx%(zoom.smallTick*interval); x <= width; x += zoom.smallTick*interval) {
+function drawGrid() {
+    for(var x = -Math.floor(width/(2*toSvgDim(1)*zoom.smallTick))*zoom.smallTick;
+            toSvgDim(x) <= width; x += zoom.smallTick) {
         grid.appendChild(createSvg("line", {
-            "x1" : x,
+            "x1" : toSvgX(x),
             "y1" : 0,
-            "x2" : x,
+            "x2" : toSvgX(x),
             "y2" : height,
             "class" : "smallTick"
         }));
     }
 
-    for(var y = originy%(zoom.smallTick*interval); y <= height; y += zoom.smallTick*interval) {
+    for(var y = -Math.floor(height/(2*toSvgDim(1)*zoom.smallTick))*zoom.smallTick;
+            toSvgDim(y) <= height; y += zoom.smallTick) {
         grid.appendChild(createSvg("line", {
             "x1" : 0,
-            "y1" : y,
+            "y1" : toSvgY(y),
             "x2" : width,
-            "y2" : y,
+            "y2" : toSvgY(y),
             "class" : "smallTick"
         }));
     }
 
-    var bigInterval = (zoom.bigTick*interval);
-
-    for(var x = originx%bigInterval; x <= width; x += bigInterval) {
+    for(var x = -Math.floor(width/(2*toSvgDim(1)*zoom.bigTick))*zoom.bigTick;
+            toSvgDim(x) <= width; x += zoom.bigTick) {
         grid.appendChild(createSvg("line", {
-            "x1" : x,
+            "x1" : toSvgX(x),
             "y1" : 0,
-            "x2" : x,
+            "x2" : toSvgX(x),
             "y2" : height,
             "class" : "bigTick"
         }));
         grid.appendChild(createSvg("text", {
-            "x" : x-3,
+            "x" : toSvgX(x)-3,
             "y" : originy+3,
             "text-anchor" : "end",
             "alignment-baseline" : "hanging",
             "class" : "tickLabel",
-            "textContent" : (x-originx)/interval
+            "textContent" : x
         }));
     }
 
-    for(var y = originy%bigInterval; y <= height; y += bigInterval) {
+    for(var y = -Math.floor(height/(2*toSvgDim(1)*zoom.bigTick))*zoom.bigTick;
+            toSvgDim(y) <= height; y += zoom.bigTick) {
         grid.appendChild(createSvg("line", {
             "x1" : 0,
-            "y1" : y,
+            "y1" : toSvgY(y),
             "x2" : width,
-            "y2" : y,
+            "y2" : toSvgY(y),
             "class" : "bigTick"
         }));
         grid.appendChild(createSvg("text", {
             "x" : originx-3,
-            "y" : y+3,
+            "y" : toSvgY(y)+3,
             "text-anchor" : "end",
             "alignment-baseline" : "hanging",
             "class" : "tickLabel",
-            "textContent" : y==originy ? "" : -(y-originy)/interval
+            "textContent" : y
         }));
     }
 
@@ -194,15 +196,16 @@ function loadGraph() {
     if(width == 0) {
         setTimeout(loadGraph, 100);
     } else {
-        drawGraph();
+        drawGrid();
         drawComponents();
     }
 }
 
 function reloadGraph() {
-    graph.textContent = "";
+    grid.textContent = "";
+    componentsGroup.textContent = "";
+    draggablePointsGroup.textContent = "";
     setGraphParameters();
-    drawGraph();
-    graph.appendChild(componentsGroup);
+    drawGrid();
     drawComponents();
 }

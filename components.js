@@ -1,7 +1,7 @@
 function getRandomColor() {
     return "hsl(" + 360 * Math.random() + ',' +
         '80%,' + 
-        (25 + 25 * Math.random()) + '%)'
+        '35%)'
 }
 
 function ComponentType(name, icon, properties, svg, draggablePoints, equation) {

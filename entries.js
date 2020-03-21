@@ -156,7 +156,7 @@ function addDefaultComponents() {
     var uuhhh = new Component(LINE);
     uuhhh.properties = {"Point 1": [1.25,-1], "Point 2": [1.5,-3]};
 
-    components = [uuhhh];
+    components = [head, wink, eye, mouth, tongue, uuhhh];
 }
 
 window.onload = function() {

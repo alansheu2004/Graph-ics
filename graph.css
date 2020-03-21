@@ -8,7 +8,7 @@ line.axis {
 }
 
 line.bigTick {
-    stroke: #999999;
+    stroke: #666666;
     stroke-width: 1;
 }
 
@@ -23,7 +23,7 @@ text.tickLabel {
 }
 
 .component {
-    stroke-width: 3;
+    stroke-width: 4;
     opacity: 0.5;
     fill: none;
     transition: 0.15s;
@@ -34,20 +34,20 @@ text.tickLabel {
 }
 
 .component.focused {
-    stroke-width: 3;
+    stroke-width: 4;
     opacity: 1;
 }
 
 circle.draggablePoint {
-    r: 4;
+    r: 5;
     stroke-width: 12;
-    stroke-opacity: 0.4;
+    stroke-opacity: 0.35;
     transition: 0.15s;
 }
 
 circle.draggablePoint:hover {
     cursor: all-scroll;
-    r: 10;
+    r: 11;
     stroke-width: 0;
     transition: 0.15s;
 }
