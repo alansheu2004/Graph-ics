@@ -204,6 +204,11 @@ function moveDrag(e) {
     var newX = (e.clientX - graph.getBoundingClientRect().left) - dragOffsetX;
     var newY = (e.clientY - graph.getBoundingClientRect().top) - dragOffsetY;
 
+    if(e.shiftKey) {
+        newX = Math.round((newX-originx)/(interval*zoom.smallTick)) * (interval*zoom.smallTick) + originx;
+        newY = Math.round((newY-originy)/(interval*zoom.smallTick)) * (interval*zoom.smallTick) + originy;
+    }
+
     draggingPoint.setAttributeNS(null, "cx", newX);
     draggingPoint.setAttributeNS(null, "cy", newY);
 
@@ -232,8 +237,8 @@ function getDraggablePointData() {
 
     for (let node of draggablePointsGroup.children) {
         data[node.id] = {
-            "x" : toCoorX(node.getAttributeNS(null, "cx")),
-            "y" : toCoorY(node.getAttributeNS(null, "cy"))
+            "x" : Math.round(toCoorX(node.getAttributeNS(null, "cx"))*100)/100,
+            "y" : Math.round(toCoorY(node.getAttributeNS(null, "cy"))*100)/100
         };
     }
 
