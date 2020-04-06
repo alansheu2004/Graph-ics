@@ -11,9 +11,17 @@ function ComponentType(name, icon, properties, svg, draggablePoints, equation) {
     this.svg = svg;
     this.draggablePoints = draggablePoints;
     this.equation = equation;
+    this.valueFromPoints = function(propertyName, dragData) {
+        for (let property of this.properties) {
+            if(propertyName == property.name) {
+                return property.valueFromPoints(dragData);
+            }
+        }
+    }
 }
 
 function Component(type) {
+    thisComponent = this;
     this.type = type;
     this.properties = {};
     for (let property of type.properties) {
@@ -27,6 +35,7 @@ function Component(type) {
         path.setAttribute("stroke", this.color);
         this.svgElement = path;
         path.component = this;
+        thisComponent.svgElement = path;
         return path;
     };
     this.getDraggablePoints = function() {
@@ -44,13 +53,15 @@ const LINE = new ComponentType(
             "name" : "Point 1",
             "type" : "point",
             "default" : [-5,-5],
-            "double-size" : true
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return [points["Point 1"].x, points["Point 1"].y]}
         },
         {
             "name" : "Point 2",
             "type" : "point",
             "default" : [5,5],
-            "double-size" : true
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return [points["Point 2"].x, points["Point 2"].y]}
         }
     ],
     function(properties) {
@@ -64,14 +75,14 @@ const LINE = new ComponentType(
     },
     function(properties) {
         return {
-            "Point 1": {
-                "x": properties["Point 1"][0],
-                "y": properties["Point 1"][1]
-            },
-            "Point 2": {
-                "x": properties["Point 2"][0],
-                "y": properties["Point 2"][1]
-            }
+            "Point 1": [
+                properties["Point 1"][0],
+                properties["Point 1"][1]
+            ],
+            "Point 2": [
+                properties["Point 2"][0],
+                properties["Point 2"][1]
+            ]
         } 
     },
     function(properties) {

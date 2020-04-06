@@ -20,6 +20,7 @@ line.smallTick {
 text.tickLabel {
     stroke: #555555;
     font-size: 5;
+    user-select: none;
 }
 
 .component {
@@ -33,7 +34,7 @@ text.tickLabel {
     stroke-width: 8;
 }
 
-.component.focused {
+.component.focused, .component.dragging {
     stroke-width: 4;
     opacity: 1;
 }

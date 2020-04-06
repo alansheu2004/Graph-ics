@@ -29,6 +29,11 @@ var grid = document.getElementById("grid");
 var componentsGroup = document.getElementById("componentsGroup");
 var draggablePointsGroup = document.getElementById("draggablePointsGroup");
 
+var draggablePoints;
+var draggingPoint = null;
+var dragOffsetX;
+var dragOffsetY;
+
 function setGraphParameters() {
     width = graph.width.baseVal.value;
     height = graph.height.baseVal.value;
@@ -132,23 +137,107 @@ function drawComponents() {
     }
 }
 
+function drawComponent(component) {
+    for(let entry of entriesDiv.children) {
+        if(entry.component == component) {
+            if(componentsGroup.contains(component.svgElement)) {
+                componentsGroup.removeChild(component.svgElement);
+            }
+
+            let svg = entry.component.getSvg();
+            svg.entry = entry;
+            svg.component = entry.component;
+            svg.addEventListener("click", focus);
+
+            if(entry == focusedEntry) {
+                svg.classList.add("focused");
+                drawFocusedComponent(entry);
+            }
+
+            componentsGroup.appendChild(svg);
+            return;
+        }
+    }
+}
+
+function eraseComponent(component) {
+    componentsGroup.removeChild(component.svgElement);
+}
+
 function drawFocusedComponent(entry) {
     draggablePointsGroup.textContent = "";
     if (entry) {
-        for(let point of Object.values(entry.component.getDraggablePoints())) {
+        let draggablePoints = entry.component.getDraggablePoints();
+
+        for(let point of Object.keys(draggablePoints)) {
             let svg = createSvg("circle", {
-                "cx" : toSvgX(point.x),
-                "cy" : toSvgY(point.y),
+                "cx" : toSvgX(draggablePoints[point][0]),
+                "cy" : toSvgY(draggablePoints[point][1]),
                 "fill" : entry.component.color,
                 "stroke" : entry.component.color,
-                "class" : "draggablePoint"
+                "id" : point,
+                "class" : "draggablePoint",
+                "draggable" : true
             });
             svg.entry = entry;
             svg.component = entry.component;
             svg.addEventListener("click", focus);
+            svg.addEventListener("mousedown", startDrag);
             draggablePointsGroup.appendChild(svg);
         }
     }
+}
+
+function startDrag(e) {
+    e.preventDefault();
+    draggingPoint = e.target;
+    dragOffsetX = (e.clientX - graph.getBoundingClientRect().left) - e.target.getAttributeNS(null, "cx");
+    dragOffsetY = (e.clientY - graph.getBoundingClientRect().top) - e.target.getAttributeNS(null, "cy");
+
+    graph.addEventListener("mousemove", moveDrag);
+    graph.addEventListener("mouseup", stopDrag);
+}
+
+function moveDrag(e) {
+    e.preventDefault();
+
+    var newX = (e.clientX - graph.getBoundingClientRect().left) - dragOffsetX;
+    var newY = (e.clientY - graph.getBoundingClientRect().top) - dragOffsetY;
+
+    draggingPoint.setAttributeNS(null, "cx", newX);
+    draggingPoint.setAttributeNS(null, "cy", newY);
+
+    var component = draggingPoint.entry.component;
+    var dragData = getDraggablePointData();
+
+    for (let property of Object.keys(component.properties)) {
+        component.properties[property] = component.type.valueFromPoints(property, dragData);
+    }
+
+    draggingPoint.entry = updateEntry(draggingPoint.entry, true);
+    drawComponent(component);
+}
+
+function stopDrag(e) {
+    e.preventDefault();
+
+    draggingPoint = null;
+
+    graph.removeEventListener("mousemove", moveDrag);
+    graph.removeEventListener("mouseup", stopDrag);
+}
+
+function getDraggablePointData() {
+    var data = {};
+
+    for (let node of draggablePointsGroup.children) {
+        data[node.id] = {
+            "x" : toCoorX(node.getAttributeNS(null, "cx")),
+            "y" : toCoorY(node.getAttributeNS(null, "cy"))
+        };
+    }
+
+    return data;
 }
 
 function createSvg(tag, attributes) {
@@ -197,7 +286,6 @@ function loadGraph() {
         setTimeout(loadGraph, 100);
     } else {
         drawGrid();
-        drawComponents();
     }
 }
 
