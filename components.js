@@ -4,6 +4,10 @@ function getRandomColor() {
         '35%)'
 }
 
+function round(value) {
+    return Math.round(value*100)/100
+}
+
 function ComponentType(name, icon, properties, svg, draggablePoints, equation) {
     this.name = name;
     this.icon = icon;
@@ -54,14 +58,14 @@ const LINE = new ComponentType(
             "type" : "point",
             "default" : [-5,-5],
             "double-size" : true,
-            "valueFromPoints" : function(points) {return [points["Point 1"].x, points["Point 1"].y]}
+            "valueFromPoints" : function(points) {return [round(points["Point 1"].x), round(points["Point 1"].y)]}
         },
         {
             "name" : "Point 2",
             "type" : "point",
             "default" : [5,5],
             "double-size" : true,
-            "valueFromPoints" : function(points) {return [points["Point 2"].x, points["Point 2"].y]}
+            "valueFromPoints" : function(points) {return [round(points["Point 2"].x), round(points["Point 2"].y)]}
         }
     ],
     function(properties) {
@@ -113,13 +117,15 @@ const CIRCLE = new ComponentType(
             "name" : "Center",
             "type" : "point",
             "default" : [0,0],
-            "double-size" : true
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return [round(points["Center"].x), round(points["Center"].y)]}
         },
         {
             "name" : "Radius",
             "type" : "number",
             "default" : 5,
-            "double-size" : true
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return round(Math.hypot(points["Center"].x-points["Radius"].x, points["Center"].y-points["Radius"].y));}
         }
     ],
     function(properties) {
@@ -130,8 +136,18 @@ const CIRCLE = new ComponentType(
             "r" : toSvgDim(properties["Radius"])
         });
     },
-    {}
-    ,
+    function(properties) {
+        return {
+            "Center": [
+                properties["Center"][0],
+                properties["Center"][1]
+            ],
+            "Radius": [
+                properties["Center"][0] + properties["Radius"],
+                properties["Center"][1]
+            ]
+        } 
+    },
     function(properties) {
         var xTerm = add("x", neg(properties["Center"][0]));
         var yTerm = add("y", neg(properties["Center"][1]));

@@ -237,8 +237,8 @@ function getDraggablePointData() {
 
     for (let node of draggablePointsGroup.children) {
         data[node.id] = {
-            "x" : Math.round(toCoorX(node.getAttributeNS(null, "cx"))*100)/100,
-            "y" : Math.round(toCoorY(node.getAttributeNS(null, "cy"))*100)/100
+            "x" : toCoorX(node.getAttributeNS(null, "cx")),
+            "y" : toCoorY(node.getAttributeNS(null, "cy"))
         };
     }
 
