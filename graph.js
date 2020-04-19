@@ -237,16 +237,22 @@ function stopDrag(e) {
 }
 
 function getDraggablePointData(component, draggingPoint, newX, newY) {
-    var draggablePoints = component.getDraggablePoints();
-
-    for (let point of Object.keys(draggablePoints)) {
-        if (draggingPoint == point) {
-            draggablePoints[point] = {
-                "x" : toCoorX(newX),
-                "y" : toCoorY(newY)
+    let draggablePoints = component.getDraggablePoints();
+    
+    if (draggablePoints[draggingPoint].center) {
+        let dx = toCoorX(newX) - draggablePoints[draggingPoint].x;
+        let dy = toCoorY(newY) - draggablePoints[draggingPoint].y;
+        for (let point of Object.keys(draggablePoints)) {
+            if (draggingPoint != point && !draggablePoints[point].static) {
+                draggablePoints[point].x += dx;
+                draggablePoints[point].y += dy;
             }
-            break;
         }
+    }
+    
+    draggablePoints[draggingPoint] = {
+        "x" : toCoorX(newX),
+        "y" : toCoorY(newY)
     }
 
     return draggablePoints;

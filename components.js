@@ -138,14 +138,15 @@ const CIRCLE = new ComponentType(
     },
     function(properties) {
         return {
-            "Center": [
-                properties["Center"][0],
-                properties["Center"][1]
-            ],
-            "Radius": [
-                properties["Center"][0] + properties["Radius"],
-                properties["Center"][1]
-            ]
+            "Center": {
+                "x" : properties["Center"][0],
+                "y" : properties["Center"][1],
+                "center" : true
+            },
+            "Radius": {
+                "x" : properties["Center"][0] + properties["Radius"],
+                "y" : properties["Center"][1]
+            }
         } 
     },
     function(properties) {
@@ -170,17 +171,20 @@ const ELLIPSE = new ComponentType(
             "name" : "Center",
             "type" : "point",
             "default" : [0,0],
+            "valueFromPoints" : function(points) {return [round(points["Center"].x), round(points["Center"].y)]},
             "double-size" : true
         },
         {
             "name" : "r<sub>x</sub>",
             "type" : "number",
-            "default" : 5
+            "default" : 5,
+            "valueFromPoints" : function(points) {return round(points["XVertex"].x) - round(points["Center"].x)}
         },
         {
             "name" : "r<sub>y</sub>",
             "type" : "number",
-            "default" : 3
+            "default" : 3,
+            "valueFromPoints" : function(points) {return round(points["YVertex"].y) - round(points["Center"].y)}
         },
     ],
     function(properties) {
@@ -192,8 +196,23 @@ const ELLIPSE = new ComponentType(
             "ry" : toSvgDim(properties["r<sub>y</sub>"])
         });
     },
-    {}
-    ,
+    function(properties) {
+        return {
+            "Center": {
+                "x" : properties["Center"][0],
+                "y" : properties["Center"][1],
+                "center" : true
+            },
+            "XVertex": {
+                "x" : properties["Center"][0] + properties["r<sub>x</sub>"],
+                "y" : properties["Center"][1]
+            },
+            "YVertex": {
+                "x" : properties["Center"][0],
+                "y" : properties["Center"][1] + properties["r<sub>y</sub>"]
+            }
+        } 
+    },
     function(properties) {
         var xTerm = divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"]);
         var yTerm = divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"]);
@@ -276,18 +295,21 @@ const QUADRATIC = new ComponentType(
             "name" : "End 1",
             "type" : "point",
             "default" : [-5,5],
+            "valueFromPoints" : function(points) {return [round(points["End 1"].x), round(points["End 1"].y)]},
             "double-size" : true
         },
         {
             "name" : "Control",
             "type" : "point",
             "default" : [0,-8],
+            "valueFromPoints" : function(points) {return [round(points["Control"].x), round(points["Control"].y)]},
             "double-size" : true
         },
         {
             "name" : "End 2",
             "type" : "point",
             "default" : [5,5],
+            "valueFromPoints" : function(points) {return [round(points["End 2"].x), round(points["End 2"].y)]},
             "double-size" : true
         }
     ],
@@ -298,8 +320,22 @@ const QUADRATIC = new ComponentType(
                 " Q " + toSvgX(properties["Control"][0]) + " " + toSvgY(properties["Control"][1]) + " " + toSvgX(properties["End 2"][0]) + " " + toSvgY(properties["End 2"][1])
         });
     },
-    {}
-    ,
+    function(properties) {
+        return {
+            "End 1": {
+                "x" : properties["End 1"][0],
+                "y" : properties["End 1"][1]
+            },
+            "Control": {
+                "x" : properties["Control"][0],
+                "y" : properties["Control"][1]
+            },
+            "End 2": {
+                "x" : properties["End 2"][0],
+                "y" : properties["End 2"][1]
+            }
+        } 
+    },
     function(properties) {
         var x1 = properties["End 1"][0];
         var y1 = properties["End 1"][1];
@@ -330,24 +366,28 @@ const CUBIC = new ComponentType(
             "name" : "End 1",
             "type" : "point",
             "default" : [-5,-5],
+            "valueFromPoints" : function(points) {return [round(points["End 1"].x), round(points["End 1"].y)]},
             "double-size" : true
         },
         {
             "name" : "Control 1",
             "type" : "point",
             "default" : [-5, 10],
+            "valueFromPoints" : function(points) {return [round(points["Control 1"].x), round(points["Control 1"].y)]},
             "double-size" : true
         },
         {
             "name" : "Control 2",
             "type" : "point",
             "default" : [5, -10],
+            "valueFromPoints" : function(points) {return [round(points["Control 2"].x), round(points["Control 2"].y)]},
             "double-size" : true
         },
         {
             "name" : "End 2",
             "type" : "point",
             "default" : [5,5],
+            "valueFromPoints" : function(points) {return [round(points["End 2"].x), round(points["End 2"].y)]},
             "double-size" : true
         }
     ],
@@ -357,6 +397,29 @@ const CUBIC = new ComponentType(
             "d" : "M " + toSvgX(properties["End 1"][0]) + " " + toSvgY(properties["End 1"][1]) +
                 " C " + toSvgX(properties["Control 1"][0]) + " " + toSvgY(properties["Control 1"][1]) + " " + toSvgX(properties["Control 2"][0]) + " " + toSvgY(properties["Control 2"][1]) + " " + toSvgX(properties["End 2"][0]) + " " + toSvgY(properties["End 2"][1])
         });
+    },
+    function(properties) {
+        return {
+            "End 1": {
+                "x" : properties["End 1"][0],
+                "y" : properties["End 1"][1]
+            },
+            "Control 1": {
+                "x" : properties["Control 1"][0],
+                "y" : properties["Control 1"][1]
+            },
+            "Control 2": {
+                "x" : properties["Control 2"][0],
+                "y" : properties["Control 2"][1]
+            },
+            "End 2": {
+                "x" : properties["End 2"][0],
+                "y" : properties["End 2"][1]
+            }
+        } 
+    },
+    function(properties) {
+        return "COMING SOON"
     }
 );
 
@@ -367,18 +430,21 @@ const SQUARE = new ComponentType(
             "name" : "Center",
             "type" : "point",
             "default" : [0, 0],
-            "double-size" : true
+            "valueFromPoints" : function(points) {return [round(points["Center"].x), round(points["Center"].y)]},
+            "double-size" : true,
         },
         {
             "name" : "Side",
             "type" : "number",
             "default" : 10,
+            "valueFromPoints" : function(points) {return 2*round(Math.hypot(points["Side"].x-points["Center"].x, points["Side"].y-points["Center"].y))},
             "double-size" : true
         },
         {
             "name" : "Rotate",
             "type" : "angle",
             "default" : 0,
+            "valueFromPoints" : function(points) {return round((180/Math.PI) * Math.atan2(points["Side"].y-points["Center"].y, points["Side"].x-points["Center"].x))},
             "double-size" : true
         }
     ],
@@ -394,8 +460,19 @@ const SQUARE = new ComponentType(
                 " Z"
         });
     },
-    {}
-    ,
+    function(properties) {
+        return {
+            "Center": {
+                "x" : properties["Center"][0],
+                "y" : properties["Center"][1],
+                "center" : true
+            },
+            "Side": {
+                "x" : properties["Center"][0] + (properties["Side"]/2) * Math.cos((Math.PI/180) * properties["Rotate"]),
+                "y" : properties["Center"][1] + (properties["Side"]/2) * Math.sin((Math.PI/180) * properties["Rotate"])
+            }
+        } 
+    },
     function(properties) {
         var radius = multiply("{\\sqrt{2} \\over 2}", par(properties["Side"]));
         var radians = properties["Rotate"] * Math.PI / 180;

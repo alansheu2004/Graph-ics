@@ -141,6 +141,7 @@ function updateEntry(entry) {
             case "angle":
 
                 var input = propertyDiv.children[1];
+                input.value = component.properties[property.name];
                 break;
 
             case "point":
