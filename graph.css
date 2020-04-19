@@ -34,7 +34,7 @@ text.tickLabel {
     stroke-width: 8;
 }
 
-.component.focused, .component.dragging {
+.component.focused {
     stroke-width: 4;
     opacity: 1;
 }
@@ -42,11 +42,11 @@ text.tickLabel {
 circle.draggablePoint {
     r: 5;
     stroke-width: 12;
-    stroke-opacity: 0.35;
+    stroke-opacity: 0.4;
     transition: 0.15s;
 }
 
-circle.draggablePoint:hover {
+circle.draggablePoint:hover, circle.draggablePoint.dragging {
     cursor: all-scroll;
     r: 11;
     stroke-width: 0;

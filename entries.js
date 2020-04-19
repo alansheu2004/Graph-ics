@@ -1,4 +1,4 @@
-var components = [new Component(LINE)];
+var components = [];
 
 var focusedEntry;
 
@@ -8,7 +8,7 @@ var newButtonDiv = document.getElementById("newButtonDiv");
 var entryTemplate = document.getElementById("entryTemplate");
 var newTemplate = document.getElementById("newTemplate");
 
-function remove(entry) {
+function removeEntry(entry) {
     const index = components.indexOf(entry.component);
     if (index > -1) {
         components.splice(index, 1);
@@ -32,10 +32,11 @@ function createEntry(component) {
 
     let deleteButton = entry.children[1];
     deleteButton.entry = entry;
-    deleteButton.addEventListener("click", function(e) {remove(e.target.entry);});
+    deleteButton.addEventListener("click", function(e) {removeEntry(e.target.entry);});
 
     for(let property of component.type.properties) {
         let propertyDiv = document.getElementById(property.type + "Template").cloneNode(true);
+        propertyDiv.propertyName = property.name;
         if(property["double-size"]) {
             propertyDiv.classList.add("double");
         }
@@ -52,7 +53,7 @@ function createEntry(component) {
                 input.entry = entry;
                 input.component = component;
                 input.propertyName = property.name;
-                input.addEventListener("input", function(e) {e.target.component.properties[e.target.propertyName] = Number(e.target.value); drawComponents();});
+                input.addEventListener("input", function(e) {e.target.component.properties[e.target.propertyName] = Number(e.target.value); drawComponent(e.target.component);});
 
                 break;
 
@@ -118,14 +119,46 @@ function addComponent(component) {
     drawComponent(component);
 }
 
-function updateEntry(entry, dragging) {
-    var newEntry = createEntry(entry.component);
-    entriesDiv.replaceChild(newEntry, entry);
-    drawComponent(entry.component);
-    if(dragging) {
-        newEntry.component.svgElement.classList.add("dragging");
+function updateEntry(entry) {
+    var component = entry.component;
+
+    for(let property of entry.component.type.properties) {
+        let propertyDiv;
+        for(let div of entry.querySelectorAll("div.property")) {
+            if(div.propertyName == property.name) {
+                propertyDiv = div;
+                break;
+            }
+        }
+
+        switch(property.type) {
+            case "number":
+
+                var input = propertyDiv.children[1];
+                input.value = component.properties[property.name];
+                break;
+
+            case "angle":
+
+                var input = propertyDiv.children[1];
+                break;
+
+            case "point":
+
+                let inputx = propertyDiv.children[1];
+                inputx.value = component.properties[property.name][0];
+
+                let inputy = propertyDiv.children[3];
+                inputy.value = component.properties[property.name][1];
+
+                break;
+        }
+
+        
+
+        propertyDiv.removeAttribute("id");
+        entry.appendChild(propertyDiv);
     }
-    return newEntry;
 }
 
 function focus(e) {

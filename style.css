@@ -260,7 +260,7 @@ div.property {
     width: 40%;
     display: inline-flex;
     flex-direction: row;
-    margin: 0.5vh 5%;
+    margin: 0.5vh 5% 0.5vh 0;
     align-items: baseline;
 }
 

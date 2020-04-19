@@ -29,8 +29,9 @@ var grid = document.getElementById("grid");
 var componentsGroup = document.getElementById("componentsGroup");
 var draggablePointsGroup = document.getElementById("draggablePointsGroup");
 
-var draggablePoints;
-var draggingPoint = null;
+var draggingPoint;
+var draggingComponent;
+var draggingEntry;
 var dragOffsetX;
 var dragOffsetY;
 
@@ -137,7 +138,7 @@ function drawComponents() {
     }
 }
 
-function drawComponent(component) {
+function drawComponent(component, dragging) {
     for(let entry of entriesDiv.children) {
         if(entry.component == component) {
             if(componentsGroup.contains(component.svgElement)) {
@@ -151,7 +152,7 @@ function drawComponent(component) {
 
             if(entry == focusedEntry) {
                 svg.classList.add("focused");
-                drawFocusedComponent(entry);
+                drawFocusedComponent(entry, dragging);
             }
 
             componentsGroup.appendChild(svg);
@@ -164,15 +165,15 @@ function eraseComponent(component) {
     componentsGroup.removeChild(component.svgElement);
 }
 
-function drawFocusedComponent(entry) {
+function drawFocusedComponent(entry, dragging) {
     draggablePointsGroup.textContent = "";
     if (entry) {
         let draggablePoints = entry.component.getDraggablePoints();
 
         for(let point of Object.keys(draggablePoints)) {
             let svg = createSvg("circle", {
-                "cx" : toSvgX(draggablePoints[point][0]),
-                "cy" : toSvgY(draggablePoints[point][1]),
+                "cx" : toSvgX(draggablePoints[point].x),
+                "cy" : toSvgY(draggablePoints[point].y),
                 "fill" : entry.component.color,
                 "stroke" : entry.component.color,
                 "id" : point,
@@ -183,6 +184,9 @@ function drawFocusedComponent(entry) {
             svg.component = entry.component;
             svg.addEventListener("click", focus);
             svg.addEventListener("mousedown", startDrag);
+            if(point == dragging) {
+                svg.classList.add("dragging");
+            }
             draggablePointsGroup.appendChild(svg);
         }
     }
@@ -190,7 +194,9 @@ function drawFocusedComponent(entry) {
 
 function startDrag(e) {
     e.preventDefault();
-    draggingPoint = e.target;
+    draggingPoint = e.target.id;
+    draggingComponent = e.target.component;
+    draggingEntry = e.target.entry;
     dragOffsetX = (e.clientX - graph.getBoundingClientRect().left) - e.target.getAttributeNS(null, "cx");
     dragOffsetY = (e.clientY - graph.getBoundingClientRect().top) - e.target.getAttributeNS(null, "cy");
 
@@ -209,22 +215,20 @@ function moveDrag(e) {
         newY = Math.round((newY-originy)/(interval*zoom.smallTick)) * (interval*zoom.smallTick) + originy;
     }
 
-    draggingPoint.setAttributeNS(null, "cx", newX);
-    draggingPoint.setAttributeNS(null, "cy", newY);
+    var dragData = getDraggablePointData(draggingComponent, draggingPoint, newX, newY);
 
-    var component = draggingPoint.entry.component;
-    var dragData = getDraggablePointData();
-
-    for (let property of Object.keys(component.properties)) {
-        component.properties[property] = component.type.valueFromPoints(property, dragData);
+    for (let property of Object.keys(draggingComponent.properties)) {
+        draggingComponent.properties[property] = draggingComponent.type.valueFromPoints(property, dragData);
     }
 
-    draggingPoint.entry = updateEntry(draggingPoint.entry, true);
-    drawComponent(component);
+    updateEntry(draggingEntry);
+    drawComponent(draggingComponent, draggingPoint);
 }
 
 function stopDrag(e) {
     e.preventDefault();
+
+    drawComponent(draggingComponent);
 
     draggingPoint = null;
 
@@ -232,17 +236,20 @@ function stopDrag(e) {
     graph.removeEventListener("mouseup", stopDrag);
 }
 
-function getDraggablePointData() {
-    var data = {};
+function getDraggablePointData(component, draggingPoint, newX, newY) {
+    var draggablePoints = component.getDraggablePoints();
 
-    for (let node of draggablePointsGroup.children) {
-        data[node.id] = {
-            "x" : toCoorX(node.getAttributeNS(null, "cx")),
-            "y" : toCoorY(node.getAttributeNS(null, "cy"))
-        };
+    for (let point of Object.keys(draggablePoints)) {
+        if (draggingPoint == point) {
+            draggablePoints[point] = {
+                "x" : toCoorX(newX),
+                "y" : toCoorY(newY)
+            }
+            break;
+        }
     }
 
-    return data;
+    return draggablePoints;
 }
 
 function createSvg(tag, attributes) {

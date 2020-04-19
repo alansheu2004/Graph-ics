@@ -79,14 +79,14 @@ const LINE = new ComponentType(
     },
     function(properties) {
         return {
-            "Point 1": [
-                properties["Point 1"][0],
-                properties["Point 1"][1]
-            ],
-            "Point 2": [
-                properties["Point 2"][0],
-                properties["Point 2"][1]
-            ]
+            "Point 1": {
+                "x" : properties["Point 1"][0],
+                "y" : properties["Point 1"][1]
+            },
+            "Point 2": {
+                "x" : properties["Point 2"][0],
+                "y" : properties["Point 2"][1]
+            }
         } 
     },
     function(properties) {
