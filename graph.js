@@ -27,7 +27,7 @@ document.getElementById("zoomOut").addEventListener("click", function() {
 
 var grid = document.getElementById("grid");
 var componentsGroup = document.getElementById("componentsGroup");
-var draggablePointsGroup = document.getElementById("draggablePointsGroup");
+var focusGroup = document.getElementById("focusGroup");
 
 var draggingPoint;
 var draggingComponent;
@@ -166,7 +166,7 @@ function eraseComponent(component) {
 }
 
 function drawFocusedComponent(entry, dragging) {
-    draggablePointsGroup.textContent = "";
+    focusGroup.textContent = "";
     if (entry) {
         let draggablePoints = entry.component.getDraggablePoints();
 
@@ -187,7 +187,17 @@ function drawFocusedComponent(entry, dragging) {
             if(point == dragging) {
                 svg.classList.add("dragging");
             }
-            draggablePointsGroup.appendChild(svg);
+            focusGroup.appendChild(svg);
+        }
+
+        let dashes = entry.component.getDashes();
+
+        for(let dash of dashes) {
+            dash.entry = entry;
+            dash.component = entry.component;
+            dash.style.stroke = entry.component.color;
+            dash.classList.add("dashed");
+            focusGroup.appendChild(dash);
         }
     }
 }

@@ -4,7 +4,7 @@ svg#graph {
 
 line.axis {
     stroke: #444444;
-    stroke-width: 2;
+    stroke-width: 1;
 }
 
 line.bigTick {
@@ -44,6 +44,7 @@ circle.draggablePoint {
     stroke-width: 12;
     stroke-opacity: 0.4;
     transition: 0.15s;
+    z-index: 100;
 }
 
 circle.draggablePoint:hover, circle.draggablePoint.dragging {
@@ -51,4 +52,15 @@ circle.draggablePoint:hover, circle.draggablePoint.dragging {
     r: 11;
     stroke-width: 0;
     transition: 0.15s;
+}
+
+.dashed {
+    stroke-width: 4;
+    stroke-opacity: 0.6;
+    stroke-dasharray: 15, 10;
+    fill: none;
+}
+
+.dashed.solid {
+    stroke-dasharray: none;
 }
