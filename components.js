@@ -551,7 +551,7 @@ const SQUARE = new ComponentType(
     },
     function(properties) {
         var angle = (Math.PI/180) * properties["Rotate"];
-        var angleRadius = Math.min(toCoorDim(properties["Side"]/4), 25)
+        var angleRadius = Math.min(toSvgDim(properties["Side"]/4), 25)
         return [
             createSvg("line", {
                 "x1" : toSvgX(properties["Center"][0]),
@@ -567,7 +567,7 @@ const SQUARE = new ComponentType(
             }),
             createSvg("path", {
                 "d" : "M " + (toSvgX(properties["Center"][0])+angleRadius) + " " + toSvgY(properties["Center"][1]) +
-                    " a " + angleRadius + " " + angleRadius + " 0 0 0 " + (angleRadius*Math.cos(angle)-angleRadius) + " " + (-angleRadius*Math.sin(angle)),
+                    " a " + angleRadius + " " + angleRadius + " 0 0 " + (angle>=0?0:1) + " " + (angleRadius*Math.cos(angle)-angleRadius) + " " + (-angleRadius*Math.sin(angle)),
                 "class" : "solid"
             })
         ];
