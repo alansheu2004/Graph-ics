@@ -479,13 +479,6 @@ const CUBIC = new ComponentType(
                 "x2" : toSvgX(properties["Control 1"][0]),
                 "y2" : toSvgY(properties["Control 1"][1])
             }),
-
-            createSvg("line", {
-                "x1" : toSvgX(properties["Control 1"][0]),
-                "y1" : toSvgY(properties["Control 1"][1]),
-                "x2" : toSvgX(properties["Control 2"][0]),
-                "y2" : toSvgY(properties["Control 2"][1])
-            }),
             createSvg("line", {
                 "x1" : toSvgX(properties["Control 2"][0]),
                 "y1" : toSvgY(properties["Control 2"][1]),

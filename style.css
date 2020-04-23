@@ -314,7 +314,8 @@ article p {
 }
 
 article hr {
-    border: white solid 2px;
+    border: white solid 1px;
+    margin: 0 5%;
 }
 
 button#generate {

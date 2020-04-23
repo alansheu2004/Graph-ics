@@ -14,6 +14,10 @@ function removeEntry(entry) {
         components.splice(index, 1);
         entriesDiv.removeChild(entry);
         eraseComponent(entry.component);
+
+        if(focusedEntry == entry) {
+            focusedEntry = null;
+        }
     }
 }
 
@@ -164,6 +168,10 @@ function updateEntry(entry) {
 
 function focus(e) {
     if (!e.target.classList.contains("delete")) {
+        if(focusedEntry) {
+            focusedEntry.classList.remove("focused");
+            focusedEntry.component.svgElement.classList.remove("focused");
+        }
         e.target.entry.classList.add("focused");
         e.target.entry.component.svgElement.classList.add("focused");
         focusedEntry = e.target.entry;
@@ -173,7 +181,7 @@ function focus(e) {
 }
 
 function blur(e) {
-    if(e.target.entry != focusedEntry && focusedEntry) {
+    if(e.target.entry != focusedEntry && focusedEntry && !e.target.classList.contains("delete")) {
         focusedEntry.classList.remove("focused");
         focusedEntry.component.svgElement.classList.remove("focused");
         focusedEntry = null;

@@ -163,11 +163,24 @@ function drawComponent(component, dragging) {
 
 function eraseComponent(component) {
     componentsGroup.removeChild(component.svgElement);
+    if(focusedEntry && focusedEntry.component == component) {
+        focusGroup.textContent = "";
+    }
 }
 
 function drawFocusedComponent(entry, dragging) {
     focusGroup.textContent = "";
     if (entry) {
+        let dashes = entry.component.getDashes();
+
+        for(let dash of dashes) {
+            dash.entry = entry;
+            dash.component = entry.component;
+            dash.style.stroke = entry.component.color;
+            dash.classList.add("dashed");
+            focusGroup.appendChild(dash);
+        }
+
         let draggablePoints = entry.component.getDraggablePoints();
 
         for(let point of Object.keys(draggablePoints)) {
@@ -188,16 +201,6 @@ function drawFocusedComponent(entry, dragging) {
                 svg.classList.add("dragging");
             }
             focusGroup.appendChild(svg);
-        }
-
-        let dashes = entry.component.getDashes();
-
-        for(let dash of dashes) {
-            dash.entry = entry;
-            dash.component = entry.component;
-            dash.style.stroke = entry.component.color;
-            dash.classList.add("dashed");
-            focusGroup.appendChild(dash);
         }
     }
 }
@@ -320,7 +323,7 @@ function loadGraph() {
 function reloadGraph() {
     grid.textContent = "";
     componentsGroup.textContent = "";
-    draggablePointsGroup.textContent = "";
+    focusGroup.textContent = "";
     setGraphParameters();
     drawGrid();
     drawComponents();
