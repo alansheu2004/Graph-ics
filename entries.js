@@ -26,6 +26,8 @@ function createEntry(component) {
     entry.entry = entry;
     entry.component = component;
 
+    component.entry = entry;
+
     entry.addEventListener("click", focus);
 
     entry.children[0].children[0].src = "icons/" + component.type.icon;
@@ -124,7 +126,7 @@ function addComponent(component) {
 }
 
 function updateEntry(entry) {
-    var component = entry.component;
+    let component = entry.component;
 
     for(let property of entry.component.type.properties) {
         let propertyDiv;
@@ -162,7 +164,6 @@ function updateEntry(entry) {
         
 
         propertyDiv.removeAttribute("id");
-        entry.appendChild(propertyDiv);
     }
 }
 
@@ -173,9 +174,8 @@ function focus(e) {
             focusedEntry.component.svgElement.classList.remove("focused");
         }
         e.target.entry.classList.add("focused");
-        e.target.entry.component.svgElement.classList.add("focused");
         focusedEntry = e.target.entry;
-        drawFocusedComponent(e.target.entry);
+        drawComponentF(e.target.component);
         e.stopPropagation();
     }
 }
@@ -188,7 +188,6 @@ function blur(e) {
         drawFocusedComponent(null);
     }
 }
-document.body.addEventListener("click", blur)
 
 function update() {
     for(let entry of entriesDiv.children) {
@@ -227,4 +226,6 @@ window.onload = function() {
 
     setUpHiddenDiv();
     addDefaultComponents();
+
+    graph.addEventListener("click", blur);
 }

@@ -124,41 +124,46 @@ function drawGrid() {
 function drawComponents() {
     componentsGroup.textContent = "";
     for(let entry of entriesDiv.children) {
-        let svg = entry.component.getSvg();
-        svg.entry = entry;
-        svg.component = entry.component;
-        svg.addEventListener("click", focus);
-
-        if(entry == focusedEntry) {
-            svg.classList.add("focused");
-            drawFocusedComponent(entry);
-        }
-
-        componentsGroup.appendChild(svg);
+        drawComponent(entry.component);
     }
 }
 
 function drawComponent(component, dragging) {
-    for(let entry of entriesDiv.children) {
-        if(entry.component == component) {
-            if(componentsGroup.contains(component.svgElement)) {
-                componentsGroup.removeChild(component.svgElement);
-            }
-
-            let svg = entry.component.getSvg();
-            svg.entry = entry;
-            svg.component = entry.component;
-            svg.addEventListener("click", focus);
-
-            if(entry == focusedEntry) {
-                svg.classList.add("focused");
-                drawFocusedComponent(entry, dragging);
-            }
-
-            componentsGroup.appendChild(svg);
-            return;
-        }
+    if(componentsGroup.contains(component.svgElement)) {
+        eraseComponent(component)
     }
+
+    let svg = component.getSvg();
+    svg.entry = component.entry;
+    svg.component = component;
+    svg.addEventListener("click", focus);
+
+    componentsGroup.appendChild(svg);
+
+    if(component.entry == focusedEntry) {
+        svg.classList.add("focused");
+        drawFocusedComponent(component.entry, dragging);
+    }
+    return;
+}
+
+function drawComponentF(component, dragging) {
+    if(componentsGroup.contains(component.svgElement)) {
+        eraseComponent(component)
+    }
+
+    var svg = component.getSvg();
+    svg.entry = component.entry;
+    svg.component = component;
+    svg.addEventListener("click", focus);
+
+    componentsGroup.appendChild(svg);
+
+    if(component.entry == focusedEntry) {
+        svg.classList.add("focused");
+        drawFocusedComponent(component.entry, dragging);
+    }
+    return;
 }
 
 function eraseComponent(component) {
@@ -195,7 +200,6 @@ function drawFocusedComponent(entry, dragging) {
             });
             svg.entry = entry;
             svg.component = entry.component;
-            svg.addEventListener("click", focus);
             svg.addEventListener("mousedown", startDrag);
             if(point == dragging) {
                 svg.classList.add("dragging");
@@ -244,6 +248,8 @@ function stopDrag(e) {
     drawComponent(draggingComponent);
 
     draggingPoint = null;
+    draggingComponent = null;
+    draggingEntry = null;
 
     graph.removeEventListener("mousemove", moveDrag);
     graph.removeEventListener("mouseup", stopDrag);

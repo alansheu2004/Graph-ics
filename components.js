@@ -30,7 +30,6 @@ function ComponentType(name, icon, properties, svg, draggablePoints, dashes, equ
 }
 
 function Component(type) {
-    thisComponent = this;
     this.type = type;
     this.properties = {};
     for (let property of type.properties) {
@@ -43,8 +42,8 @@ function Component(type) {
         var path = this.type.svg(this.properties);
         path.setAttribute("stroke", this.color);
         this.svgElement = path;
+        path.entry = this.entry;
         path.component = this;
-        thisComponent.svgElement = path;
         return path;
     };
     this.getDraggablePoints = function() {
