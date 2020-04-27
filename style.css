@@ -350,6 +350,8 @@ p#equation {
     padding: 0;
     margin: 0;
     font-size: 3vh;
+    overflow-x: auto;
+    font-family: "Times New Roman";
 }
 
 article h2 {

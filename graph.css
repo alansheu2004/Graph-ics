@@ -55,7 +55,7 @@ circle.draggablePoint:hover, circle.draggablePoint.dragging {
 }
 
 .dashed {
-    stroke-width: 3;
+    stroke-width: 4;
     stroke-opacity: 0.6;
     stroke-dasharray: 15, 10;
     fill: none;
