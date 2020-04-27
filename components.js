@@ -636,7 +636,7 @@ const RECTANGLE = new ComponentType(
         var line3 = LINE.equation({"Point 1" : point3, "Point 2" : point4});
         var line4 = LINE.equation({"Point 1" : point4, "Point 2" : point1});
 
-        return par(line1) +par(line2) + par(line3) + par(line4);
+        return par(line1) + par(line2) + par(line3) + par(line4);
     }
 );
 
@@ -653,14 +653,14 @@ const TRIANGLE = new ComponentType(
         {
             "name" : "Point 2",
             "type" : "point",
-            "default" : [-4,-5],
+            "default" : [-3,-5],
             "double-size" : true,
             "valueFromPoints" : function(points) {return [round(points["Point 2"].x), round(points["Point 2"].y)]}
         },
         {
             "name" : "Point 3",
             "type" : "point",
-            "default" : [5,3],
+            "default" : [5,2],
             "double-size" : true,
             "valueFromPoints" : function(points) {return [round(points["Point 3"].x), round(points["Point 3"].y)]}
         }
@@ -698,7 +698,7 @@ const TRIANGLE = new ComponentType(
         var line2 = LINE.equation({"Point 1" : [properties["Point 2"][0],properties["Point 2"][1]], "Point 2" : [properties["Point 3"][0],properties["Point 3"][1]]});
         var line3 = LINE.equation({"Point 1" : [properties["Point 3"][0],properties["Point 3"][1]], "Point 2" : [properties["Point 1"][0],properties["Point 1"][1]]});
 
-        return par(line1) +par(line2) + par(line3) + par(line4);
+        return par(line1) +par(line2) + par(line3);
     }
 );
 

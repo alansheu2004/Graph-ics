@@ -33,8 +33,10 @@ function createEntry(component) {
     entry.children[0].children[0].src = "icons/" + component.type.icon;
     entry.children[0].textContent += component.type.name;
     entry.children[0].entry = entry;
+    entry.children[0].component = component;
     entry.children[2].style.backgroundColor = component.color;
     entry.children[2].entry = entry;
+    entry.children[0].component = component;
 
     let deleteButton = entry.children[1];
     deleteButton.entry = entry;
