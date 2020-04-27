@@ -101,15 +101,24 @@ button.zoomButton {
     border: 1px solid var(--light-theme-dark);
     font-size: 6vh;
     line-height: 0;
+    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.15s;
 }
 
-button.zoomButton:hover {
+button.zoomButton:hover:not(:disabled) {
     transition: 0.1s;
     background-color: var(--light-theme-light);
 }
 
-button.zoomButton:active {
+button.zoomButton:active:not(:disabled) {
     background-color: var(--light-theme-dark);
+}
+
+button.zoomButton:disabled {
+    filter: opacity(.7);
 }
 
 button#zoomIn {
@@ -120,6 +129,11 @@ button#zoomIn {
 button#zoomOut {
     bottom: 1px;
     border-radius: 0 0 25% 25%;
+}
+
+button.zoomButton img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 svg#graph {
@@ -166,6 +180,9 @@ button.new {
     margin: 0.5vh 0.5vw;
     text-align: center;
     vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 }
 
 button.new:hover {

@@ -17,11 +17,19 @@ var zoom = zooms[zoomNum];
 document.getElementById("zoomIn").addEventListener("click", function() {
     zoomNum--;
     zoom = zooms[zoomNum];
+    if(zoomNum==0) {
+        document.getElementById("zoomIn").disabled = true;
+    }
+    document.getElementById("zoomOut").disabled = false;
     reloadGraph();
 });
 document.getElementById("zoomOut").addEventListener("click", function() {
     zoomNum++;
     zoom = zooms[zoomNum];
+    if(zoomNum==zooms.length-1) {
+        document.getElementById("zoomOut").disabled = true;
+    }
+    document.getElementById("zoomIn").disabled = false;
     reloadGraph();
 });
 

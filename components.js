@@ -640,4 +640,66 @@ const RECTANGLE = new ComponentType(
     }
 );
 
-const componentTypes = [LINE, QUADRATIC, CUBIC, CIRCLE, ELLIPSE, SQUARE];
+const TRIANGLE = new ComponentType(
+    "Triangle", "triangle.svg",
+    [
+        {
+            "name" : "Point 1",
+            "type" : "point",
+            "default" : [-5,5],
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return [round(points["Point 1"].x), round(points["Point 1"].y)]}
+        },
+        {
+            "name" : "Point 2",
+            "type" : "point",
+            "default" : [-4,-5],
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return [round(points["Point 2"].x), round(points["Point 2"].y)]}
+        },
+        {
+            "name" : "Point 3",
+            "type" : "point",
+            "default" : [5,3],
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return [round(points["Point 3"].x), round(points["Point 3"].y)]}
+        }
+    ],
+    function(properties) {
+        return createSvg("path", {
+            "class" : "component",
+            "d" : "M " + toSvgX(properties["Point 1"][0]) + " " + toSvgY(properties["Point 1"][1]) +
+                " L " + toSvgX(properties["Point 2"][0]) + " " + toSvgY(properties["Point 2"][1]) +
+                " L " + toSvgX(properties["Point 3"][0]) + " " + toSvgY(properties["Point 3"][1]) +
+                " Z"
+        });
+    },
+    function(properties) {
+        return {
+            "Point 1": {
+                "x" : properties["Point 1"][0],
+                "y" : properties["Point 1"][1]
+            },
+            "Point 2": {
+                "x" : properties["Point 2"][0],
+                "y" : properties["Point 2"][1]
+            },
+            "Point 3": {
+                "x" : properties["Point 3"][0],
+                "y" : properties["Point 3"][1]
+            }
+        } 
+    },
+    function(properties) {
+        return [];
+    },
+    function(properties) {
+        var line1 = LINE.equation({"Point 1" : [properties["Point 1"][0],properties["Point 1"][1]], "Point 2" : [properties["Point 2"][0],properties["Point 2"][1]]});
+        var line2 = LINE.equation({"Point 1" : [properties["Point 2"][0],properties["Point 2"][1]], "Point 2" : [properties["Point 3"][0],properties["Point 3"][1]]});
+        var line3 = LINE.equation({"Point 1" : [properties["Point 3"][0],properties["Point 3"][1]], "Point 2" : [properties["Point 1"][0],properties["Point 1"][1]]});
+
+        return par(line1) +par(line2) + par(line3) + par(line4);
+    }
+);
+
+const componentTypes = [LINE, QUADRATIC, CUBIC, CIRCLE, ELLIPSE, SQUARE, TRIANGLE];
