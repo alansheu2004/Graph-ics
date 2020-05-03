@@ -368,7 +368,9 @@ p#equation {
     margin: 0;
     font-size: 3vh;
     overflow-x: auto;
-    font-family: "Times New Roman";
+}
+
+p#equation * {
 }
 
 article h2 {

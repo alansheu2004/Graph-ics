@@ -72,26 +72,29 @@ function divide(numerator, denominator) {
         };
         gcd = gcd(numerator,denominator);
 
-        numerator = numerator/gcd;
-        denominator = denominator/gcd;
+        num = numerator/gcd;
+        den = denominator/gcd;
 
-        if(numerator<0 && denominator<0) {
-            numerator *= -1;
-            denominator *= -1;
+        if(num<0 && den<0) {
+            num *= -1;
+            den *= -1;
         }
 
-        if (denominator == 1) {
-            return numerator;
-        } else if (numerator == 0) {
+        if (den == 1) {
+            return num;
+        } else if (num == 0) {
             return 0;
         } else {
             var negative = "";
-            if(numerator<0 || denominator<0) {
-                numerator = Math.abs(numerator);
-                denominator = Math.abs(denominator);
+            if(num<0 || den<0) {
+                num = Math.abs(num);
+                den = Math.abs(den);
                 negative = "-";
             }
-            return negative + "{" + numerator + " \\over " + denominator + "}";
+            if(Math.log(num)>4 || Math.log(num)>4) {
+                return negative + "{" + round(Math.abs(numerator)) + " \\over " + round(Math.abs(denominator)) + "}";
+            }
+            return negative + "{" + num + " \\over " + den + "}";
         }
     }
 
@@ -168,7 +171,11 @@ function neg(expression) {
             return "-"+ expression;
         }
     } else {
-        return "- \\left(" + expression + "\\right)";
+        if (expression.match(/[^(]*[\+-][^)]*/g) == null) {
+            return "-" + expression;
+        } else {
+            return "- \\left(" + expression + "\\right)";    
+        }
     }  
 }
 

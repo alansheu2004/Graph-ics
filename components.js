@@ -271,32 +271,94 @@ const ARC = new ComponentType(
             "name" : "Center",
             "type" : "point",
             "default" : [0,0],
+            "valueFromPoints" : function(points) {return [round(points["Center"].x), round(points["Center"].y)]},
             "double-size" : true
         },
         {
             "name" : "Radius",
             "type" : "number",
-            "default" : 1,
-            "double-size" : true
+            "default" : 5,
+            "double-size" : true,
+            "valueFromPoints" : function(points) {return round(Math.hypot(points["Center"].x-points["Radius"].x, points["Center"].y-points["Radius"].y));}
         },
         {
             "name" : "Start Angle",
             "type" : "angle",
-            "default" : 0,
+            "default" : 45,
+            "valueFromPoints" : function(points) {return round((180/Math.PI) * Math.atan2(points["Start Angle"].y-points["Center"].y, points["Start Angle"].x-points["Center"].x))},
             "double-size" : true
         },
         {
             "name" : "End Angle",
             "type" : "angle",
-            "default" : 360,
+            "default" : 100,
+            "valueFromPoints" : function(points) {return round((180/Math.PI) * Math.atan2(points["End Angle"].y-points["Center"].y, points["End Angle"].x-points["Center"].x))},
             "double-size" : true
         }
     ],
     function(properties) {
-        return createSvg("path", {
+        return createSvg("circle", {
             "class" : "component",
-            "d" : describeArc(toSvgX(properties["Center"][0]), toSvgY(properties["Center"][1]), toSvgDim(properties["Radius"]), properties["Start Angle"], properties["End Angle"])
+            "cx" : toSvgX(properties["Center"][0]),
+            "cy" : toSvgY(properties["Center"][1]),
+            "r" : toSvgDim(properties["Radius"])
         });
+    },
+    function(properties) {
+        return {
+            "Center": {
+                "x" : properties["Center"][0],
+                "y" : properties["Center"][1],
+                "center" : true
+            },
+            "Radius": {
+                "x" : properties["Center"][0] + properties["Radius"],
+                "y" : properties["Center"][1]
+            },
+            "Start Angle": {
+                "x" : properties["Center"][0] + (properties["Radius"]+toCoorDim(20))*Math.cos((Math.PI/180)*properties["Start Angle"]),
+                "y" : properties["Center"][1] + (properties["Radius"]+toCoorDim(20))*Math.sin((Math.PI/180)*properties["Start Angle"])
+            },
+            "End Angle": {
+                "x" : properties["Center"][0] + (properties["Radius"]+toCoorDim(20))*Math.cos((Math.PI/180)*properties["End Angle"]),
+                "y" : properties["Center"][1] + (properties["Radius"]+toCoorDim(20))*Math.sin((Math.PI/180)*properties["End Angle"])
+            }
+        } 
+    },
+    function(properties) {
+        return [
+            createSvg("line", {
+                "x1" : toSvgX(properties["Center"][0]),
+                "y1" : toSvgY(properties["Center"][1]),
+                "x2" : toSvgX(properties["Center"][0] + properties["Radius"]),
+                "y2" : toSvgY(properties["Center"][1])
+            }),
+            createSvg("line", {
+                "x1" : toSvgX(properties["Center"][0]),
+                "y1" : toSvgY(properties["Center"][1]),
+                "x2" : toSvgX(properties["Center"][0] + (properties["Radius"]+toCoorDim(20))*Math.cos((Math.PI/180)*properties["Start Angle"])),
+                "y2" : toSvgY(properties["Center"][1] + (properties["Radius"]+toCoorDim(20))*Math.sin((Math.PI/180)*properties["Start Angle"]))
+            }),
+            createSvg("line", {
+                "x1" : toSvgX(properties["Center"][0]),
+                "y1" : toSvgY(properties["Center"][1]),
+                "x2" : toSvgX(properties["Center"][0] + (properties["Radius"]+toCoorDim(20))*Math.cos((Math.PI/180)*properties["End Angle"])),
+                "y2" : toSvgY(properties["Center"][1] + (properties["Radius"]+toCoorDim(20))*Math.sin((Math.PI/180)*properties["End Angle"]))
+            })
+        ];
+    },
+    function(properties) {
+        var xTerm = divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"]);
+        var yTerm = divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"]);
+        if (properties["Center"][0] != 0 || properties["r<sub>x</sub>"] != 1) {
+            xTerm = par(xTerm);
+        }
+        if (properties["Center"][1] != 0 || properties["r<sub>y</sub>"] != 1) {
+            yTerm = par(yTerm);
+        }
+        xTerm += "^2";
+        yTerm += "^2";
+        return add(xTerm, yTerm, "-1");
     }
 );
 
@@ -702,4 +764,4 @@ const TRIANGLE = new ComponentType(
     }
 );
 
-const componentTypes = [LINE, QUADRATIC, CUBIC, CIRCLE, ELLIPSE, SQUARE, TRIANGLE];
+const componentTypes = [LINE, QUADRATIC, CUBIC, CIRCLE, ELLIPSE, ARC, SQUARE, TRIANGLE];
