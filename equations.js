@@ -71,6 +71,8 @@ function divide(numerator, denominator) {
             return b ? gcd(b, a%b) : a;
         };
         gcd = gcd(numerator,denominator);
+        console.log(numerator)
+        gcd = Math.abs(gcd)<0.1 ? 1 : gcd;
 
         num = numerator/gcd;
         den = denominator/gcd;
@@ -91,10 +93,8 @@ function divide(numerator, denominator) {
                 den = Math.abs(den);
                 negative = "-";
             }
-            if(Math.log(num)>4 || Math.log(num)>4) {
-                return negative + "{" + round(Math.abs(numerator)) + " \\over " + round(Math.abs(denominator)) + "}";
-            }
-            return negative + "{" + num + " \\over " + den + "}";
+
+            return negative + "{" + round(num) + " \\over " + round(den) + "}";
         }
     }
 
@@ -149,14 +149,23 @@ function add() {
 function restrict() {
     var restrictions = Array.prototype.slice.call(arguments);
     var product = "";
-    for (let restriction of restrictions) {
-        if (restriction.dir == "min") {
-            product += par(add(restriction.value, neg(restriction.limit)));
+    if (restrictions.length > 1) {
+        for (let restriction of restrictions) {
+            if (restriction.dir == "min") {
+                product += par(add(restriction.value, neg(restriction.limit)));
+            } else if (restriction.dir == "max") {
+                product += par(add(restriction.limit, neg(restriction.value)));
+            }
+        }
+    } else {
+        if (restrictions[0].dir == "min") {
+            product = add(restrictions[0].value, neg(restrictions[0].limit));
         } else if (restriction.dir == "max") {
-            product += par(add(restriction.limit, neg(restriction.value)));
+            product = add(restrictions[0].limit, neg(restrictions[0].value));
         }
     }
-    return "\\sqrt{|" + product + "|\\over" + product + "}";
+    
+    return "\\sqrt{|" + product + "| \\over " + product + "}";
 }
 
 function neg(expression) {

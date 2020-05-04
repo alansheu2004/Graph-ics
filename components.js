@@ -284,24 +284,32 @@ const ARC = new ComponentType(
         {
             "name" : "Start Angle",
             "type" : "angle",
-            "default" : 45,
+            "default" : -30,
             "valueFromPoints" : function(points) {return round((180/Math.PI) * Math.atan2(points["Start Angle"].y-points["Center"].y, points["Start Angle"].x-points["Center"].x))},
             "double-size" : true
         },
         {
             "name" : "End Angle",
             "type" : "angle",
-            "default" : 100,
-            "valueFromPoints" : function(points) {return round((180/Math.PI) * Math.atan2(points["End Angle"].y-points["Center"].y, points["End Angle"].x-points["Center"].x))},
+            "default" : 90,
+            "valueFromPoints" : function(points) {
+                var start = round((180/Math.PI) * Math.atan2(points["Start Angle"].y-points["Center"].y, points["Start Angle"].x-points["Center"].x));
+                var end = round((180/Math.PI) * Math.atan2(points["End Angle"].y-points["Center"].y, points["End Angle"].x-points["Center"].x))
+                while (end < start) {
+                    end += 360;
+                }
+                return end;
+            },
             "double-size" : true
         }
     ],
     function(properties) {
-        return createSvg("circle", {
+        var start = (Math.PI/180)*properties["Start Angle"];
+        var end = (Math.PI/180)*properties["End Angle"];
+        return createSvg("path", {
             "class" : "component",
-            "cx" : toSvgX(properties["Center"][0]),
-            "cy" : toSvgY(properties["Center"][1]),
-            "r" : toSvgDim(properties["Radius"])
+            "d" : "M " + toSvgX(properties["Center"][0]+properties["Radius"]*Math.cos(start)) + " " + toSvgY(properties["Center"][1]+properties["Radius"]*Math.sin(start)) +
+                " A " + toSvgDim(properties["Radius"]) + " " + toSvgDim(properties["Radius"]) + " 0 " + (end-start>Math.PI?"1":"0") + " 0 " + toSvgX(properties["Center"][0]+properties["Radius"]*Math.cos(end)) + " " + toSvgY(properties["Center"][1]+properties["Radius"]*Math.sin(end))
         });
     },
     function(properties) {
@@ -348,43 +356,48 @@ const ARC = new ComponentType(
         ];
     },
     function(properties) {
-        var xTerm = divide(add("x", neg(properties["Center"][0])), properties["r<sub>x</sub>"]);
-        var yTerm = divide(add("y", neg(properties["Center"][1])), properties["r<sub>y</sub>"]);
-        if (properties["Center"][0] != 0 || properties["r<sub>x</sub>"] != 1) {
+        var xTerm = add("x", neg(properties["Center"][0]));
+        var yTerm = add("y", neg(properties["Center"][1]));
+        if (properties["Center"][0] != 0) {
             xTerm = par(xTerm);
         }
-        if (properties["Center"][1] != 0 || properties["r<sub>y</sub>"] != 1) {
+        if (properties["Center"][1] != 0) {
             yTerm = par(yTerm);
         }
         xTerm += "^2";
         yTerm += "^2";
-        return add(xTerm, yTerm, "-1");
+
+        var midAngle = mod((properties["End Angle"]+properties["Start Angle"])/2, Math.PI);
+        var restriction;
+        if (midAngle == 0) {
+            restriction = restrict(
+                {"dir":"min", "value":"x", "limit":properties["Center"][0]},
+            );
+        } else if (midAngle == 180) {
+            restriction = restrict(
+                {"dir":"max", "value":"x", "limit":properties["Center"][0]},
+            );
+        } else if (midAngle == 90) {
+            restriction = restrict(
+                {"dir":"min", "value":"y", "limit":properties["Center"][1]},
+            );
+        } else if (midAngle == 270) {
+            restriction = restrict(
+                {"dir":"max", "value":"y", "limit":properties["Center"][1]},
+            );
+        } else {
+            let startx = round(properties["Center"][0]+properties["Radius"]*Math.cos((Math.PI/180)*properties["Start Angle"]));
+            let starty = round(properties["Center"][1]+properties["Radius"]*Math.sin((Math.PI/180)*properties["Start Angle"]))
+            let endx = round(properties["Center"][0]+properties["Radius"]*Math.cos((Math.PI/180)*properties["End Angle"]));
+            let endy = round(properties["Center"][1]+properties["Radius"]*Math.sin((Math.PI/180)*properties["End Angle"]));
+            restriction = restrict(
+                {"dir":midAngle<Math.PI?"min":"max", "value":"y", "limit":add(multiply(divide((endy-starty),(endx-startx)), par(add("x", neg(round(startx))))), starty)},
+            );
+        }
+
+        return add(xTerm, yTerm, multiply(neg(Math.pow(properties["Radius"], 2)), restriction));
     }
 );
-
-function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
-  var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
-
-  return {
-    x: centerX + (radius * Math.cos(angleInRadians)),
-    y: centerY + (radius * Math.sin(angleInRadians))
-  };
-}
-
-function describeArc(x, y, radius, startAngle, endAngle){
-
-    var start = polarToCartesian(x, y, radius, endAngle);
-    var end = polarToCartesian(x, y, radius, startAngle);
-
-    var largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
-
-    var d = [
-        "M", start.x, start.y, 
-        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y
-    ].join(" ");
-
-    return d;       
-}
 
 const QUADRATIC = new ComponentType(
     "Quadratic", "quadratic.svg",
