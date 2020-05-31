@@ -378,6 +378,37 @@ article h2 {
     font-size: 5vh;
 }
 
+div#howItWorks {
+    display: none;
+}
+
+div#howItWorks.expanded {
+    display: initial;
+}
+
+button#expandHowItWorks {
+    border: none;
+    background: none;
+    width: 8%;
+    margin-top: 3vh;
+}
+
+button#expandHowItWorks img {
+    width: 100%;
+    opacity: 50%;
+    filter: invert();
+    transition: 0.15s;
+}
+
+button#expandHowItWorks.expanded img {
+    transform: scaleY(-1);
+    transition: 0.15s;
+}
+
+button#expandHowItWorks:hover img {
+    opacity: 75%;
+}
+
 div.smallGraphContainer {
     display: inline-block;
     margin: 3vh 2vw;

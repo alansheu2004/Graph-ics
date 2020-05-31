@@ -71,7 +71,6 @@ function divide(numerator, denominator) {
             return b ? gcd(b, a%b) : a;
         };
         gcd = gcd(numerator,denominator);
-        console.log(numerator)
         gcd = Math.abs(gcd)<0.1 ? 1 : gcd;
 
         num = numerator/gcd;
