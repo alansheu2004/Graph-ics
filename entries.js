@@ -30,7 +30,14 @@ function createEntry(component) {
 
     entry.addEventListener("click", focus);
 
-    entry.children[0].children[0].children[0].src = "icons/" + component.type.icon;
+
+    entry.children[0].children[0].style.backgroundColor = component.color;
+    entry.children[0].children[0].entry = entry;
+
+    entry.children[0].children[1].children[0].src = "icons/" + component.type.icon;
+    entry.children[0].children[1].entry = entry;
+    entry.children[0].children[1].children[0].entry = entry;
+
     entry.children[0].appendChild(document.createTextNode(component.type.name));
     entry.children[0].entry = entry;
     entry.children[0].component = component;
@@ -177,7 +184,7 @@ function focus(e) {
         }
         e.target.entry.classList.add("focused");
         focusedEntry = e.target.entry;
-        drawComponentF(e.target.component);
+        drawComponentF(focusedEntry.component);
         e.stopPropagation();
     }
 }
@@ -230,4 +237,5 @@ window.onload = function() {
     addDefaultComponents();
 
     graph.addEventListener("click", blur);
+    entriesDiv.addEventListener("click", blur);
 }

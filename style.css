@@ -225,6 +225,7 @@ div.entry > p {
     color: var(--light-theme-text);
     font-size: 4vh;
     margin-bottom: 0.5vh;
+    vertical-align: center;
 }
 
 div.entry > p > img {
@@ -236,6 +237,13 @@ div.entry > p > img {
     margin-right: 0.5vw;
 }
 
+span.entryColorSquare {
+    display: none;
+    width: 2.5vh;
+    height: 2.5vh;
+    margin-right: 1vh;
+}
+
 span.entryIcon {
     background-color: transparent;
     background-position: center center;
@@ -245,7 +253,6 @@ span.entryIcon {
     padding: 0.5vh;
     border-radius: 0.5vh;
     border: 1px solid var(--light-theme-light);
-    margin-right: 0.5vw;
     margin-bottom: 0.5vh;
     text-align: center;
     vertical-align: middle;

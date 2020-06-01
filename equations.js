@@ -159,7 +159,7 @@ function restrict() {
     } else {
         if (restrictions[0].dir == "min") {
             product = add(restrictions[0].value, neg(restrictions[0].limit));
-        } else if (restriction.dir == "max") {
+        } else if (restrictions[0].dir == "max") {
             product = add(restrictions[0].limit, neg(restrictions[0].value));
         }
     }
