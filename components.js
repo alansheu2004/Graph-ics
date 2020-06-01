@@ -198,13 +198,13 @@ const ELLIPSE = new ComponentType(
             "name" : "r<sub>x</sub>",
             "type" : "number",
             "default" : 5,
-            "valueFromPoints" : function(points) {return round(points["XVertex"].x) - round(points["Center"].x)}
+            "valueFromPoints" : function(points) {return round(points["XVertex"].x - points["Center"].x)}
         },
         {
             "name" : "r<sub>y</sub>",
             "type" : "number",
             "default" : 3,
-            "valueFromPoints" : function(points) {return round(points["YVertex"].y) - round(points["Center"].y)}
+            "valueFromPoints" : function(points) {return round(points["YVertex"].y - points["Center"].y)}
         },
     ],
     function(properties) {
