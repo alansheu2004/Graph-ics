@@ -204,21 +204,15 @@ function update() {
     }
 }
 
-function addDefaultComponents() {
-    var head = new Component(CIRCLE);
-    head.properties = {"Center": [0,0], "Radius": 5};
-    var wink = new Component(QUADRATIC);
-    wink.properties = {"End 1": [-3,1], "Control": [-2,2], "End 2": [-1,1]};
-    var eye = new Component(ELLIPSE);
-    eye.properties = {"Center": [2,1.25], "r<sub>x</sub>": 1, "r<sub>y</sub>": 0.5};
-    var mouth = new Component(LINE);
-    mouth.properties = {"Point 1": [-3,-1], "Point 2": [3,-1]};
-    var tongue = new Component(CUBIC);
-    tongue.properties = {"End 1": [0,-1], "Control 1": [0,-5], "Control 2": [3,-5], "End 2": [2.5,-1]};
-    var uuhhh = new Component(LINE);
-    uuhhh.properties = {"Point 1": [1.25,-1], "Point 2": [1.5,-3]};
+function useSet(set) {
+    while(entriesDiv.children.length>0) {
+        removeEntry(entriesDiv.children[0]);
+    }
+    components = [];
 
-    addComponent(uuhhh);
+    for (let component of set) {
+        addComponent(component);
+    }
 }
 
 window.onload = function() {
@@ -234,7 +228,7 @@ window.onload = function() {
     }
 
     setUpHiddenDiv();
-    addDefaultComponents();
+    useSet(FACE);
 
     graph.addEventListener("click", blur);
     entriesDiv.addEventListener("click", blur);
