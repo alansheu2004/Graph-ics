@@ -228,12 +228,34 @@ div.entry > p {
 }
 
 div.entry > p > img {
-    width: 3vh;
-    height: 3vh;
+    width: 3.5vh;
+    height: 3.5vh;
     padding: 0.5vh;
     border-radius: 0.5vh;
     border: 1px solid var(--light-theme-light);
     margin-right: 0.5vw;
+}
+
+span.entryIcon {
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 3.5vh;
+    height: 3.5vh;
+    padding: 0.5vh;
+    border-radius: 0.5vh;
+    border: 1px solid var(--light-theme-light);
+    margin-right: 0.5vw;
+    margin-bottom: 0.5vh;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+span.entryIcon > img {
+    max-height: 100%;
+    max-width: 100%;
 }
 
 div.marker {

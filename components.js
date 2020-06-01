@@ -777,4 +777,4 @@ const TRIANGLE = new ComponentType(
     }
 );
 
-const componentTypes = [LINE, QUADRATIC, CUBIC, CIRCLE, ELLIPSE, ARC, SQUARE, TRIANGLE];
+const componentTypes = [LINE, QUADRATIC, CIRCLE, ELLIPSE, ARC, SQUARE, TRIANGLE];

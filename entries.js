@@ -30,8 +30,8 @@ function createEntry(component) {
 
     entry.addEventListener("click", focus);
 
-    entry.children[0].children[0].src = "icons/" + component.type.icon;
-    entry.children[0].textContent += component.type.name;
+    entry.children[0].children[0].children[0].src = "icons/" + component.type.icon;
+    entry.children[0].appendChild(document.createTextNode(component.type.name));
     entry.children[0].entry = entry;
     entry.children[0].component = component;
     entry.children[2].style.backgroundColor = component.color;
