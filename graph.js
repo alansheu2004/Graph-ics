@@ -171,7 +171,7 @@ function drawFocusedComponent(entry, dragging) {
         for(let dash of dashes) {
             dash.entry = entry;
             dash.component = entry.component;
-            dash.style.stroke = entry.component.color;
+            dash.style.stroke = hsvToHslText(entry.component.color, 1, 0.9);
             dash.classList.add("dashed");
             focusGroup.appendChild(dash);
         }
@@ -182,8 +182,8 @@ function drawFocusedComponent(entry, dragging) {
             let svg = createSvg("circle", {
                 "cx" : toSvgX(draggablePoints[point].x),
                 "cy" : toSvgY(draggablePoints[point].y),
-                "fill" : entry.component.color,
-                "stroke" : entry.component.color,
+                "fill" : hsvToHslText(entry.component.color, 1, 0.9),
+                "stroke" : hsvToHslText(entry.component.color, 1, 0.9),
                 "id" : point,
                 "class" : "draggablePoint",
                 "draggable" : true

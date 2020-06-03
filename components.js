@@ -1,15 +1,26 @@
-function getRandomColor() {
-    return "hsl(" + 360 * Math.random() + ',' +
-        '80%,' + 
-        '35%)'
-}
-
 function round(value) {
     return Math.round(value*100)/100
 }
 
 function mod(n, m) {
     return ((n % m) + m) % m;
+}
+
+function hsvToHslText(h, s, v) {
+    
+    var l = (2 - s) * v / 2;
+
+    if (l != 0) {
+        if (l == 1) {
+            s = 0
+        } else if (l < 0.5) {
+            s = s * v / (l * 2)
+        } else {
+            s = s * v / (2 - l * 2)
+        }
+    }
+
+    return "hsl("+h+","+s*100+"%,"+l*100+"%)";
 }
 
 function ComponentType(name, icon, properties, svg, draggablePoints, dashes, equation) {
@@ -35,10 +46,10 @@ function Component(type) {
     for (let property of type.properties) {
         this.properties[property.name] = JSON.parse(JSON.stringify(property["default"]));
     }
-    this.color = getRandomColor();
+    this.color = Math.floor(360 * Math.random());
     this.getSvg = function() {
         var path = this.type.svg(this.properties);
-        path.setAttribute("stroke", this.color);
+        path.setAttribute("stroke", hsvToHslText(this.color, 1, 0.9));
         path.entry = this.entry;
         path.component = this;
         return path;

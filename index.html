@@ -314,11 +314,12 @@
 
     <div id="entryTemplate" class="entry">
         <p>
-            <span class="entryColorSquare"></span>
             <span class="entryIcon"><img /></span>
+
+            <button class="entryColorSquare jscolor" onfinechange="changeColor(event, this.jscolor)"></button>
         </p>
         <button class="delete" ></button>
-        <div class="marker"></div>
+        <div class="colorMarker"></div>
     </div>
 
     <div id="numberTemplate" class="property">
@@ -347,6 +348,7 @@
     <script src="graph.js"></script>
     <script src="equations.js"></script>
     <script src="entries.js"></script>
+    <script src="jscolor.js"></script>
 
     <script>
         var howItWorksExpanded = false;

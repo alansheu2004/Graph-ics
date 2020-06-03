@@ -29,19 +29,26 @@ function createEntry(component) {
     entry.addEventListener("click", focus);
 
 
-    entry.children[0].children[0].style.backgroundColor = component.color;
+    entry.children[0].children[0].children[0].src = "icons/" + component.type.icon;
     entry.children[0].children[0].entry = entry;
+    entry.children[0].children[0].children[0].entry = entry;
 
-    entry.children[0].children[1].children[0].src = "icons/" + component.type.icon;
     entry.children[0].children[1].entry = entry;
-    entry.children[0].children[1].children[0].entry = entry;
+    let picker = new jscolor(entry.children[0].children[1], {
+        "valueElement" : null,
+        "mode" : "HS",
+        "onFineChange" : "changeColor(this)"
+    });
+    picker.fromHSV(component.color, 100, 90);
+    entry.picker = picker;
 
-    entry.children[0].appendChild(document.createTextNode(component.type.name));
+    entry.children[0].insertBefore(document.createTextNode(component.type.name), entry.children[0].children[1]);
     entry.children[0].entry = entry;
     entry.children[0].component = component;
-    entry.children[2].style.backgroundColor = component.color;
+
+    entry.children[2].style.backgroundColor = hsvToHslText(component.color, 1, 0.9);
     entry.children[2].entry = entry;
-    entry.children[0].component = component;
+    entry.children[2].component = component;
 
     let deleteButton = entry.children[1];
     deleteButton.entry = entry;
@@ -136,6 +143,8 @@ function addComponent(component) {
 function updateEntry(entry) {
     let component = entry.component;
 
+    entry.children[2].style.backgroundColor = hsvToHslText(component.color, 1, 0.9);
+
     for(let property of entry.component.type.properties) {
         let propertyDiv;
         for(let div of entry.querySelectorAll("div.property")) {
@@ -191,7 +200,7 @@ function focus(e) {
 function blur(e) {
     if(e.target.entry != focusedEntry && focusedEntry && !e.target.classList.contains("delete")) {
         focusedEntry.classList.remove("focused");
-        focusedEntry.component.svgElement.classList.remove("focused");
+        focusedEntry.svgElement.classList.remove("focused");
         focusedEntry = null;
         drawFocusedComponent(null);
     }
@@ -212,6 +221,12 @@ function useSet(set) {
     for (let component of set.components) {
         addComponent(component);
     }
+}
+
+function changeColor(jscolor) {
+    jscolor.styleElement.entry.component.color = Math.round(jscolor.hsv[0]);
+    updateEntry(jscolor.styleElement.entry);
+    drawComponent(jscolor.styleElement.entry);
 }
 
 window.onload = function() {
