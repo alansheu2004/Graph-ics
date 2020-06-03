@@ -307,7 +307,7 @@ div.entry > button.delete {
 }
 
 div.entry > button:hover {
-    filter: opacity(0.75);
+    filter: opacity(0.5);
 }
 
 div.entry > button:active {
@@ -384,6 +384,27 @@ div#ideasDiv {
     flex-direction: column;
 }
 
+div#ideasDiv > button.delete {
+    position: absolute;
+    background-image: url("icons/delete.svg");
+    background-size: 100% 100%;
+    border: none;
+    width: 3vh;
+    height: 3vh;
+    top: 3vw;
+    right: 3vw;
+    filter: opacity(0.25);
+    transition: 0.15s;
+}
+
+div#ideasDiv > button.delete:hover {
+    filter: opacity(0.5);
+}
+
+div#ideasDiv > button.delete:active {
+    filter: opacity(1);
+}
+
 div#ideasDiv > img {
     display: block;
     margin: auto;
@@ -417,6 +438,7 @@ div.idea {
     margin: 0.5vw;
     text-align: center;
     transition: 0.15s;
+    border-radius: 3px;
 }
 
 div.idea:hover {

@@ -38,8 +38,9 @@
             </div>
         </div>
 
-        <div id="glassPane">
+        <div id="glassPane" onclick="if(event.target==glassPane) {hideGlassPane()}">
             <div id="ideasDiv">
+                <button class="delete" onclick="hideGlassPane()"></button>
                 <img src="icons/ideas.png" /> 
                 <h2>Ideas</h2>
                 <hr />

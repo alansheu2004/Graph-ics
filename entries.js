@@ -228,7 +228,7 @@ window.onload = function() {
     }
 
     setUpHiddenDiv();
-    useSet(FACE);
+    useSet(WINKY_FACE);
 
     setUpSampleSets();
 
