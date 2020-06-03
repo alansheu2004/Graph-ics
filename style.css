@@ -239,6 +239,7 @@ div.entry > p {
     font-size: 3.5vh;
     margin-bottom: 0.5vh;
     vertical-align: middle;
+    cursor: default;
 }
 
 div.entry > p > img {
@@ -258,6 +259,7 @@ button.entryColorSquare {
     border-radius: 3px;
     margin-left: 0.75vw;
     position: relative;
+    cursor: pointer;
 }
 
 div.entry:hover button.entryColorSquare::before {
@@ -324,6 +326,7 @@ div.entry > button.delete {
     right: 2vw;
     filter: opacity(0.25);
     transition: 0.15s;
+    cursor: pointer;
 }
 
 div.entry > button:hover {
@@ -459,6 +462,7 @@ div.idea {
     text-align: center;
     transition: 0.15s;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 div.idea:hover {
@@ -552,6 +556,7 @@ button#expandHowItWorks {
     background: none;
     width: 8%;
     margin-top: 3vh;
+    cursor: pointer;
 }
 
 button#expandHowItWorks img {

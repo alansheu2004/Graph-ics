@@ -45,6 +45,7 @@ circle.draggablePoint {
     stroke-opacity: 0.4;
     transition: 0.15s;
     z-index: 100;
+    cursor: move;
 }
 
 circle.draggablePoint:hover, circle.draggablePoint.dragging {
