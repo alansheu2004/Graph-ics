@@ -26,8 +26,6 @@ function createEntry(component) {
     entry.entry = entry;
     entry.component = component;
 
-    component.entry = entry;
-
     entry.addEventListener("click", focus);
 
 
@@ -130,8 +128,9 @@ function addComponentType(type) {
 
 function addComponent(component) {
     components.push(component);
-    entriesDiv.appendChild(createEntry(component));
-    drawComponent(component);
+    var entry = createEntry(component);
+    entriesDiv.appendChild(entry);
+    drawComponent(entry);
 }
 
 function updateEntry(entry) {
@@ -180,11 +179,11 @@ function focus(e) {
     if (!e.target.classList.contains("delete")) {
         if(focusedEntry) {
             focusedEntry.classList.remove("focused");
-            focusedEntry.component.svgElement.classList.remove("focused");
+            focusedEntry.svgElement.classList.remove("focused");
         }
         e.target.entry.classList.add("focused");
         focusedEntry = e.target.entry;
-        drawComponentF(focusedEntry.component);
+        drawComponent(focusedEntry);
         e.stopPropagation();
     }
 }

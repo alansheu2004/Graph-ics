@@ -38,7 +38,6 @@ var componentsGroup = document.getElementById("componentsGroup");
 var focusGroup = document.getElementById("focusGroup");
 
 var draggingPoint;
-var draggingComponent;
 var draggingEntry;
 var dragOffsetX;
 var dragOffsetY;
@@ -136,47 +135,30 @@ function drawComponents() {
     }
 }
 
-function drawComponent(component, dragging) {
-    if(componentsGroup.contains(component.svgElement)) {
-        eraseComponent(component)
+function drawComponent(entry, dragging) {
+    var component = entry.component;
+    if(componentsGroup.contains(entry.svgElement)) {
+        eraseComponent(entry)
     }
 
     let svg = component.getSvg();
-    svg.entry = component.entry;
+    svg.entry = entry;
     svg.component = component;
+    entry.svgElement = svg;
     svg.addEventListener("click", focus);
 
     componentsGroup.appendChild(svg);
 
-    if(component.entry == focusedEntry) {
+    if(entry == focusedEntry) {
         svg.classList.add("focused");
-        drawFocusedComponent(component.entry, dragging);
+        drawFocusedComponent(entry, dragging);
     }
     return;
 }
 
-function drawComponentF(component, dragging) {
-    if(componentsGroup.contains(component.svgElement)) {
-        eraseComponent(component)
-    }
-
-    var svg = component.getSvg();
-    svg.entry = component.entry;
-    svg.component = component;
-    svg.addEventListener("click", focus);
-
-    componentsGroup.appendChild(svg);
-
-    if(component.entry == focusedEntry) {
-        svg.classList.add("focused");
-        drawFocusedComponent(component.entry, dragging);
-    }
-    return;
-}
-
-function eraseComponent(component) {
-    componentsGroup.removeChild(component.svgElement);
-    if(focusedEntry && focusedEntry.component == component) {
+function eraseComponent(entry) {
+    componentsGroup.removeChild(entry.svgElement);
+    if(focusedEntry && focusedEntry == entry) {
         focusGroup.textContent = "";
     }
 }
@@ -220,7 +202,6 @@ function drawFocusedComponent(entry, dragging) {
 function startDrag(e) {
     e.preventDefault();
     draggingPoint = e.target.id;
-    draggingComponent = e.target.component;
     draggingEntry = e.target.entry;
     dragOffsetX = (e.clientX - graph.getBoundingClientRect().left) - e.target.getAttributeNS(null, "cx");
     dragOffsetY = (e.clientY - graph.getBoundingClientRect().top) - e.target.getAttributeNS(null, "cy");
@@ -240,31 +221,30 @@ function moveDrag(e) {
         newY = Math.round((newY-originy)/(interval*zoom.smallTick)) * (interval*zoom.smallTick) + originy;
     }
 
-    var dragData = getDraggablePointData(draggingComponent, draggingPoint, newX, newY);
+    var dragData = getDraggablePointData(draggingEntry, draggingPoint, newX, newY);
 
-    for (let property of Object.keys(draggingComponent.properties)) {
-        draggingComponent.properties[property] = draggingComponent.type.valueFromPoints(property, dragData);
+    for (let property of Object.keys(draggingEntry.component.properties)) {
+        draggingEntry.component.properties[property] = draggingEntry.component.type.valueFromPoints(property, dragData);
     }
 
     updateEntry(draggingEntry);
-    drawComponent(draggingComponent, draggingPoint);
+    drawComponent(draggingEntry, draggingPoint);
 }
 
 function stopDrag(e) {
     e.preventDefault();
 
-    drawComponent(draggingComponent);
+    drawComponent(draggingEntry);
 
     draggingPoint = null;
-    draggingComponent = null;
     draggingEntry = null;
 
     graph.removeEventListener("mousemove", moveDrag);
     graph.removeEventListener("mouseup", stopDrag);
 }
 
-function getDraggablePointData(component, draggingPoint, newX, newY) {
-    let draggablePoints = component.getDraggablePoints();
+function getDraggablePointData(entry, draggingPoint, newX, newY) {
+    let draggablePoints = entry.component.getDraggablePoints();
     
     if (draggablePoints[draggingPoint].center) {
         let dx = toCoorX(newX) - draggablePoints[draggingPoint].x;

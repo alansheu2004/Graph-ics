@@ -35,13 +35,10 @@ function Component(type) {
     for (let property of type.properties) {
         this.properties[property.name] = JSON.parse(JSON.stringify(property["default"]));
     }
-    this.entry = null;
-    this.svgElement = null;
     this.color = getRandomColor();
     this.getSvg = function() {
         var path = this.type.svg(this.properties);
         path.setAttribute("stroke", this.color);
-        this.svgElement = path;
         path.entry = this.entry;
         path.component = this;
         return path;
