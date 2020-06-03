@@ -115,7 +115,7 @@ const LINE = new ComponentType(
                 {"dir":"min", "value":"x", "limit":Math.min(properties["Point 1"][0],properties["Point 2"][0])},
                 {"dir":"max", "value":"x", "limit":Math.max(properties["Point 1"][0],properties["Point 2"][0])}
             );
-            return add(yTerm, neg(multiply(slope, xTerm, domain)));
+            return add(multiply(yTerm, domain), neg(multiply(slope, xTerm)));
         }
     }
 );
