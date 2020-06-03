@@ -131,7 +131,7 @@ function drawGrid() {
 function drawComponents() {
     componentsGroup.textContent = "";
     for(let entry of entriesDiv.children) {
-        drawComponent(entry.component);
+        drawComponent(entry);
     }
 }
 

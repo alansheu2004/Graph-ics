@@ -13,7 +13,7 @@ function removeEntry(entry) {
     if (index > -1) {
         components.splice(index, 1);
         entriesDiv.removeChild(entry);
-        eraseComponent(entry.component);
+        eraseComponent(entry);
 
         if(focusedEntry == entry) {
             focusedEntry = null;
@@ -41,6 +41,15 @@ function createEntry(component) {
     });
     picker.fromHSV(component.color, 100, 90);
     entry.picker = picker;
+    if(!picker.isLight()) {
+        if(!entry.classList.contains("invert")) {
+            entry.classList.add("invert");
+        }
+    } else {
+        if(entry.classList.contains("invert")) {
+            entry.classList.remove("invert");
+        }
+    }
 
     entry.children[0].insertBefore(document.createTextNode(component.type.name), entry.children[0].children[1]);
     entry.children[0].entry = entry;

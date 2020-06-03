@@ -1064,7 +1064,7 @@ var jsc = {
 					if (!this.refine) {
 						if (!this.fromString(this.valueElement.value, jsc.leaveValue)) {
 							if (this.styleElement) {
-								this.styleElement.style.backgroundImage = this.styleElement._jscOrigStyle.backgroundImage;
+								//this.styleElement.style.backgroundImage = this.styleElement._jscOrigStyle.backgroundImage;
 								this.styleElement.style.backgroundColor = this.styleElement._jscOrigStyle.backgroundColor;
 								this.styleElement.style.color = this.styleElement._jscOrigStyle.color;
 							}
@@ -1073,7 +1073,7 @@ var jsc = {
 					} else if (!this.required && /^\s*$/.test(this.valueElement.value)) {
 						this.valueElement.value = '';
 						if (this.styleElement) {
-							this.styleElement.style.backgroundImage = this.styleElement._jscOrigStyle.backgroundImage;
+							//this.styleElement.style.backgroundImage = this.styleElement._jscOrigStyle.backgroundImage;
 							this.styleElement.style.backgroundColor = this.styleElement._jscOrigStyle.backgroundColor;
 							this.styleElement.style.color = this.styleElement._jscOrigStyle.color;
 						}
@@ -1109,7 +1109,7 @@ var jsc = {
 					var bgColor = '#' + this.toString();
 					var fgColor = this.isLight() ? '#000' : '#FFF';
 
-					this.styleElement.style.backgroundImage = 'none';
+					//this.styleElement.style.backgroundImage = 'none';
 					this.styleElement.style.backgroundColor = bgColor;
 					this.styleElement.style.color = fgColor;
 
