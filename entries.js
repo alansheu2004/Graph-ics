@@ -210,7 +210,7 @@ function useSet(set) {
     }
     components = [];
 
-    for (let component of set) {
+    for (let component of set.components) {
         addComponent(component);
     }
 }
@@ -229,6 +229,8 @@ window.onload = function() {
 
     setUpHiddenDiv();
     useSet(FACE);
+
+    setUpSampleSets();
 
     graph.addEventListener("click", blur);
     entriesDiv.addEventListener("click", blur);

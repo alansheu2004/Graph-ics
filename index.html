@@ -10,7 +10,8 @@
     <body>
         <header>
             <h1>Graph-ics</h1>
-            <button id="help">Help</button>
+            <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" /> Ideas</button>
+            <button id="tutorialButton" class="topButton"><img src="icons/tutorial.png" /> Tutorial</button>
         </header>
 
         <div id="main">
@@ -33,6 +34,17 @@
 
                 <div id="newButtonDiv">
                     <p>Create new...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="glassPane">
+            <div id="ideasDiv">
+                <img src="icons/ideas.png" /> 
+                <h2>Ideas</h2>
+                <hr />
+                <div id="ideaList">
+
                 </div>
             </div>
         </div>
@@ -293,6 +305,11 @@
         </article>
 
     </body>
+
+    <div id="ideaTemplate" class="idea">
+        <img />
+        <p></p>
+    </div>
 
     <div id="entryTemplate" class="entry">
         <p>

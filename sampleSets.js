@@ -12,5 +12,35 @@ const FACE = new function() {
     var uuhhh = new Component(LINE);
     uuhhh.properties = {"Point 1": [1.25,-1], "Point 2": [1.5,-3]};
 
-    return [head, wink, eye, mouth, tongue, uuhhh]
+    return {
+        "name" : "Winky Face",
+        "icon" : "arrow.png",
+        "components" : [head, wink, eye, mouth, tongue, uuhhh]
+    }
 };
+
+const sampleSets = [FACE];
+
+const glassPane = document.getElementById("glassPane");
+const ideasDiv = document.getElementById("ideasDiv");
+const ideaTemplate = document.getElementById("ideaTemplate");
+
+function setUpSampleSets() {
+    var ideaList = document.getElementById("ideaList");
+
+    for(let set of sampleSets) {
+        let idea = ideaTemplate.cloneNode(true);
+        idea.id = null;
+        idea.set = set;
+
+        idea.children[0].src = "icons/" + set.icon;
+        idea.children[1].textContent = set.name;
+
+        ideaList.appendChild(idea);
+    }
+}
+
+function showIdeas() {
+    ideasDiv.style.display = "initial";
+    glassPane.style.display = "initial";
+}

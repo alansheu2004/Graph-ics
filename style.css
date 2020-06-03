@@ -28,6 +28,10 @@ body {
     font-family: "Montserrat";
 }
 
+input, button {
+    font-family: "Montserrat";
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -37,7 +41,7 @@ input::-webkit-inner-spin-button {
 
 /* Firefox */
 input[type=number] {
-  -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 header {
@@ -45,6 +49,7 @@ header {
     width: 100vw;
     height: 10vh;
     max-width: 100%;
+    padding: 0 2vw;
 }
 
 header > h1 {
@@ -52,10 +57,10 @@ header > h1 {
     float: left;
     color: white;
     margin-top: 3vh;
-    margin-left: 3vw;
+    margin-left: 1vw;
 }
 
-button#help {
+button.topButton {
     font-size: 3vh;
     padding: 1vh 3vh;
     border-radius: 2vh;
@@ -64,12 +69,20 @@ button#help {
     color: white;
     border: none;
     margin-top: 3vh;
-    margin-right: 3vw;
+    margin-right: 1vw;
     transition: 0.15s;
+    vertical-align: middle;
 }
 
-button#help:hover {
+button.topButton:hover {
     background-color: blue;
+}
+
+button.topButton img {
+    vertical-align: text-top;
+    line-height: 3vh;
+    height: 3vh;
+    filter: invert();
 }
 
 div#main {
@@ -344,6 +357,83 @@ div.property input:hover {
 
 div.property input:focus {
     border-bottom-color: var(--light-theme-highlight);
+}
+
+div#glassPane {
+    z-index: 100;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+div#ideasDiv {
+    background-color: white;
+    position: fixed;
+    height: 80vh;
+    width: 60vw;
+    top: 10vh;
+    left: 20vw;
+    padding: 3vw;
+    border-radius: 3vw;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+div#ideasDiv > img {
+    display: block;
+    margin: auto;
+    height: 5vh;
+}
+
+
+div#ideasDiv h2 {
+    font-size: 4vw;
+    text-align: center;
+}
+
+div#ideasDiv hr {
+    border: 1px solid black;
+    margin-bottom: 3vh;
+}
+
+div#ideaList {
+    flex: 0 1 1;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-y: auto;
+    flex-wrap: wrap;
+}
+
+div.idea {
+    display: inline-block;
+    padding: 1vw;
+    width: 16vw;
+    margin: 0.5vw;
+    text-align: center;
+    transition: 0.15s;
+}
+
+div.idea:hover {
+    transition: 0.15s;
+    background-color: #cccccc;
+}
+
+div.idea img {
+    margin: auto;
+    width: 12vw;
+    height: 9vw;
+    object-fit: cover;
+}
+
+div.idea p {
+    font-size: 2vw;
+    text-align: center;
 }
 
 article {
