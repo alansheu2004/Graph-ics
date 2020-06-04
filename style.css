@@ -33,6 +33,10 @@ input, button {
     font-family: "Montserrat";
 }
 
+button, a {
+    cursor: pointer;
+}
+
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -133,6 +137,7 @@ button.zoomButton:active:not(:disabled) {
 
 button.zoomButton:disabled {
     filter: opacity(.7);
+    cursor: default;
 }
 
 button#zoomIn {
@@ -275,6 +280,18 @@ div#entries {
     flex: 1 1 0;
     overflow-y: auto;
     position: relative;
+}
+
+p#emptyEntries {
+    display: none;
+    color: #777777;
+    font-size: 3vh;
+    padding: 2vw;
+    margin-top: 2vh;
+}
+
+p#emptyEntries a {
+    text-decoration: underline;
 }
 
 div.entry {
@@ -576,7 +593,12 @@ button#generate {
     transition: 0.15s;
 }
 
-button#generate:hover {
+button#generate:disabled {
+    filter: opacity(0.5);
+    cursor: default;
+}
+
+button#generate:hover:not(:disabled) {
     background-color: blue;
 }
 

@@ -312,8 +312,7 @@ function loadGraph() {
         document.getElementById("graphDiv").removeChild(document.getElementById("graphDiv").children[0]);
         entriesDiv.removeChild(entriesDiv.children[0]);
         drawGrid();
-        useSet(POKEBALL);
-        document.getElementById("generate").disabled = false;
+        generateButton.disabled = false;
     }
 }
 

@@ -13,6 +13,7 @@ function removeEntry(entry) {
     if (index > -1) {
         components.splice(index, 1);
         entriesDiv.removeChild(entry);
+        handleEmptyEntries();
         eraseComponent(entry);
 
         if(focusedEntry == entry) {
@@ -146,6 +147,7 @@ function addComponent(component) {
     components.push(component);
     var entry = createEntry(component);
     entriesDiv.appendChild(entry);
+    handleEmptyEntries();
     drawComponent(entry);
 }
 
@@ -243,6 +245,16 @@ function changeColor(jscolor) {
     drawComponent(jscolor.styleElement.entry);
 }
 
+function handleEmptyEntries() {
+    if(entriesDiv.children.length == 0) {
+        document.getElementById("emptyEntries").style.display = "initial";
+        generateButton.disabled = true;
+    } else {
+        document.getElementById("emptyEntries").style.display = "none";
+        generateButton.disabled = false;
+    }
+}
+
 window.onload = function() {
 
     for(let type of componentTypes) {
@@ -263,4 +275,6 @@ window.onload = function() {
     entriesDiv.addEventListener("click", blur);
 
     loadGraph();
+
+    handleEmptyEntries();
 }

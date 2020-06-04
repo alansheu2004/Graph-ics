@@ -63,7 +63,7 @@ function setUpSampleSets() {
         idea.children[1].textContent = set.name;
 
         idea.addEventListener("click", function() {
-            if(confirm("Are you sure you want to delete your current graph? (You can save it and load it later)")) {
+            if(confirm("Are you sure you want to delete your current drawing? (You can save it and load it later)")) {
                 useSet(set);
                 hideGlassPane();
             }
