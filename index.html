@@ -16,20 +16,25 @@
 
         <div id="main">
 
-            <div id="zoomGroup">
-                <button id="zoomIn" class="zoomButton"><img src="icons/zoomin.svg" /></button>
-                <button id="zoomOut" class="zoomButton"><img src="icons/zoomout.svg" /></button>
-            </div>
+            <div id="graphDiv">
+                <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
 
-            <svg id="graph" stroke-linecap="round" stroke-linejoin="round">
-                <g id="grid"></g>
-                <g id="componentsGroup"></g>
-                <g id="focusGroup"></g>
-            </svg>
+                <div id="zoomGroup">
+                    <button id="zoomIn" class="zoomButton"><img src="icons/zoomin.svg" /></button>
+                    <button id="zoomOut" class="zoomButton"><img src="icons/zoomout.svg" /></button>
+                </div>
+
+                <svg id="graph" stroke-linecap="round" stroke-linejoin="round">
+                    <g id="grid"></g>
+                    <g id="componentsGroup"></g>
+                    <g id="focusGroup"></g>
+                </svg>
+            </div>
+            
 
             <div id="sidePanel">
                 <div id="entries">
-                    
+                    <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
                 </div>
 
                 <div id="newButtonDiv">
@@ -66,7 +71,7 @@
         </div>
 
         <article>
-            <button id="generate" href="#hiddenDiv">Generate Equation!</button>
+            <button id="generate" href="#hiddenDiv" disabled>Generate Equation!</button>
 
             <div id="hiddenDiv">
                 <p>Here's your generated equation:</p>
@@ -74,7 +79,10 @@
                     <p style="margin-top: 0;"><small>
                         Note: Some graphing utilities may not be able to display the graph. Check out <a href="#footnoteContainer">why</a>.
                     </small></p>
-                    <p id="equation"></p>
+                    <div class="loading" style="filter: invert()"></div>
+                    <p id="equation">
+                        
+                    </p>
                 </div>
 
                 <a href="#header">Return to top</a>
@@ -364,6 +372,7 @@
     <script src="equations.js"></script>
     <script src="entries.js"></script>
     <script src="jscolor.js"></script>
+
 
     <script>
         var howItWorksExpanded = false;

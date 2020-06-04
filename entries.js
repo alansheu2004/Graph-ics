@@ -256,10 +256,11 @@ window.onload = function() {
     }
 
     setUpHiddenDiv();
-    useSet(WINKY_FACE);
 
     setUpSampleSets();
 
     graph.addEventListener("click", blur);
     entriesDiv.addEventListener("click", blur);
+
+    loadGraph();
 }

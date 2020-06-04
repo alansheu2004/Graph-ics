@@ -302,15 +302,18 @@ function toCoorDim(val) {
     return val/interval;
 }
 
-graph.onload = loadGraph;
 window.onresize = reloadGraph;
 
 function loadGraph() {
     setGraphParameters();
     if(width == 0) {
-        setTimeout(loadGraph, 100);
+        setTimeout(loadGraph, 500);
     } else {
+        document.getElementById("graphDiv").removeChild(document.getElementById("graphDiv").children[0]);
+        entriesDiv.removeChild(entriesDiv.children[0]);
         drawGrid();
+        useSet(POKEBALL);
+        document.getElementById("generate").disabled = false;
     }
 }
 

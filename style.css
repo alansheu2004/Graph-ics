@@ -150,11 +150,66 @@ button.zoomButton img {
     max-height: 100%;
 }
 
-svg#graph {
+div#graphDiv {
+    position: relative;
     display: inline-block;
     height: 100%;
     flex: 1 1 0;
 }
+
+svg#graph {
+    width: 100%;
+    height: 100%;
+}
+
+div.loading {
+    width: 10vh;
+    height: 10vh;
+    margin: auto;
+}
+
+div.loading::before {
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 0;
+    content: "";
+    border: 2px solid black;
+    border-radius: 2px;
+    transform-origin: 50% 50%;
+    animation-name: hLoading;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+div.loading::after {
+    position: absolute;
+    left: calc(50% - 2px);
+    bottom: 0;
+    content: "";
+    border: 2px solid black;
+    border-radius: 2px;
+    transform-origin: 50% 50%;
+    animation-name: vLoading;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+}
+
+@keyframes hLoading {
+    0% {width: 0; transform:none;}
+    30% {width:100%; transform:none;}
+    75% {width:100%; transform:none;}
+    90% {width: 0%; transform:rotate(180deg);}
+}
+
+@keyframes vLoading {
+    30% {height: 0; transform:none;}
+    60% {height:100%; transform:none;}
+    75% {height:100%; transform:none;}
+    90% {height: 0%; transform:rotate(180deg);}
+}
+
 
 div#sidePanel {
     display: flex;
@@ -164,6 +219,7 @@ div#sidePanel {
     max-width: 30%;
     box-shadow: 0 0 1vw;
     text-align: center;
+    z-index: 1;
 }
 
 div#newButtonDiv {
@@ -218,6 +274,7 @@ div#entries {
     width: 100%;
     flex: 1 1 0;
     overflow-y: auto;
+    position: relative;
 }
 
 div.entry {
