@@ -10,14 +10,13 @@ function setUpHiddenDiv() {
 }
 
 function setUpEquation() {
-    equationP.style.display = "none";
     equationP.parentNode.children[1].style.display = "initial";
     var equation = "";
     for (let component of components) {
         equation += par(component.getEquation());
     }
     equationP.textContent = "\\[" + equation + "=0\\]";
-    MathJax.typesetPromise().then(function() {equationP.parentNode.children[1].style.display = "none"; equationP.style.display="initial"});
+    MathJax.typesetPromise().then(function() {equationP.parentNode.children[1].style.display = "none";});
 }
 
 function scrollEaseTo(elementY, duration) {
