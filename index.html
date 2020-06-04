@@ -11,7 +11,7 @@
         <header>
             <h1>Graph-ics</h1>
             <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" /> Ideas</button>
-            <button id="tutorialButton" class="topButton"><img src="icons/tutorial.png" /> Tutorial</button>
+            <button id="tutorialButton" class="topButton" onclick="showTutorial()"><img src="icons/tutorial.png" /> Tutorial</button>
         </header>
 
         <div id="main">
@@ -39,7 +39,22 @@
         </div>
 
         <div id="glassPane" onclick="if(event.target==glassPane) {hideGlassPane()}">
-            <div id="ideasDiv">
+            <div id="tutorialDiv" class="popup">
+                <button class="delete" onclick="hideGlassPane()"></button>
+                <img src="icons/tutorial.png" /> 
+                <h2>Tutorial</h2>
+                <hr />
+                <div id="tutorialArticle">
+                    <p>
+                        One the right panel are a list of the components currently being used. You can edit the various properties of the components and also change the color by clicking the colored square. You can add more components at the bottom.
+                    </p>
+                    <p>
+                        There's a graph on the left side. You can click on the various components on the graphs as well and drag the dots to visually edit the component properties. Holding shift while dragging the dots will snap to the nearest coordinate. Zoom in zoom out with the +/- buttons.
+                    </p>
+                </div>
+            </div>
+
+            <div id="ideasDiv" class="popup">
                 <button class="delete" onclick="hideGlassPane()"></button>
                 <img src="icons/ideas.png" /> 
                 <h2>Ideas</h2>

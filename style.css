@@ -393,7 +393,7 @@ div#glassPane {
     bottom: 0;
 }
 
-div#ideasDiv {
+div.popup {
     background-color: white;
     position: fixed;
     height: 80vh;
@@ -407,7 +407,7 @@ div#ideasDiv {
     flex-direction: column;
 }
 
-div#ideasDiv > button.delete {
+div.popup > button.delete {
     position: absolute;
     background-image: url("icons/delete.svg");
     background-size: 100% 100%;
@@ -418,31 +418,37 @@ div#ideasDiv > button.delete {
     right: 3vw;
     filter: opacity(0.25);
     transition: 0.15s;
+    cursor: pointer;
 }
 
-div#ideasDiv > button.delete:hover {
+div.popup > button.delete:hover {
     filter: opacity(0.5);
 }
 
-div#ideasDiv > button.delete:active {
+div.popup > button.delete:active {
     filter: opacity(1);
 }
 
-div#ideasDiv > img {
+div.popup > img {
     display: block;
     margin: auto;
     height: 5vh;
 }
 
 
-div#ideasDiv h2 {
+div.popup h2 {
     font-size: 4vw;
     text-align: center;
 }
 
-div#ideasDiv hr {
+div.popup hr {
     border: 1px solid black;
     margin-bottom: 3vh;
+}
+
+div#tutorialArticle p {
+    font-size: 2vw;
+    margin-bottom: 2vh;
 }
 
 div#ideaList {

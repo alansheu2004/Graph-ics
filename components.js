@@ -490,7 +490,7 @@ const QUADRATIC = new ComponentType(
             {"dir": y2>((y3-y1)/(x3-x1))*(x2-x1)+y1 ? "min" : "max", "value":"y", "limit":add(multiply(divide(add(y3,-y1), add(x3,-x1)),add("x",-x1)),y1)}
         );
 
-        return add(multiply(A, "x^2"), multiply(B, "y2"), multiply(C, "xy"), multiply(D, "x"), multiply(E, "y"), multiply(F, restriction));
+        return add(multiply(round(A), "x^2"), multiply(round(B), "y2"), multiply(round(C), "xy"), multiply(round(D), "x"), multiply(round(E), "y"), multiply(round(F), restriction));
     }
 );
 

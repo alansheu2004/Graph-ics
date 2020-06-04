@@ -48,6 +48,7 @@ const sampleSets = [WINKY_FACE, POKEBALL];
 
 const glassPane = document.getElementById("glassPane");
 const ideasDiv = document.getElementById("ideasDiv");
+const tutorialDiv = document.getElementById("tutorialDiv");
 const ideaTemplate = document.getElementById("ideaTemplate");
 
 function setUpSampleSets() {
@@ -74,6 +75,13 @@ function setUpSampleSets() {
 
 function showIdeas() {
     ideasDiv.style.display = "initial";
+    tutorialDiv.style.display = "none";
+    glassPane.style.display = "initial";
+}
+
+function showTutorial() {
+    ideasDiv.style.display = "none";
+    tutorialDiv.style.display = "initial";
     glassPane.style.display = "initial";
 }
 
