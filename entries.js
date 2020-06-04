@@ -203,6 +203,11 @@ function focus(e) {
         focusedEntry = e.target.entry;
         drawComponent(focusedEntry);
         e.stopPropagation();
+
+        if(focusedEntry.offsetTop < entriesDiv.scrollTop || focusedEntry.offsetTop+focusedEntry.offsetHeight > entriesDiv.scrollTop+entriesDiv.offsetHeight) {
+            
+            entriesDiv.scrollTop = focusedEntry.offsetTop - 20;
+        }
     }
 }
 
