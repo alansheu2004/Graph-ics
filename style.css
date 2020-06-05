@@ -228,6 +228,36 @@ div#sidePanel {
     z-index: 1;
 }
 
+div#titleDiv {
+    width: 100%;
+    flex: 0 0 auto;
+    text-align: center;
+    font-size: 4vh;
+    color: var(--light-theme-text);
+    padding: 2vh 0;
+    border-bottom: 1px solid var(--light-theme-light);
+    text-align: left;
+    padding: 1vw 2vw;
+}
+
+input#titleInput {
+    width: 100%;
+    font-size: 3.5vh;
+    background-color: Transparent;
+    border: none;
+    border-bottom: 2px solid var(--light-theme-light);
+    transition: 0.1s;
+}
+
+input#titleInput:hover {
+    border-bottom-color: var(--light-theme-dark);
+    transition: 0.1s;
+}
+
+input#titleInput:focus {
+    border-bottom-color: var(--light-theme-highlight);
+}
+
 div#newButtonDiv {
     width: 100%;
     flex: 0 0 auto;
@@ -235,7 +265,7 @@ div#newButtonDiv {
     font-size: 4vh;
     color: var(--light-theme-text);
     padding: 2vh 0;
-    border-top: 2px solid var(--light-theme-light);
+    border-top: 1px solid var(--light-theme-light);
 }
 
 div#newButtonDiv > p {
@@ -288,7 +318,6 @@ p#emptyEntries {
     color: #777777;
     font-size: 3vh;
     padding: 2vw;
-    margin-top: 2vh;
 }
 
 p#emptyEntries a {

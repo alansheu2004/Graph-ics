@@ -34,6 +34,10 @@
             
 
             <div id="sidePanel">
+                <div id="titleDiv">
+                    <input type="text" id="titleInput" placeholder="Untitled Sketch">
+                </div>
+
                 <p id="emptyEntries">
                     You have no components! Add one below or get inspired from an <a onclick="showIdeas()">idea</a>.
                 </p>
@@ -82,7 +86,7 @@
                 <button class="saveButton" id="saveCopy" onclick="saveCopy()">Copy to Clipboard</button>
                 <button class="saveButton" id="saveCopy" onclick="loadCopy()">Paste from Clipboard<small> (Needs Permission)</small></button>
                 <button class="saveButton" id="saveFile" onclick="saveFile()" down>Save to File</button>
-                <label for="saveFileInput" class="saveButton" id="loadFile">Load from File</label>
+                <label for="saveFileInput" class="saveButton" id="loadFile">Paste from File</label>
                 <input type="file" id="saveFileInput" name="saveFileInput" onchange="loadFile()">
                 <br />
 

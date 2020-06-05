@@ -8,6 +8,8 @@ var newButtonDiv = document.getElementById("newButtonDiv");
 var entryTemplate = document.getElementById("entryTemplate");
 var newTemplate = document.getElementById("newTemplate");
 
+var titleInput = document.getElementById("titleInput");
+
 function removeEntry(entry) {
     const index = components.indexOf(entry.component);
     if (index > -1) {
@@ -240,6 +242,7 @@ function useSet(set) {
     }
     components = [];
 
+    titleInput.value = set.name;
     for (let component of set.components) {
         addComponent(component);
     }

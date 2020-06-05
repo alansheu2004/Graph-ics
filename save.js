@@ -1,7 +1,7 @@
 const deliminator = "$"
 
 function saveToString() {
-    var string = "";
+    var string = titleInput.value.replace(" ", "\xa0") + deliminator;
 
     for (let component of components) {
         string += componentTypes.indexOf(component.type) + deliminator;
@@ -52,7 +52,9 @@ function parseSaveString(string) {
     var newComponents = [];
 
     try {
-        for (var i = 0; i < nums.length;) {
+        titleInput.value = nums[0];
+
+        for (var i = 1; i < nums.length;) {
             let component = new Component(componentTypes[nums[i++]]);
             newComponents.push(component);
 
@@ -75,9 +77,10 @@ function parseSaveString(string) {
                 }
             }
         }
-    } catch {
+    } catch(error) {
         if(string != "") {
             alert("The save data seems to have been corrupted");
+            console.log(error);
             return false; //Corrupted
         }
         
@@ -99,7 +102,7 @@ function saveFile() {
     var blob = new Blob([saveText.value], { type: "txt" });
 
     var a = document.createElement('a');
-    a.download = "sketchGraphSave";
+    a.download = titleInput.value == "" ? "Untitled_Sketch" : titleInput.value.replace(" ", "_");
     a.href = URL.createObjectURL(blob);
     a.dataset.downloadurl = ["txt", a.download, a.href].join(':');
     a.style.display = "none";
