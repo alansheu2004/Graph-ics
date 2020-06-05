@@ -87,6 +87,7 @@ button.topButton img {
     vertical-align: text-top;
     line-height: 3vh;
     height: 3vh;
+    margin-right: 1vw;
     filter: invert();
 }
 
@@ -480,6 +481,7 @@ div.popup {
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
+    text-align: center;
 }
 
 div.popup > button.delete {
@@ -505,6 +507,7 @@ div.popup > button.delete:active {
 }
 
 div.popup > img {
+    flex: 0 0 auto;
     display: block;
     margin: auto;
     height: 5vh;
@@ -512,13 +515,20 @@ div.popup > img {
 
 
 div.popup h2 {
+    flex: 0 0 auto;
     font-size: 4vw;
     text-align: center;
 }
 
 div.popup hr {
+    flex: 0 0 auto;
     border: 1px solid black;
     margin-bottom: 3vh;
+}
+
+div#tutorialArticle {
+    flex: 1 1 auto;
+    overflow-y: scroll;
 }
 
 div#tutorialArticle p {
@@ -527,7 +537,7 @@ div#tutorialArticle p {
 }
 
 div#ideaList {
-    flex: 0 1 1;
+    flex: 1 1 0;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -561,6 +571,51 @@ div.idea img {
 div.idea p {
     font-size: 2vw;
     text-align: center;
+}
+
+div#saveDiv p {
+    text-align: center;
+    font-size: 3vh;
+}
+
+textarea#saveText {
+    flex: 1 1 auto;
+    resize: none;
+    font-size: 3vh;
+    padding: 1vw;
+    margin: 0 4vw 1vh;
+}
+
+button.saveButton {
+    font-size: 2vh;
+    padding: 1vh 2vh;
+    border-radius: 1vh;
+    background-color: navy;
+    color: white;
+    border: none;
+    margin: 1vh 5vw 0;
+    transition: 0.15s;
+    vertical-align: middle;
+}
+
+button.saveButton:hover {
+    background-color: blue;
+}
+
+button#saveCopy {
+    float: left;
+}
+
+button#saveFile, button#loadFile {
+    float: right;
+}
+
+button#confirmSave {
+    display: block;
+    margin: auto;
+    margin-top: 1vh;
+    font-size: 3vh;
+    clear: both;
 }
 
 article {

@@ -9,9 +9,10 @@
 
     <body>
         <header id="header">
-            <h1>Graph-ics</h1>
-            <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" /> Ideas</button>
-            <button id="tutorialButton" class="topButton" onclick="showTutorial()"><img src="icons/tutorial.png" /> Tutorial</button>
+            <h1>SketchGrapher</h1>
+            <button id="saveButton" class="topButton" onclick="showSave()"><img src="icons/save.png" />Save/Load</button>
+            <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" />Ideas</button>
+            <button id="tutorialButton" class="topButton" onclick="showTutorial()"><img src="icons/tutorial.png" />Tutorial</button>
         </header>
 
         <div id="main">
@@ -70,6 +71,20 @@
                 <div id="ideaList">
 
                 </div>
+            </div>
+
+            <div id="saveDiv" class="popup">
+                <button class="delete" onclick="hideGlassPane()"></button>
+                <img src="icons/save.png" /> 
+                <h2>Save/Load</h2>
+                <hr />
+                <p>Copy or paste to save or load:</p>
+                <textarea id="saveText"></textarea>
+                <button class="saveButton" id="saveCopy">Copy to Clipboard</button>
+                <button class="saveButton" id="saveFile">Save to File</button>
+                <button class="saveButton" id="loadFile">Load from File</button>
+                <br />
+                <button class="saveButton" id="confirmSave">Confirm</button>
             </div>
         </div>
 
@@ -374,6 +389,7 @@
     <script src="graph.js"></script>
     <script src="equations.js"></script>
     <script src="entries.js"></script>
+    <script src="save.js"></script>
     <script src="jscolor.js"></script>
 
 

@@ -47,6 +47,7 @@ const POKEBALL = new function() {
 const sampleSets = [WINKY_FACE, POKEBALL];
 
 const glassPane = document.getElementById("glassPane");
+const saveDiv = document.getElementById("saveDiv");
 const ideasDiv = document.getElementById("ideasDiv");
 const tutorialDiv = document.getElementById("tutorialDiv");
 const ideaTemplate = document.getElementById("ideaTemplate");
@@ -63,7 +64,7 @@ function setUpSampleSets() {
         idea.children[1].textContent = set.name;
 
         idea.addEventListener("click", function() {
-            if(confirm("Are you sure you want to delete your current drawing? (You can save it and load it later)")) {
+            if(confirm("Are you sure you want to discard your current drawing?")) {
                 useSet(set);
                 hideGlassPane();
             }
@@ -74,15 +75,17 @@ function setUpSampleSets() {
 }
 
 function showIdeas() {
-    ideasDiv.style.display = "initial";
+    ideasDiv.style.display = "flex";
     tutorialDiv.style.display = "none";
-    glassPane.style.display = "initial";
+    saveDiv.style.display = "none";
+    glassPane.style.display = "flex";
 }
 
 function showTutorial() {
     ideasDiv.style.display = "none";
-    tutorialDiv.style.display = "initial";
-    glassPane.style.display = "initial";
+    saveDiv.style.display = "none";
+    tutorialDiv.style.display = "flex";
+    glassPane.style.display = "flex";
 }
 
 function hideGlassPane() {
