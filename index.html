@@ -68,9 +68,7 @@
                 <img src="icons/ideas.png" /> 
                 <h2>Ideas</h2>
                 <hr />
-                <div id="ideaList">
-
-                </div>
+                <div id="ideaList"></div>
             </div>
 
             <div id="saveDiv" class="popup">
@@ -79,12 +77,16 @@
                 <h2>Save/Load</h2>
                 <hr />
                 <p>Copy or paste to save or load:</p>
-                <textarea id="saveText"></textarea>
-                <button class="saveButton" id="saveCopy">Copy to Clipboard</button>
-                <button class="saveButton" id="saveFile">Save to File</button>
-                <button class="saveButton" id="loadFile">Load from File</button>
+                <textarea id="saveText" readonly></textarea>
+
+                <button class="saveButton" id="saveCopy" onclick="saveCopy()">Copy to Clipboard</button>
+                <button class="saveButton" id="saveCopy" onclick="loadCopy()">Paste from Clipboard<small> (Needs Permission)</small></button>
+                <button class="saveButton" id="saveFile" onclick="saveFile()" down>Save to File</button>
+                <label for="saveFileInput" class="saveButton" id="loadFile">Load from File</label>
+                <input type="file" id="saveFileInput" name="saveFileInput" onchange="loadFile()">
                 <br />
-                <button class="saveButton" id="confirmSave">Confirm</button>
+
+                <button class="saveButton" id="confirmSave" onclick="confirmSave()">Confirm</button>
             </div>
         </div>
 

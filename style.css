@@ -584,9 +584,10 @@ textarea#saveText {
     font-size: 3vh;
     padding: 1vw;
     margin: 0 4vw 1vh;
+    border-radius: 1vw;
 }
 
-button.saveButton {
+.saveButton {
     font-size: 2vh;
     padding: 1vh 2vh;
     border-radius: 1vh;
@@ -598,16 +599,27 @@ button.saveButton {
     vertical-align: middle;
 }
 
-button.saveButton:hover {
+label[for="saveFileInput"] {
+    margin: 1vh 5vw 0;
+}
+
+.saveButton:hover:not(:disabled) {
     background-color: blue;
+    cursor: pointer;
 }
 
-button#saveCopy {
-    float: left;
+.saveButton:disabled {
+    filter: opacity(0.5);
+    cursor: default;
 }
 
-button#saveFile, button#loadFile {
-    float: right;
+button#loadFile {
+    width: 100%;
+    margin: 0;
+}
+
+input#saveFileInput {
+    display: none;
 }
 
 button#confirmSave {

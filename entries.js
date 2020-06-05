@@ -22,6 +22,12 @@ function removeEntry(entry) {
     }
 }
 
+function removeAllEntries() {
+    while(entriesDiv.children.length > 0) {
+        removeEntry(entriesDiv.children[0]);
+    }
+}
+
 function createEntry(component) {
     let entry = entryTemplate.cloneNode(true);
     entry.entry = entry;
