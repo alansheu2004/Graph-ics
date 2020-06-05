@@ -1,0 +1,187 @@
+article {
+    background-color: var(--dark-theme-background);
+    width: 100vw;
+    max-width: 100%;
+    text-align: center;
+}
+
+article p {
+    color: white;
+    font-size: 3vh;
+    margin-top: 5vh;
+}
+
+article hr {
+    border: white solid 1px;
+    margin: 0 5%;
+}
+
+button#generate {
+    font-size: 3vh;
+    padding: 1vh 3vh;
+    border-radius: 2vh;
+    margin: auto;
+    background-color: navy;
+    color: white;
+    border: none;
+    margin-top: 2vh;
+    transition: 0.15s;
+}
+
+button#generate:disabled {
+    filter: opacity(0.5);
+    cursor: default;
+}
+
+button#generate:hover:not(:disabled) {
+    background-color: blue;
+}
+
+div#hiddenDiv {
+    display: none;
+}
+
+div.highlightDiv {
+    margin: 5vh auto;
+    width: 80vw;
+    padding: 2vw;
+    border-radius: 2vw;
+    background-color: #333333;
+}
+
+p#equation {
+    padding: 0;
+    margin: 0;
+    font-size: 3vh;
+    overflow-x: auto;
+}
+
+p#equation * {
+}
+
+article h2 {
+    color: white;
+    font-size: 5vh;
+}
+
+div#howItWorks {
+    display: none;
+}
+
+div#howItWorks.expanded {
+    display: initial;
+}
+
+button#expandHowItWorks {
+    border: none;
+    background: none;
+    width: 8%;
+    margin-top: 3vh;
+    cursor: pointer;
+}
+
+button#expandHowItWorks img {
+    width: 100%;
+    opacity: 50%;
+    filter: invert();
+    transition: 0.15s;
+}
+
+button#expandHowItWorks.expanded img {
+    transform: scaleY(-1);
+    transition: 0.15s;
+}
+
+button#expandHowItWorks:hover img {
+    opacity: 75%;
+}
+
+div.smallGraphContainer {
+    display: inline-block;
+    margin: 3vh 2vw;
+}
+
+div.smallGraphContainer p {
+    padding: 0;
+    margin: 0;
+}
+
+svg.smallGraph {
+    width: 15vw;
+    height: 15vw;
+}
+
+line.smallAxis {
+    stroke-width: 2;
+    stroke: white;
+}
+
+.dashed {
+    stroke-width: 2;
+    stroke: red;
+    stroke-dasharray: 8%;
+}
+
+.smallComponent {
+    stroke-width: 5;
+    stroke: navy;
+    fill: none;
+}
+
+article p#footnote {
+    font-size: 2vh;
+    margin-top: 0;
+}
+
+article a {
+    transition: 0.2s;
+    color: white;
+    text-decoration: underline;
+    text-decoration-color: white;
+    color: white;
+    margin-top: 5vh;
+}
+
+article a:hover {
+    transition: 0.2s;
+    text-decoration-color: navy;
+    cursor: pointer;
+}
+
+footer {
+    width: 100%;
+    height: 40vh;
+    background-image: linear-gradient(to bottom, var(--dark-theme-background), black);
+}
+
+div#coolButtons {
+    padding-top: 15vh;
+}
+
+div#coolButtons a {
+    display: inline-block;
+    width: 6vh;
+    height: 6vh;
+    margin: 0 0.5vw;
+    filter: opacity(0.75);
+}
+
+div#coolButtons a:hover {
+    filter: opacity(1);
+}
+
+div#coolButtons a img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+}
+
+footer p, footer a {
+    font-size: 2.5vh;
+    margin: 1vh 0;
+}
+
+[id$="Template"] {
+    display: none !important;
+}

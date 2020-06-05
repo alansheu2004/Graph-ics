@@ -1,0 +1,41 @@
+header {
+    background-color: var(--dark-theme-background);
+    width: 100vw;
+    height: 10vh;
+    max-width: 100%;
+    padding: 0 2vw;
+}
+
+header > h1 {
+    font-size: 5vh;
+    float: left;
+    color: white;
+    margin-top: 3vh;
+    margin-left: 1vw;
+}
+
+button.topButton {
+    font-size: 3vh;
+    padding: 1vh 3vh;
+    border-radius: 2vh;
+    float: right;
+    background-color: navy;
+    color: white;
+    border: none;
+    margin-top: 3vh;
+    margin-right: 1vw;
+    transition: 0.15s;
+    vertical-align: middle;
+}
+
+button.topButton:hover {
+    background-color: blue;
+}
+
+button.topButton img {
+    vertical-align: text-top;
+    line-height: 3vh;
+    height: 3vh;
+    margin-right: 1vw;
+    filter: invert();
+}

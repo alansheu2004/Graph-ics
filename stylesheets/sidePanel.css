@@ -1,0 +1,269 @@
+div#sidePanel {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-theme-background);
+    flex: 0 0 30%;
+    max-width: 30%;
+    box-shadow: 0 0 1vw;
+    text-align: center;
+    z-index: 1;
+}
+
+div#titleDiv {
+    width: 100%;
+    flex: 0 0 auto;
+    text-align: center;
+    font-size: 4vh;
+    color: var(--light-theme-text);
+    padding: 2vh 0;
+    border-bottom: 1px solid var(--light-theme-light);
+    text-align: left;
+    padding: 1vw 2vw;
+}
+
+input#titleInput {
+    width: 100%;
+    font-size: 3.5vh;
+    background-color: Transparent;
+    border: none;
+    border-bottom: 2px solid var(--light-theme-light);
+    transition: 0.1s;
+}
+
+input#titleInput:hover {
+    border-bottom-color: var(--light-theme-dark);
+    transition: 0.1s;
+}
+
+input#titleInput:focus {
+    border-bottom-color: var(--light-theme-highlight);
+}
+
+div#newButtonDiv {
+    width: 100%;
+    flex: 0 0 auto;
+    text-align: center;
+    font-size: 4vh;
+    color: var(--light-theme-text);
+    padding: 2vh 0;
+    border-top: 1px solid var(--light-theme-light);
+}
+
+div#newButtonDiv > p {
+    text-align: center;
+    font-size: 4vh;
+    color: var(--light-theme-text);
+}
+
+button.new {
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 6vh;
+    height: 6vh;
+    padding: 1vh;
+    border-radius: 0.5vh;
+    border: 1px solid var(--light-theme-light);
+    margin: 0.5vh 0.5vw;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+button.new:hover {
+    transition: 0.1s;
+    background-color: var(--light-theme-light);
+}
+
+button.new:active {
+    border-color: var(--light-theme-dark);
+    background-color: var(--light-theme-dark);
+}
+
+img.new {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+div#entries {
+    width: 100%;
+    flex: 1 1 0;
+    overflow-y: auto;
+    position: relative;
+}
+
+p#emptyEntries {
+    display: none;
+    color: #777777;
+    font-size: 3vh;
+    padding: 2vw;
+}
+
+p#emptyEntries a {
+    text-decoration: underline;
+}
+
+div.entry {
+    display: block;
+    text-align: initial;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 1vw 3vw;
+    border-bottom: 1px solid var(--light-theme-light);
+    transition: 0.25s;
+}
+
+div.entry.focused, div.entry:hover {
+    background-color: #eeeeee;
+}
+
+div.entry > p {
+    color: var(--light-theme-text);
+    font-size: 3.5vh;
+    margin-bottom: 0.5vh;
+    vertical-align: middle;
+    cursor: default;
+}
+
+div.entry > p > img {
+    width: 3.5vh;
+    height: 3.5vh;
+    padding: 0.5vh;
+    border-radius: 0.5vh;
+    border: 1px solid var(--light-theme-light);
+    margin-right: 0.5vw;
+}
+
+button.entryColorSquare {
+    display: inline-block;
+    width: 2.5vh;
+    height: 2.5vh;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin-left: 0.75vw;
+    position: relative;
+    cursor: pointer;
+}
+
+div.entry:hover button.entryColorSquare::before {
+    content: "";
+    position: absolute;
+    width: calc(2.5vh - 2px);
+    height: calc(2.5vh - 2px);
+    left: 0;
+    top: 0;
+    background-size: 150% 150%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("icons/edit.png");
+}
+
+div.entry.invert:hover button.entryColorSquare::before {
+    filter: invert();
+}
+
+span.entryIcon {
+    background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 3.5vh;
+    height: 3.5vh;
+    padding: 0.5vh;
+    border-radius: 0.5vh;
+    border: 1px solid var(--light-theme-light);
+    margin-bottom: 0.5vh;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+span.entryIcon > img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+div.colorMarker {
+    position: absolute;
+    width: 1vw;
+    height: 100%;
+    left: 0;
+    top: 0;
+    opacity: 50%;
+    transition: 0.15s;
+}
+
+div.entry.focused > div.colorMarker, div.entry:hover > div.colorMarker {
+    width: 1.5vw;
+    opacity: 100%;
+}
+
+div.entry > button.delete {
+    position: absolute;
+    background-image: url("icons/delete.svg");
+    background-size: 100% 100%;
+    border: none;
+    width: 3vh;
+    height: 3vh;
+    top: 2vw;
+    right: 2vw;
+    filter: opacity(0.25);
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+div.entry > button:hover {
+    filter: opacity(0.5);
+}
+
+div.entry > button:active {
+    filter: opacity(1);
+}
+
+div.property {
+    position: relative;
+    width: 42%;
+    display: inline-flex;
+    flex-direction: row;
+    margin: 0.5vh 6% 0.5vh 0;
+    align-items: baseline;
+}
+
+div.property.double {
+    width: 90%;
+}
+
+div.property > label {
+    flex: 0 0 auto;
+    display: inline-block;
+    font-size: 3vh;
+}
+
+div.property > label sub {
+    font-size: 2.5vh;
+}
+
+div.property > input {
+    flex: 1 1 0;
+    min-width: 0;
+    font-size: 2.5vh;
+    background-color: Transparent;
+    border: none;
+    padding: 0 0.5vw 0 0.5vw;
+    border-bottom: 2px solid var(--light-theme-light);
+    text-align: right;
+    margin: 0 0.25vw;
+    transition: 0.1s;
+}
+
+div.property input:hover {
+    border-bottom-color: var(--light-theme-dark);
+    transition: 0.1s;
+}
+
+div.property input:focus {
+    border-bottom-color: var(--light-theme-highlight);
+}

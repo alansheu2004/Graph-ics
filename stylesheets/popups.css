@@ -1,0 +1,171 @@
+div#glassPane {
+    z-index: 100;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+div.popup {
+    background-color: white;
+    position: fixed;
+    height: 80vh;
+    width: 60vw;
+    top: 10vh;
+    left: 20vw;
+    padding: 3vw;
+    border-radius: 3vw;
+    overflow-y: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+div.popup > button.delete {
+    position: absolute;
+    background-image: url("icons/delete.svg");
+    background-size: 100% 100%;
+    border: none;
+    width: 3vh;
+    height: 3vh;
+    top: 3vw;
+    right: 3vw;
+    filter: opacity(0.25);
+    transition: 0.15s;
+    cursor: pointer;
+}
+
+div.popup > button.delete:hover {
+    filter: opacity(0.5);
+}
+
+div.popup > button.delete:active {
+    filter: opacity(1);
+}
+
+div.popup > img {
+    flex: 0 0 auto;
+    display: block;
+    margin: auto;
+    height: 5vh;
+}
+
+
+div.popup h2 {
+    flex: 0 0 auto;
+    font-size: 4vw;
+    text-align: center;
+}
+
+div.popup hr {
+    flex: 0 0 auto;
+    border: 1px solid black;
+    margin-bottom: 3vh;
+}
+
+div#tutorialArticle {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+}
+
+div#tutorialArticle p {
+    font-size: 2vw;
+    margin-bottom: 2vh;
+}
+
+div#ideaList {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    overflow-y: auto;
+    flex-wrap: wrap;
+}
+
+div.idea {
+    display: inline-block;
+    padding: 1vw;
+    width: 16vw;
+    margin: 0.5vw;
+    text-align: center;
+    transition: 0.15s;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+div.idea:hover {
+    transition: 0.15s;
+    background-color: #cccccc;
+}
+
+div.idea img {
+    margin: auto;
+    width: 12vw;
+    height: 9vw;
+    object-fit: cover;
+}
+
+div.idea p {
+    font-size: 2vw;
+    text-align: center;
+}
+
+div#saveDiv p {
+    text-align: center;
+    font-size: 3vh;
+}
+
+textarea#saveText {
+    flex: 1 1 auto;
+    resize: none;
+    font-size: 3vh;
+    padding: 1vw;
+    margin: 0 4vw 1vh;
+    border-radius: 1vw;
+}
+
+.saveButton {
+    font-size: 2vh;
+    padding: 1vh 2vh;
+    border-radius: 1vh;
+    background-color: navy;
+    color: white;
+    border: none;
+    margin: 1vh 5vw 0;
+    transition: 0.15s;
+    vertical-align: middle;
+}
+
+label[for="saveFileInput"] {
+    margin: 1vh 5vw 0;
+}
+
+.saveButton:hover:not(:disabled) {
+    background-color: blue;
+    cursor: pointer;
+}
+
+.saveButton:disabled {
+    filter: opacity(0.5);
+    cursor: default;
+}
+
+button#loadFile {
+    width: 100%;
+    margin: 0;
+}
+
+input#saveFileInput {
+    display: none;
+}
+
+button#confirmSave {
+    display: block;
+    margin: auto;
+    margin-top: 1vh;
+    font-size: 3vh;
+    clear: both;
+}
