@@ -23,6 +23,16 @@ function hsvToHslText(h, s, v) {
     return "hsl("+h+","+s*100+"%,"+l*100+"%)";
 }
 
+const DEFAULT_COLORS = [
+    [0, 1, 0.8], //red
+    [30, 1, 0.9], //orange
+    [110, 1, 0.4], //green
+    [190, 1, 0.8], //light blue
+    [220, 1, 0.75], //blue
+    [270, 1, 1], //purple
+    [0, 0, 0] //black
+];
+
 function ComponentType(name, icon, properties, svg, draggablePoints, dashes, equation) {
     this.name = name;
     this.icon = icon;
@@ -46,10 +56,10 @@ function Component(type) {
     for (let property of type.properties) {
         this.properties[property.name] = JSON.parse(JSON.stringify(property["default"]));
     }
-    this.color = Math.floor(360 * Math.random());
+    this.hsv = DEFAULT_COLORS[Math.floor(DEFAULT_COLORS.length * Math.random())];
     this.getSvg = function() {
         var path = this.type.svg(this.properties);
-        path.setAttribute("stroke", hsvToHslText(this.color, 1, 0.9));
+        path.setAttribute("stroke", hsvToHslText(this.hsv[0], this.hsv[1], this.hsv[2]));
         path.entry = this.entry;
         path.component = this;
         return path;

@@ -5,7 +5,7 @@ function saveToString() {
 
     for (let component of components) {
         string += componentTypes.indexOf(component.type) + deliminator;
-        string += component.color + deliminator;
+        string += component.hsv[0] + deliminator + component.hsv[1] + deliminator + component.hsv[2] + deliminator;
 
         for (let property of component.type.properties) {
             switch(property.type) {
@@ -58,7 +58,9 @@ function parseSaveString(string) {
             let component = new Component(componentTypes[nums[i++]]);
             newComponents.push(component);
 
-            component.color = nums[i++];
+            component.hsv[0] = nums[i++];
+            component.hsv[1] = nums[i++];
+            component.hsv[2] = nums[i++];
 
             for (let property of component.type.properties) {
                 switch(property.type) {

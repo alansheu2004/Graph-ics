@@ -416,7 +416,7 @@ div.colorMarker {
 }
 
 div.entry.focused > div.colorMarker, div.entry:hover > div.colorMarker {
-    width: 2vw;
+    width: 1.5vw;
     opacity: 100%;
 }
 

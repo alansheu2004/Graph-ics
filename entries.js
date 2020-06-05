@@ -45,10 +45,10 @@ function createEntry(component) {
     entry.children[0].children[1].entry = entry;
     let picker = new jscolor(entry.children[0].children[1], {
         "valueElement" : null,
-        "mode" : "HS",
+        "mode" : "HSV",
         "onFineChange" : "changeColor(this)"
     });
-    picker.fromHSV(component.color, 100, 90);
+    picker.fromHSV(component.hsv[0], component.hsv[1]*100, component.hsv[2]*100);
     entry.picker = picker;
     if(!picker.isLight()) {
         if(!entry.classList.contains("invert")) {
@@ -64,7 +64,7 @@ function createEntry(component) {
     entry.children[0].entry = entry;
     entry.children[0].component = component;
 
-    entry.children[2].style.backgroundColor = hsvToHslText(component.color, 1, 0.9);
+    entry.children[2].style.backgroundColor = hsvToHslText(component.hsv[0], component.hsv[1], component.hsv[2]);
     entry.children[2].entry = entry;
     entry.children[2].component = component;
 
@@ -162,7 +162,7 @@ function addComponent(component) {
 function updateEntry(entry) {
     let component = entry.component;
 
-    entry.children[2].style.backgroundColor = hsvToHslText(component.color, 1, 0.9);
+    entry.children[2].style.backgroundColor = hsvToHslText(component.hsv[0], component.hsv[1], component.hsv[2]);
 
     for(let property of entry.component.type.properties) {
         let propertyDiv;
@@ -249,7 +249,7 @@ function useSet(set) {
 }
 
 function changeColor(jscolor) {
-    jscolor.styleElement.entry.component.color = Math.round(jscolor.hsv[0]);
+    jscolor.styleElement.entry.component.hsv = [Math.round(jscolor.hsv[0]), jscolor.hsv[1]/100, jscolor.hsv[2]/100];
     updateEntry(jscolor.styleElement.entry);
     drawComponent(jscolor.styleElement.entry);
 }
