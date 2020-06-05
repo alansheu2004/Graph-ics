@@ -5,7 +5,8 @@ var equationP = document.getElementById("equation");
 function setUpHiddenDiv() {
     generateButton.addEventListener("click", function() {
         hiddenDiv.style.display = "initial";
-        scrollEaseTo(hiddenDiv.getBoundingClientRect().top - 15, 750);
+        window.scrollTo(0, hiddenDiv.getBoundingClientRect().top - 15);
+        setUpEquation();
     });
 }
 
@@ -17,40 +18,6 @@ function setUpEquation() {
     }
     equationP.textContent = "\\[" + equation + "=0\\]";
     MathJax.typesetPromise().then(function() {equationP.parentNode.children[1].style.display = "none";});
-}
-
-function scrollEaseTo(elementY, duration) {
-    var startingY = window.pageYOffset;
-    // If element is close to page's bottom then window will scroll only to some position above the element.
-    var targetY = document.body.scrollHeight - elementY < window.innerHeight ? document.body.scrollHeight - window.innerHeight : elementY + document.documentElement.scrollTop;
-    
-    var diff = targetY - startingY
-    
-    var easing = function (t) { return -0.5 * Math.cos(Math.PI * t) + 0.5 }
-    var start;
-
-    if (!diff) {return;}
-
-    window.requestAnimationFrame(function step(timestamp) {
-        if (!start) start = timestamp
-        // Elapsed miliseconds since start of scrolling.
-        var time = timestamp - start
-            // Get percent of completion in range [0, 1].
-        var percent = Math.min(time / duration, 1)
-        // Apply the easing.
-        // It can cause bad-looking slow frames in browser performance tool, so be careful.
-        percent = easing(percent)
-
-        window.scrollTo(0, startingY + diff * percent)
-
-            // Proceed with animation as long as we wanted it to.
-        if (time < duration) {
-            window.requestAnimationFrame(step)
-        } else {
-            setUpEquation();
-        }
-    });
-    
 }
 
 function multiply() {
