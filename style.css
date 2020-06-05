@@ -386,7 +386,7 @@ div.colorMarker {
 }
 
 div.entry.focused > div.colorMarker, div.entry:hover > div.colorMarker {
-    width: 1.5vw;
+    width: 2vw;
     opacity: 100%;
 }
 
@@ -414,10 +414,10 @@ div.entry > button:active {
 
 div.property {
     position: relative;
-    width: 40%;
+    width: 42%;
     display: inline-flex;
     flex-direction: row;
-    margin: 0.5vh 5% 0.5vh 0;
+    margin: 0.5vh 6% 0.5vh 0;
     align-items: baseline;
 }
 
@@ -432,13 +432,13 @@ div.property > label {
 }
 
 div.property > label sub {
-    font-size: 2vh;
+    font-size: 2.5vh;
 }
 
 div.property > input {
     flex: 1 1 0;
     min-width: 0;
-    font-size: 2vh;
+    font-size: 2.5vh;
     background-color: Transparent;
     border: none;
     padding: 0 0.5vw 0 0.5vw;

@@ -648,13 +648,13 @@ const SQUARE = new ComponentType(
         ];
     },
     function(properties) {
-        var radius = multiply("{\\sqrt{2} \\over 2}", par(properties["Side"]));
+        var radius = (Math.sqrt(2)/2)*properties["Side"];
         var radians = properties["Rotate"] * Math.PI / 180;
 
-        var point1 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]+45)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]+45)+"^{\\circ}}"))];
-        var point2 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]+135)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]+135)+"^{\\circ}}"))];
-        var point3 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]-135)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]-135)+"^{\\circ}}"))];
-        var point4 = [add(properties["Center"][0], multiply(radius, "\\cos{"+(properties["Rotate"]-45)+"^{\\circ}}")), add(properties["Center"][1], multiply(radius, "\\sin{"+(properties["Rotate"]-45)+"^{\\circ}}"))];
+        var point1 = [properties["Center"][0]+radius*Math.cos(radians+Math.PI/4), properties["Center"][0]+radius*Math.sin(radians+Math.PI/4)];
+        var point2 = [properties["Center"][0]+radius*Math.cos(radians+3*Math.PI/4), properties["Center"][0]+radius*Math.sin(radians+3*Math.PI/4)];
+        var point3 = [properties["Center"][0]+radius*Math.cos(radians-3*Math.PI/4), properties["Center"][0]+radius*Math.sin(radians-3*Math.PI/4)];
+        var point4 = [properties["Center"][0]+radius*Math.cos(radians-Math.PI/4), properties["Center"][0]+radius*Math.sin(radians-Math.PI/4)];
 
         var line1 = LINE.equation({"Point 1" : point1, "Point 2" : point2});
         var line2 = LINE.equation({"Point 1" : point2, "Point 2" : point3});
