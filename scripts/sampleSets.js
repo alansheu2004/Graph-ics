@@ -57,7 +57,7 @@ function setUpSampleSets() {
 
     for(let set of sampleSets) {
         let idea = ideaTemplate.cloneNode(true);
-        idea.id = null;
+        idea.id = "";
         idea.set = set;
 
         idea.children[0].src = "icons/" + set.icon;

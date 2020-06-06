@@ -203,7 +203,7 @@ div.entry.focused > div.colorMarker, div.entry:hover > div.colorMarker {
 
 div.entry > button.delete {
     position: absolute;
-    background-image: url("icons/delete.svg");
+    background-image: url("../icons/delete.svg");
     background-size: 100% 100%;
     border: none;
     width: 3vh;

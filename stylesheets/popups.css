@@ -26,7 +26,7 @@ div.popup {
 
 div.popup > button.delete {
     position: absolute;
-    background-image: url("icons/delete.svg");
+    background-image: url("../icons/delete.svg");
     background-size: 100% 100%;
     border: none;
     width: 3vh;
@@ -78,7 +78,6 @@ div#tutorialArticle p {
 
 div#ideaList {
     flex: 1 1 0;
-    display: flex;
     flex-direction: row;
     justify-content: center;
     overflow-y: auto;
