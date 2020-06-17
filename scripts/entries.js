@@ -91,7 +91,7 @@ function createEntry(component) {
                 input.entry = entry;
                 input.component = component;
                 input.propertyName = property.name;
-                input.addEventListener("input", function(e) {e.target.value = round(e.target.value); e.target.component.properties[e.target.propertyName] = Number(e.target.value); drawComponent(e.target.component);});
+                input.addEventListener("input", function(e) {e.target.component.properties[e.target.propertyName] = Number(e.target.value); drawComponent(e.target.entry);});
 
                 break;
 
@@ -107,7 +107,7 @@ function createEntry(component) {
                 input.component = component;
                 input.propertyName = property.name;
                 input.style.marginRight = "0";
-                input.addEventListener("input", function(e) {e.target.value = round(e.target.value); e.target.component.properties[e.target.propertyName] = Number(e.target.value); drawComponent(e.target.component);});
+                input.addEventListener("input", function(e) {e.target.component.properties[e.target.propertyName] = Number(e.target.value); drawComponent(e.target.entry);});
 
                 break;
 
@@ -122,7 +122,7 @@ function createEntry(component) {
                 inputx.entry = entry;
                 inputx.component = component;
                 inputx.propertyName = property.name;
-                inputx.addEventListener("input", function(e) {e.target.value = round(e.target.value); e.target.component.properties[e.target.propertyName][0] = Number(e.target.value); drawComponent(e.target.component);});
+                inputx.addEventListener("input", function(e) {e.target.component.properties[e.target.propertyName][0] = Number(e.target.value); drawComponent(e.target.entry);});
 
                 let comma = propertyDiv.children[2];
                 comma.innerHTML = ",";
@@ -133,7 +133,7 @@ function createEntry(component) {
                 inputy.entry = entry;
                 inputy.component = component;
                 inputy.propertyName = property.name;
-                inputy.addEventListener("input", function(e) {e.target.value = round(e.target.value); e.target.component.properties[e.target.propertyName][1] = Number(e.target.value); drawComponent(e.target.component);});
+                inputy.addEventListener("input", function(e) {e.target.component.properties[e.target.propertyName][1] = Number(e.target.value); drawComponent(e.target.entry);});
                 break;
         }
 
