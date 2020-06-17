@@ -35,7 +35,7 @@ button.zoomButton:active:not(:disabled) {
 }
 
 button.zoomButton:disabled {
-    filter: opacity(.7);
+    filter: brightness(0.5);
     cursor: default;
 }
 

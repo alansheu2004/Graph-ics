@@ -267,3 +267,7 @@ div.property input:hover {
 div.property input:focus {
     border-bottom-color: var(--light-theme-highlight);
 }
+
+div.property input:invalid {
+    border-bottom-color: red;
+}
