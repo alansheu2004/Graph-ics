@@ -116,7 +116,7 @@ line.smallAxis {
     stroke: white;
 }
 
-.dashed {
+svg.smallGraph .dashed {
     stroke-width: 2;
     stroke: red;
     stroke-dasharray: 8%;

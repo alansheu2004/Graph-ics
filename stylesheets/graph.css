@@ -108,7 +108,7 @@ text.tickLabel {
 }
 
 circle.draggablePoint {
-    r: 5;
+    r: 5px;
     stroke-width: 12;
     stroke-opacity: 0.4;
     transition: 0.15s;
@@ -118,13 +118,13 @@ circle.draggablePoint {
 
 circle.draggablePoint:hover, circle.draggablePoint.dragging {
     cursor: all-scroll;
-    r: 11;
+    r: 11px;
     stroke-width: 0;
     transition: 0.15s;
 }
 
 .dashed {
-    stroke-width: 4;
+    stroke-width: 3;
     stroke-opacity: 0.6;
     stroke-dasharray: 15, 10;
     fill: none;

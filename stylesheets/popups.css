@@ -124,6 +124,7 @@ textarea#saveText {
     padding: 1vw;
     margin: 0 4vw 1vh;
     border-radius: 1vw;
+    border: 2px solid black;
 }
 
 .saveButton {
