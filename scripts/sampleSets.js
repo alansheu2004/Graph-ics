@@ -1,4 +1,4 @@
-const WINKY_FACE = new function() {
+const WINKY = new function() {
     var head = new Component(CIRCLE);
     head.properties = {"Center": [0,0], "Radius": 5};
     var wink = new Component(QUADRATIC);
@@ -13,8 +13,8 @@ const WINKY_FACE = new function() {
     uuhhh.properties = {"Point 1": [1.25,-1], "Point 2": [1.5,-3]};
 
     return {
-        "name" : "Winky Face",
-        "icon" : "winkyface.png",
+        "name" : "Winky",
+        "icon" : "winky.png",
         "components" : [head, wink, eye, mouth, tongue, uuhhh]
     }
 };
@@ -44,7 +44,82 @@ const POKEBALL = new function() {
     }
 };
 
-const sampleSets = [WINKY_FACE, POKEBALL];
+const CREEPER = new function() {
+    var head = new Component(SQUARE);
+    head.properties = {"Center": [0,0], "Side": 8, "Rotate": 0};
+    var eye1 = new Component(SQUARE);
+    eye1.properties = {"Center": [-2,1], "Side": 2, "Rotate": 0};
+    var eye2 = new Component(SQUARE);
+    eye2.properties = {"Center": [2,1], "Side": 2, "Rotate": 0};
+    var line1 = new Component(LINE);
+    line1.properties = {"Point 1": [-1,0], "Point 2": [1,0]};
+    var line2 = new Component(LINE);
+    line2.properties = {"Point 1": [-1,0], "Point 2": [-1,-1]};
+    var line3 = new Component(LINE);
+    line3.properties = {"Point 1": [1,0], "Point 2": [1,-1]};
+    var line4 = new Component(LINE);
+    line4.properties = {"Point 1": [-1,-1], "Point 2": [-2,-1]};
+    var line5 = new Component(LINE);
+    line5.properties = {"Point 1": [1,-1], "Point 2": [2,-1]};
+    var line6 = new Component(LINE);
+    line6.properties = {"Point 1": [-2,-1], "Point 2": [-2,-4]};
+    var line7 = new Component(LINE);
+    line7.properties = {"Point 1": [2,-1], "Point 2": [2,-4]};
+    var line8 = new Component(LINE);
+    line8.properties = {"Point 1": [-1,-4], "Point 2": [-1,-3]};
+    var line9 = new Component(LINE);
+    line9.properties = {"Point 1": [1,-4], "Point 2": [1,-3]};
+    var line10 = new Component(LINE);
+    line10.properties = {"Point 1": [1,-3], "Point 2": [-1,-3]};
+
+    return {
+        "name" : "Creeper",
+        "icon" : "creeper.png",
+        "components" : [head, eye1, eye2, line1, line2, line3, line4, line5, line6, line7, line8, line9, line10]
+    }
+};
+
+const TREBLE = new function() {
+    var comp1 = new Component(ARC);
+    comp1.properties = {"Center": [0,-4], "Radius": 1, "Start Angle": 180, "End Angle": 360};
+    var comp2 = new Component(LINE);
+    comp2.properties = {"Point 1": [1,-4], "Point 2": [-1,4]};
+    var comp3 = new Component(ARC);
+    comp3.properties = {"Center": [0,4], "Radius": 1, "Start Angle": 0, "End Angle": 180};
+    var comp4 = new Component(LINE);
+    comp4.properties = {"Point 1": [-2,0], "Point 2": [1,4]};
+    var comp5 = new Component(ARC);
+    comp5.properties = {"Center": [0,-1], "Radius": 2.25, "Start Angle": 153.43, "End Angle": 360};
+    var comp6 = new Component(ARC);
+    comp6.properties = {"Center": [0.5,-1], "Radius": 1.75, "Start Angle": 0, "End Angle": 250};
+
+    return {
+        "name" : "Treble",
+        "icon" : "treble.png",
+        "components" : [comp1, comp2, comp3, comp4, comp5, comp6]
+    }
+};
+
+const BASS = new function() {
+    var comp1 = new Component(ARC);
+    comp1.properties = {"Center": [-2.5,2], "Radius": 0.5, "Start Angle": -180, "End Angle": 0};
+    var comp2 = new Component(ARC);
+    comp2.properties = {"Center": [-1,2], "Radius": 2, "Start Angle": 0, "End Angle": 180};
+    var comp3 = new Component(QUADRATIC);
+    comp3.properties = {"End 1": [-3,-4], "Control": [1,-2], "End 2": [1,2]};
+    var comp4 = new Component(CIRCLE);
+    comp4.properties = {"Center": [2.5,3], "Radius": 0.5};
+    var comp5 = new Component(CIRCLE);
+    comp5.properties = {"Center": [2.5,1], "Radius": 0.5};
+
+    return {
+        "name" : "Bass",
+        "icon" : "bass.png",
+        "components" : [comp1, comp2, comp3, comp4, comp5]
+    }
+};
+
+const sampleSets = [WINKY, POKEBALL, CREEPER, TREBLE, BASS];
 
 const glassPane = document.getElementById("glassPane");
 const saveDiv = document.getElementById("saveDiv");

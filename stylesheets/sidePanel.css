@@ -13,7 +13,7 @@ div#titleDiv {
     width: 100%;
     flex: 0 0 auto;
     text-align: center;
-    font-size: 4vh;
+    font-size: 24pt;
     color: var(--light-theme-text);
     padding: 2vh 0;
     border-bottom: 1px solid var(--light-theme-light);
@@ -23,7 +23,7 @@ div#titleDiv {
 
 input#titleInput {
     width: 100%;
-    font-size: 3.5vh;
+    font-size: 18pt;
     background-color: Transparent;
     border: none;
     border-bottom: 2px solid var(--light-theme-light);
@@ -43,7 +43,7 @@ div#newButtonDiv {
     width: 100%;
     flex: 0 0 auto;
     text-align: center;
-    font-size: 4vh;
+    font-size: 24pt;
     color: var(--light-theme-text);
     padding: 1vh 0;
     border-top: 1px solid var(--light-theme-light);
@@ -51,7 +51,7 @@ div#newButtonDiv {
 
 div#newButtonDiv > p {
     text-align: center;
-    font-size: 3vh;
+    font-size: 18pt;
     color: var(--light-theme-text);
 }
 
@@ -97,7 +97,7 @@ div#entries {
 p#emptyEntries {
     display: none;
     color: #777777;
-    font-size: 3vh;
+    font-size: 18pt;
     padding: 2vw;
 }
 
@@ -111,7 +111,7 @@ div.entry {
     position: relative;
     width: 100%;
     box-sizing: border-box;
-    padding: 1vw 3vw;
+    padding: 10px 3vw;
     border-bottom: 1px solid var(--light-theme-light);
     transition: 0.25s;
 }
@@ -122,7 +122,7 @@ div.entry.focused, div.entry:hover {
 
 div.entry > p {
     color: var(--light-theme-text);
-    font-size: 3.5vh;
+    font-size: 18pt;
     margin-bottom: 0.5vh;
     vertical-align: middle;
     cursor: default;
@@ -223,7 +223,7 @@ div.property {
     width: 42%;
     display: inline-flex;
     flex-direction: row;
-    margin: 0.5vh 6% 0.5vh 0;
+    margin: 2px 6% 2px 0;
     align-items: baseline;
 }
 
@@ -234,17 +234,17 @@ div.property.double {
 div.property > label {
     flex: 0 0 auto;
     display: inline-block;
-    font-size: 2.5vh;
+    font-size: 12pt;
 }
 
 div.property > label sub {
-    font-size: 2.5vh;
+    font-size: 12pt;
 }
 
 div.property > input {
     flex: 1 1 0;
     min-width: 0;
-    font-size: 2.25vh;
+    font-size: 12pt;
     background-color: Transparent;
     border: none;
     padding: 0 0.5vw 0 0.5vw;

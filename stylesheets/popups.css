@@ -12,9 +12,9 @@ div#glassPane {
 div.popup {
     background-color: white;
     position: fixed;
-    height: 80vh;
+    height: 90vh;
     width: 60vw;
-    top: 10vh;
+    top: 5vh;
     left: 20vw;
     padding: 3vw;
     border-radius: 3vw;
@@ -56,7 +56,7 @@ div.popup > img {
 
 div.popup h2 {
     flex: 0 0 auto;
-    font-size: 4vw;
+    font-size: 24pt;
     text-align: center;
 }
 
@@ -68,11 +68,11 @@ div.popup hr {
 
 div#tutorialArticle {
     flex: 1 1 auto;
-    overflow-y: scroll;
+    overflow-y: auto;
 }
 
 div#tutorialArticle p {
-    font-size: 2vw;
+    font-size: 18pt;
     margin-bottom: 2vh;
 }
 
@@ -86,9 +86,8 @@ div#ideaList {
 
 div.idea {
     display: inline-block;
-    padding: 1vw;
-    width: 16vw;
-    margin: 0.5vw;
+    padding: 0.5vw;
+    width: 12vw;
     text-align: center;
     transition: 0.15s;
     border-radius: 3px;
@@ -102,13 +101,13 @@ div.idea:hover {
 
 div.idea img {
     margin: auto;
-    width: 12vw;
+    width: 10vw;
     height: 9vw;
     object-fit: cover;
 }
 
 div.idea p {
-    font-size: 2vw;
+    font-size: 14pt;
     text-align: center;
 }
 
