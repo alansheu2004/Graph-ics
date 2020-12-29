@@ -146,23 +146,18 @@ button.entryColorSquare {
     margin-left: 0.75vw;
     position: relative;
     cursor: pointer;
-}
-
-div.entry:hover button.entryColorSquare::before {
-    content: "";
-    position: absolute;
-    width: calc(2.5vh - 2px);
-    height: calc(2.5vh - 2px);
-    left: 0;
-    top: 0;
+    overflow: hidden;
     background-size: 150% 150%;
     background-position: center;
     background-repeat: no-repeat;
+}
+
+div.entry:hover button.entryColorSquare {
     background-image: url("../icons/edit.png");
 }
 
-div.entry.invert:hover button.entryColorSquare::before {
-    filter: invert();
+div.entry.invert:hover button.entryColorSquare {
+    background-image: url("../icons/editInverted.png");
 }
 
 span.entryIcon {
