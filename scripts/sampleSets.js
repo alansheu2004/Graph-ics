@@ -79,6 +79,39 @@ const CREEPER = new function() {
     }
 };
 
+const LOVE = new function() {
+    var i1 = new Component(LINE);
+    i1.properties = {"Point 1": [-4,-2], "Point 2": [-4,2]};
+    var i2 = new Component(LINE);
+    i2.properties = {"Point 1": [-3,2], "Point 2": [-5,2]};
+    var i3 = new Component(LINE);
+    i3.properties = {"Point 1": [-5,-2], "Point 2": [-3,-2]};
+    var h1 = new Component(ARC);
+    h1.properties = {"Center": [-1,1], "Radius": 1, "Start Angle": 0, "End Angle": 180};
+    var h2 = new Component(ARC);
+    h2.properties = {"Center": [1,1], "Radius": 1, "Start Angle": 0, "End Angle": 180};
+    var h3 = new Component(QUADRATIC);
+    h3.properties = {"End 1": [-2,1], "Control": [-2,0], "End 2": [-1,-1]};
+    var h4 = new Component(QUADRATIC);
+    h4.properties = {"End 1": [2,1], "Control": [2,0], "End 2": [1,-1]};
+    var h5 = new Component(LINE);
+    h5.properties = {"Point 1": [0,-2], "Point 2": [-1,-1]};
+    var h6 = new Component(LINE);
+    h6.properties = {"Point 1": [0,-2], "Point 2": [1,-1]};
+    var u1 = new Component(LINE);
+    u1.properties = {"Point 1": [3,-1], "Point 2": [3,2]};
+    var u2 = new Component(LINE);
+    u2.properties = {"Point 1": [5,-1], "Point 2": [5,2]};
+    var u3 = new Component(ARC);
+    u3.properties = {"Center": [4,-1], "Radius": 1, "Start Angle": -180, "End Angle": 0};
+
+    return {
+        "name" : "Love",
+        "icon" : "love.png",
+        "components" : [i1, i2, i3, h1, h2, h3, h4, h5, h6, u1, u2, u3]
+    }
+};
+
 const TREBLE = new function() {
     var comp1 = new Component(ARC);
     comp1.properties = {"Center": [0,-4], "Radius": 1, "Start Angle": 180, "End Angle": 360};
@@ -119,7 +152,7 @@ const BASS = new function() {
     }
 };
 
-const sampleSets = [WINKY, POKEBALL, CREEPER, TREBLE, BASS];
+const sampleSets = [WINKY, POKEBALL, LOVE, CREEPER, TREBLE, BASS];
 
 const glassPane = document.getElementById("glassPane");
 const saveDiv = document.getElementById("saveDiv");
