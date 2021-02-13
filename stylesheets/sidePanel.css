@@ -2,8 +2,8 @@ div#sidePanel {
     display: flex;
     flex-direction: column;
     background-color: var(--light-theme-background);
-    flex: 0 0 30%;
-    max-width: 30%;
+    flex: 0 0 25%;
+    max-width: 25%;
     box-shadow: 0 0 1vw;
     text-align: center;
     z-index: 1;
@@ -13,12 +13,10 @@ div#titleDiv {
     width: 100%;
     flex: 0 0 auto;
     text-align: center;
-    font-size: 24pt;
     color: var(--light-theme-text);
-    padding: 2vh 0;
+    padding: 15px 20px;
     border-bottom: 1px solid var(--light-theme-light);
     text-align: left;
-    padding: 1vw 2vw;
 }
 
 input#titleInput {
@@ -41,12 +39,10 @@ input#titleInput:focus {
 
 div#newButtonDiv {
     width: 100%;
-    flex: 0 0 auto;
     text-align: center;
-    font-size: 24pt;
+    font-size: 18pt;
     color: var(--light-theme-text);
-    padding: 1vh 0;
-    border-top: 1px solid var(--light-theme-light);
+    margin-top: 10px;
 }
 
 div#newButtonDiv > p {
@@ -59,12 +55,12 @@ button.new {
     background-color: transparent;
     background-position: center center;
     background-repeat: no-repeat;
-    width: 5vh;
-    height: 5vh;
-    padding: 1vh;
+    width: 30px;
+    height: 30px;
+    padding: 5px;
     border-radius: 0.5vh;
     border: 1px solid var(--light-theme-light);
-    margin: 0.5vh 0.5vw;
+    margin: 5px;
     text-align: center;
     vertical-align: middle;
     display: inline-flex;
@@ -96,9 +92,9 @@ div#entries {
 
 p#emptyEntries {
     display: none;
-    color: #777777;
-    font-size: 18pt;
-    padding: 2vw;
+    color: #666666;
+    font-size: 12pt;
+    padding: 20px;
 }
 
 p#emptyEntries a {
@@ -111,7 +107,7 @@ div.entry {
     position: relative;
     width: 100%;
     box-sizing: border-box;
-    padding: 10px 3vw;
+    padding: 10px 30px;
     border-bottom: 1px solid var(--light-theme-light);
     transition: 0.25s;
 }
@@ -122,28 +118,19 @@ div.entry.focused, div.entry:hover {
 
 div.entry > p {
     color: var(--light-theme-text);
-    font-size: 18pt;
-    margin-bottom: 0.5vh;
+    font-size: 14pt;
+    margin-bottom: 5px;
     vertical-align: middle;
     cursor: default;
 }
 
-div.entry > p > img {
-    width: 3.5vh;
-    height: 3.5vh;
-    padding: 0.5vh;
-    border-radius: 0.5vh;
-    border: 1px solid var(--light-theme-light);
-    margin-right: 0.5vw;
-}
-
 button.entryColorSquare {
     display: inline-block;
-    width: 2.5vh;
-    height: 2.5vh;
+    width: 12pt;
+    height: 12pt;
     border: 1px solid black;
-    border-radius: 3px;
-    margin-left: 0.75vw;
+    border-radius: 2px;
+    margin-left: 10px;
     position: relative;
     cursor: pointer;
     overflow: hidden;
@@ -164,18 +151,18 @@ span.entryIcon {
     background-color: transparent;
     background-position: center center;
     background-repeat: no-repeat;
-    width: 3.5vh;
-    height: 3.5vh;
-    padding: 0.5vh;
-    border-radius: 0.5vh;
+    width: 16pt;
+    height: 16pt;
+    padding: 2px;
+    border-radius: 2px;
     border: 1px solid var(--light-theme-light);
-    margin-bottom: 0.5vh;
     text-align: center;
     vertical-align: middle;
     display: inline-flex;
     justify-content: center;
     align-items: center;
 }
+
 span.entryIcon > img {
     max-height: 100%;
     max-width: 100%;
@@ -183,7 +170,7 @@ span.entryIcon > img {
 
 div.colorMarker {
     position: absolute;
-    width: 1vw;
+    width: 10px;
     height: 100%;
     left: 0;
     top: 0;
@@ -192,7 +179,7 @@ div.colorMarker {
 }
 
 div.entry.focused > div.colorMarker, div.entry:hover > div.colorMarker {
-    width: 1.5vw;
+    width: 20px;
     opacity: 100%;
 }
 
@@ -201,17 +188,17 @@ div.entry > button.delete {
     background-image: url("../icons/delete.svg");
     background-size: 100% 100%;
     border: none;
-    width: 3vh;
-    height: 3vh;
-    top: 2vw;
-    right: 2vw;
-    filter: opacity(0.25);
+    width: 15px;
+    height: 15px;
+    top: 15px;
+    right: 30px;
+    filter: opacity(0.4);
     transition: 0.15s;
     cursor: pointer;
 }
 
 div.entry > button:hover {
-    filter: opacity(0.5);
+    filter: opacity(0.8);
 }
 
 div.entry > button:active {
@@ -234,20 +221,20 @@ div.property.double {
 div.property > label {
     flex: 0 0 auto;
     display: inline-block;
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 div.property > label sub {
-    font-size: 12pt;
+    font-size: 11pt;
 }
 
 div.property > input {
     flex: 1 1 0;
     min-width: 0;
-    font-size: 12pt;
+    font-size: 11pt;
     background-color: Transparent;
     border: none;
-    padding: 0 0.5vw 0 0.5vw;
+    padding: 0 5px;
     border-bottom: 2px solid var(--light-theme-light);
     text-align: right;
     margin: 0 0.25vw;

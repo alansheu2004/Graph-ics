@@ -1,31 +1,45 @@
 header {
     background-color: var(--dark-theme-background);
     width: 100vw;
-    height: 10vh;
     max-width: 100%;
-    padding: 0 2vw;
+    padding: 10px 2vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 header > h1 {
-    font-size: 5vh;
-    float: left;
+    font-size: 18pt;
+    flex: 1 0 auto;
     color: white;
-    margin-top: 3vh;
-    margin-left: 1vw;
+}
+
+header > h1 > small {
+    font-weight: normal;
+    font-size: 11pt;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+header a:hover {
+    text-decoration: underline;
 }
 
 button.topButton {
-    font-size: 3vh;
-    padding: 1vh 3vh;
-    border-radius: 2vh;
-    float: right;
+    font-size: 14pt;
+    padding: 5px 10px;
+    border-radius: 5px;
     background-color: navy;
     color: white;
     border: none;
-    margin-top: 3vh;
-    margin-right: 1vw;
     transition: 0.15s;
-    vertical-align: middle;
+    flex: 0 0 auto;
+    margin-left: 15px;
+    display: flex;
+    align-items: center;
 }
 
 button.topButton:hover {
@@ -34,8 +48,7 @@ button.topButton:hover {
 
 button.topButton img {
     vertical-align: text-top;
-    line-height: 3vh;
-    height: 3vh;
-    margin-right: 1vw;
+    height: 14pt;
+    margin-right: 10px;
     filter: invert();
 }

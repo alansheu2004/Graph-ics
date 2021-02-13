@@ -22,7 +22,7 @@
 
     <body>
         <header id="header">
-            <h1>SketchGrapher</h1>
+            <h1>SketchGrapher <small>by <a href="https://alansheu2004.github.io">Alan Sheu</a></small></h1>
             <button id="saveButton" class="topButton" onclick="showSave()"><img src="icons/save.png" />Save/Load</button>
             <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" />Ideas</button>
             <button id="tutorialButton" class="topButton" onclick="showTutorial()"><img src="icons/tutorial.png" />Tutorial</button>
@@ -49,17 +49,16 @@
             <div id="sidePanel">
                 <div id="titleDiv">
                     <input type="text" id="titleInput" placeholder="Untitled Sketch">
+                    <div id="newButtonDiv">
+                        <p>Create new...</p>
+                    </div>
                 </div>
-
+                
                 <p id="emptyEntries">
-                    You have no components! Add one below or get inspired from an <a onclick="showIdeas()">idea</a>.
+                    You have no components! Add one above or get inspired from an <a onclick="showIdeas()">idea</a>.
                 </p>
                 <div id="entries">
                     <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
-                </div>
-
-                <div id="newButtonDiv">
-                    <p>Create new...</p>
                 </div>
             </div>
         </div>
