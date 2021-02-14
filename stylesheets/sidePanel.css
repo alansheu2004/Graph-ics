@@ -253,3 +253,28 @@ div.property input:focus {
 div.property input:invalid {
     border-bottom-color: red;
 }
+
+#generateDiv {
+    padding: 15px;
+    border-top: 1px solid var(--light-theme-dark);
+    text-align: center;
+}
+
+button#generate {
+    font-size: 14pt;
+    padding: 5px 10px;
+    border-radius: 5px;
+    background-color: navy;
+    color: white;
+    border: none;
+    transition: 0.15s;
+}
+
+button#generate:disabled {
+    filter: opacity(0.5);
+    cursor: default;
+}
+
+button#generate:hover:not(:disabled) {
+    background-color: blue;
+}

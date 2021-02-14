@@ -21,44 +21,49 @@
     </head>
 
     <body>
-        <header id="header">
-            <h1>SketchGrapher <small>by <a href="https://alansheu2004.github.io">Alan Sheu</a></small></h1>
-            <button id="saveButton" class="topButton" onclick="showSave()"><img src="icons/save.png" />Save/Load</button>
-            <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" />Ideas</button>
-            <button id="tutorialButton" class="topButton" onclick="showTutorial()"><img src="icons/tutorial.png" />Tutorial</button>
-        </header>
-
-        <div id="main">
-
-            <div id="graphDiv">
-                <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
-
-                <div id="zoomGroup">
-                    <button id="zoomIn" class="zoomButton"><img src="icons/zoomin.svg" /></button>
-                    <button id="zoomOut" class="zoomButton"><img src="icons/zoomout.svg" /></button>
-                </div>
-
-                <svg id="graph" stroke-linecap="round" stroke-linejoin="round">
-                    <g id="grid"></g>
-                    <g id="componentsGroup"></g>
-                    <g id="focusGroup"></g>
-                </svg>
-            </div>
-            
-
-            <div id="sidePanel">
-                <div id="titleDiv">
-                    <input type="text" id="titleInput" placeholder="Untitled Sketch">
-                    <div id="newButtonDiv">
-                        <p>Create new...</p>
+        <div id="initShowing">
+            <header id="header">
+                <h1>SketchGrapher <small>by <a href="https://alansheu2004.github.io">Alan Sheu</a></small></h1>
+                <button id="saveButton" class="topButton" onclick="showSave()"><img src="icons/save.png" />Save/Load</button>
+                <button id="ideasButton" class="topButton" onclick="showIdeas()"><img src="icons/ideas.png" />Ideas</button>
+                <button id="tutorialButton" class="topButton" onclick="showTutorial()"><img src="icons/tutorial.png" />Tutorial</button>
+            </header>
+    
+            <div id="main">
+    
+                <div id="graphDiv">
+                    <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
+    
+                    <div id="zoomGroup">
+                        <button id="zoomIn" class="zoomButton"><img src="icons/zoomin.svg" /></button>
+                        <button id="zoomOut" class="zoomButton"><img src="icons/zoomout.svg" /></button>
                     </div>
+    
+                    <svg id="graph" stroke-linecap="round" stroke-linejoin="round">
+                        <g id="grid"></g>
+                        <g id="componentsGroup"></g>
+                        <g id="focusGroup"></g>
+                    </svg>
                 </div>
                 
-                <p id="emptyEntries">
-                    You have no components! Add one above or get inspired from an <a onclick="showIdeas()">idea</a>.
-                </p>
-                <div id="entries">
-                    <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
+    
+                <div id="sidePanel">
+                    <div id="titleDiv">
+                        <input type="text" id="titleInput" placeholder="Untitled Sketch">
+                        <div id="newButtonDiv">
+                            <p>Create new...</p>
+                        </div>
+                    </div>
+                    
+                    <p id="emptyEntries">
+                        You have no components! Add one above or get inspired from an <a onclick="showIdeas()">idea</a>.
+                    </p>
+                    <div id="entries">
+                        <div class="loading" style="position: absolute; top: calc(50% - 5vh - 2px); left: calc(50% - 5vh - 2px);"></div>
+                    </div>
+                    <div id="generateDiv">
+                        <button id="generate" href="#hidden" disabled>Generate Equation!</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -105,263 +110,247 @@
             </div>
         </div>
 
-        <article>
-            <button id="generate" href="#hiddenDiv" disabled>Generate Equation!</button>
-
-            <div id="hiddenDiv">
-                <p>Here's your generated equation:</p>
-                <div class="highlightDiv">
-                    <p style="margin-top: 0;"><small>
-                        Note: Some graphing utilities may not be able to display the graph. Check out <a href="#footnoteContainer">why</a>.
-                    </small></p>
-                    <div class="loading" style="filter: invert(); margin-top: 2vh"></div>
-                    <p id="equation">
-                        
-                    </p>
-                </div>
-
-                <a href="#header">Return to top</a>
-
-
-                <div class="highlightDiv">
-                    <h2>How does it work?</h2>
-
-                    <div id="howItWorks">
-                        <p>
-                            This equation generation is mainly split into two parts: graph combination and domain restriction.
-                        </p>
-
-                        <p>
-                            Let's first discuss graph combination. Say you want to combine the graphs of a line and a circle:
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="0%" y1="90%" x2="90%" y2="0%" />
-                            </svg>
-                            <p>\[y=x+1\]</p>
-                        </div>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <circle class="smallComponent" cx="50%" cy="50%" r="30%" />
-                            </svg>
-                            <p>\[x^2+y^2=9\]</p>
-                        </div>
-
-                        <p>
-                            While you could write out the equations separately pretty easily, we have to use the Zero-Product Property to combine these equations into one. The property basically states that the product of two or more expressions equals 0 if and only if at least one of the expressions equals 0.
-                        </p>
-                        <p>
-                            \[\Pi S = 0 \iff \exists x \in S : x=0\]
-                        </p>
-                        <p>
-                            We can take advantage of this fact to make it so that if a given point on the graph satisfies either equation, it will satisfy the combined equation as well! First we have to move all the terms to one side.
-                        </p>
-                        <p>\[y=x+1 \longrightarrow y-x-1=0\]</p>
-                        <p>\[x^2+y^2=9 \longrightarrow x^2+y^2-9=0\]</p>
-                        <p>
-                            These new equations are equivalent to the previous ones, but if they are multiplied together, either equation equaling 0 will cause the entire product to equal 0. Success! We have combined the equations into one such that the solutions of either equation won't interfere with the other!
-                        </p>
-
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="0%" y1="90%" x2="90%" y2="0%" />
-                                <circle class="smallComponent" cx="50%" cy="50%" r="30%" />
-                            </svg>
-                            <p>\[\left( y-x-1 \right) \left( x^2 + y^2 -9 \right) = 0 \]</p>
-                        </div>
-
-                        <hr />
-
-                        <p>
-                            Second is domain restriction. This allows us to cut off a graph so it doesn't extend all the way to infinity. Let's say we wanted to graph a line but restrict it to between -3 and 3:
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="0%" y1="55%" x2="100%" y2="5%" />
-                                <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
-                                <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
-                            </svg>
-                            <p>\[ y = {1 \over 2}x + 2 \]</p>
-                        </div>
-
-                        <p>
-                            Start with an absolute value function.
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="0%" y1="0%" x2="50%" y2="50%" />
-                                <line class="smallComponent" x1="50%" y1="50%" x2="100%" y2="0%" />
-                            </svg>
-                            <p>\[ y = \left| x \right| \]</p>
-                        </div>
-
-                        <p>
-                            Divide by x. The negative numbers will become -1; the positives, 1. For the purposes of this, don't worry about the discontinuity at x=0.
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="50%" y1="40%" x2="100%" y2="40%" />
-                                <line class="smallComponent" x1="0%" y1="60%" x2="50%" y2="60%" />
-                            </svg>
-                            <p>\[ y = { \left| x \right| \over x } \]</p>
-                        </div>
-
-                        <p>
-                            Finally take the square root. The -1s will be shot into the complex plane (the square root of negative numbers are not defined as real numbers), and the 1s will remain exactly the same. Voila! Only the inputs greater than 0 will now be graphed!
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="50%" y1="40%" x2="100%" y2="40%" />
-                            </svg>
-                            <p>\[ y = \sqrt{ \left| x \right| \over x } \]</p>
-                        </div>
-
-                        <p>
-                            This base domain restriction graph can be translated, reversed, and combined.
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="70%" y1="40%" x2="100%" y2="40%" />
-                                <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
-                            </svg>
-                            <p>\[ y = \sqrt{ \left| x-2 \right| \over x-2 } \]</p>
-                        </div>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="0%" y1="40%" x2="70%" y2="40%" />
-                                <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
-                            </svg>
-                            <p>\[ y = \sqrt{ \left| 2-x \right| \over 2-x } \]</p>
-                        </div>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="40%" y1="40%" x2="70%" y2="40%" />
-                                <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
-                                <line class="dashed" x1="40%" y1="0%" x2="40%" y2="100%" />
-                            </svg>
-                            <p>\[ y = \sqrt{ \left| (x+1)(2-x) \right| \over (x+1)(2-x) } \]</p>
-                        </div>
-
-                        <p>
-                            Bringing it back to the original problem, you can have this domain restriction apply to any graph by multiplying the graph with this domain restriction expression (along with any modifications). The parts of the function in the domain of the domain restriction expression will simply be multiplied by one, but were the domain is undefined, the graph will be gone!
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="0%" y1="55%" x2="100%" y2="5%" />
-                                <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
-                                <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
-                            </svg>
-                            <p>\[ y = {1 \over 2}x + 2 \]</p>
-                        </div>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="20%" y1="45%" x2="80%" y2="15%" />
-                                <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
-                                <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
-                            </svg>
-                            <p>\[ y = {1 \over 2}x + 2 \sqrt{ \left| (x+3)(3-x) \right| \over (x+3)(3-x) } \]</p>
-                        </div>
-
-                        <p>
-                            We don't even have to restrict just x. We can place any expression in the place of x in the restriction and come up with much more complicated graphs. We can even rewrite our solution to the above graph more compactly!
-                        </p>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph" viewBox="0 0 100 100">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <path class="smallComponent" d="M 50 10 A 40 40 0 1 0 90 50" />
-                                <line class="dashed" x1="40%" y1="0%" x2="100%" y2="60%" />
-                            </svg>
-                            <p>\[ x^2 + y^2 = 16 \sqrt{ \left| -(y-(4-x)) \right| \over -(y-(4-x)) } \]</p>
-                        </div>
-                        <div class="smallGraphContainer">
-                            <svg class="smallGraph">
-                                <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                                <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                                <line class="smallComponent" x1="20%" y1="45%" x2="80%" y2="15%" />
-                                <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
-                                <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
-                            </svg>
-                            <p>\[ y = {1 \over 2}x + 2 \sqrt{ \left| 3-|x| \right| \over 3-|x| } \]</p>
-                        </div>
-
-                        <hr />
-
-                        <p>
-                            Now, armed with the tools of graph combination and domain restriction, if you can graph it, you can make an equation for it. Whether it be line art so intricate it deserves a place in the Louvre or a secret message encoded in an equation, the bounds for your creativity are limitless!
-                        </p>
-                    </div>
-
-                    <hr style="margin-top: 5vh;" />
-
-                    <button id="expandHowItWorks" onclick="toggleHowItWorks();">
-                        <img src="icons/arrow.png" />
-                    </button>
-                </div>
-
-                <div class="highlightDiv" id="footnoteContainer">
-                    <p id="footnote">
-                        Note: For some graphing utilities, the equation will not produce a correct graph. When restricting the domain of a graph, the equation produces a complex number where the graph should be undefined. This is all fine and dandy, but as soon as you start combining graphs, it falls apart. Combining graphs relies on the zero product property, and if a given point satisfies one equation but falls out of the domain of another, it produces 0(a+bi), which clearly equals 0 regardless of the complex factor and should check out with the zero-product property. However, some graphing utilities freak out when they see any imaginary number, even if it is multiplied by 0, and automatically mark it undefined. Thus domain restrictions, even if they only apply to one component of the equation, will instead apply to the entire graph because the graphing utility fails to realize that 0i is still 0. For these cases, you will have to split the equation into multiple components for the graph to render properly.
-                    </p>
-                </div>
-
-                <div class="highlightDiv">
-                    <h2>
-                        Thank you for your time.
-                    </h2>
-                    <div class="smallGraphContainer">
-                        <svg class="smallGraph" viewBox="0 0 100 100">
-                            <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
-                            <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
-                            <circle class="smallComponent" cx="30%" cy="30%" r="10%" />
-                            <circle class="smallComponent" cx="70%" cy="30%" r="10%" />
-                            <path class="smallComponent" d="M 20 60 C 30 80, 30 80, 50 80 C 70 80, 70 80, 80 60" />
-                        </svg>
-                        <p>\[ \left( (|x|-2)^2 + (y-2)^2 - 1 \right) \left( y - {x^4 \over 27} + 3 \sqrt{ \left| -(y+1) \right| \over -(y+1) } \right) = 0 \]</p>
-                    </div>
-
-
-                    <p>This project was inspired by <a href="https://www.reddit.com/r/pics/comments/j2qjc/do_you_like_batman_do_you_like_math_my_math/" target="_blank">The Batman Equation</a>! Check it out!</p>
-
-                    <p>Equations rendered with MathJax and LaTeX. Graphs rendered with SVG. Color choosers created using jscolor.</p>
-                </div>
-
-                <p><a href="#header">Return to top</a></p>
-
-                <footer>
-                    <div id="coolButtons">
-                        <a href="https://github.com/alansheu2004"><img src="icons/github.png" /></a>
-                    </div>
-                    <p>Phone: 1 (408)-218-0411</p>
-                    <p>Email: <a href="mailto:alansheu2004@gmail.com">alansheu2004@gmail.com</a></p>
-                    <p>Check out some other projects at <a href="https://alansheu2004.github.io">alansheu2004.github.io</a></p>
-                </footer>
+        <article id="hidden">
+            <p>Here's your generated equation:</p>
+            <div class="highlightDiv">
+                <p style="margin-top: 0;"><small>
+                    Note: Some graphing utilities may not be able to display the graph. Check out <a href="#footnoteContainer">why</a>.
+                </small></p>
+                <div class="loading" style="filter: invert(); margin-top: 2vh"></div>
+                <p id="equation">
+                    
+                </p>
             </div>
+
+            <a href="#header">Return to top</a>
+
+
+            <div class="highlightDiv">
+                <h2>How does it work?</h2>
+                <p>
+                    This equation generation is mainly split into two parts: graph combination and domain restriction.
+                </p>
+
+                <p>
+                    Let's first discuss graph combination. Say you want to combine the graphs of a line and a circle:
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="0%" y1="90%" x2="90%" y2="0%" />
+                    </svg>
+                    <p>\[y=x+1\]</p>
+                </div>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <circle class="smallComponent" cx="50%" cy="50%" r="30%" />
+                    </svg>
+                    <p>\[x^2+y^2=9\]</p>
+                </div>
+
+                <p>
+                    While you could write out the equations separately pretty easily, we have to use the Zero-Product Property to combine these equations into one. The property basically states that the product of two or more expressions equals 0 if and only if at least one of the expressions equals 0.
+                </p>
+                <p>
+                    \[ ab = 0 \; if \; a=0 \; or \; b=0 \]
+                </p>
+                <p>
+                    We can take advantage of this fact to make it so that if a given point on the graph satisfies either equation, it will satisfy the combined equation as well! First we have to move all the terms to one side.
+                </p>
+                <p>\[y=x+1 \longrightarrow y-x-1=0\]</p>
+                <p>\[x^2+y^2=9 \longrightarrow x^2+y^2-9=0\]</p>
+                <p>
+                    These new equations are equivalent to the previous ones, but if they are multiplied together, either equation equaling 0 will cause the entire product to equal 0. Success! We have combined the equations into one such that the solutions of either equation won't interfere with the other!
+                </p>
+
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="0%" y1="90%" x2="90%" y2="0%" />
+                        <circle class="smallComponent" cx="50%" cy="50%" r="30%" />
+                    </svg>
+                    <p>\[\left( y-x-1 \right) \left( x^2 + y^2 -9 \right) = 0 \]</p>
+                </div>
+
+                <p>
+                    Second is domain restriction. This allows us to cut off a graph so it doesn't extend all the way to infinity. Let's say we wanted to graph a line but restrict it to between -3 and 3:
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="0%" y1="55%" x2="100%" y2="5%" />
+                        <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
+                        <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
+                    </svg>
+                    <p>\[ y = {1 \over 2}x + 2 \]</p>
+                </div>
+
+                <p>
+                    Start with an absolute value function.
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="0%" y1="0%" x2="50%" y2="50%" />
+                        <line class="smallComponent" x1="50%" y1="50%" x2="100%" y2="0%" />
+                    </svg>
+                    <p>\[ y = \left| x \right| \]</p>
+                </div>
+
+                <p>
+                    Divide by x. The negative numbers will become -1; the positives, 1. For the purposes of this, don't worry about the discontinuity at x=0.
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="50%" y1="40%" x2="100%" y2="40%" />
+                        <line class="smallComponent" x1="0%" y1="60%" x2="50%" y2="60%" />
+                    </svg>
+                    <p>\[ y = { \left| x \right| \over x } \]</p>
+                </div>
+
+                <p>
+                    Finally take the square root. The -1s will be shot into the complex plane (the square root of negative numbers are not defined as real numbers), and the 1s will remain exactly the same. Voila! Only the inputs greater than 0 will now be graphed!
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="50%" y1="40%" x2="100%" y2="40%" />
+                    </svg>
+                    <p>\[ y = \sqrt{ \left| x \right| \over x } \]</p>
+                </div>
+
+                <p>
+                    This base domain restriction graph can be translated, reversed, and combined.
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="70%" y1="40%" x2="100%" y2="40%" />
+                        <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
+                    </svg>
+                    <p>\[ y = \sqrt{ \left| x-2 \right| \over x-2 } \]</p>
+                </div>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="0%" y1="40%" x2="70%" y2="40%" />
+                        <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
+                    </svg>
+                    <p>\[ y = \sqrt{ \left| 2-x \right| \over 2-x } \]</p>
+                </div>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="40%" y1="40%" x2="70%" y2="40%" />
+                        <line class="dashed" x1="70%" y1="0%" x2="70%" y2="100%" />
+                        <line class="dashed" x1="40%" y1="0%" x2="40%" y2="100%" />
+                    </svg>
+                    <p>\[ y = \sqrt{ \left| (x+1)(2-x) \right| \over (x+1)(2-x) } \]</p>
+                </div>
+
+                <p>
+                    Bringing it back to the original problem, you can have this domain restriction apply to any graph by multiplying the graph with this domain restriction expression (along with any modifications). The parts of the function in the domain of the domain restriction expression will simply be multiplied by one, but were the domain is undefined, the graph will be gone!
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="0%" y1="55%" x2="100%" y2="5%" />
+                        <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
+                        <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
+                    </svg>
+                    <p>\[ y = {1 \over 2}x + 2 \]</p>
+                </div>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="20%" y1="45%" x2="80%" y2="15%" />
+                        <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
+                        <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
+                    </svg>
+                    <p>\[ y = {1 \over 2}x + 2 \sqrt{ \left| (x+3)(3-x) \right| \over (x+3)(3-x) } \]</p>
+                </div>
+
+                <p>
+                    We don't even have to restrict just x. We can place any expression in the place of x in the restriction and come up with much more complicated graphs. We can even rewrite our solution to the above graph more compactly!
+                </p>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph" viewBox="0 0 100 100">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <path class="smallComponent" d="M 50 10 A 40 40 0 1 0 90 50" />
+                        <line class="dashed" x1="40%" y1="0%" x2="100%" y2="60%" />
+                    </svg>
+                    <p>\[ x^2 + y^2 = 16 \sqrt{ \left| -(y-(4-x)) \right| \over -(y-(4-x)) } \]</p>
+                </div>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <line class="smallComponent" x1="20%" y1="45%" x2="80%" y2="15%" />
+                        <line class="dashed" x1="20%" y1="0%" x2="20%" y2="100%" />
+                        <line class="dashed" x1="80%" y1="100%" x2="80%" y2="0%" />
+                    </svg>
+                    <p>\[ y = {1 \over 2}x + 2 \sqrt{ \left| 3-|x| \right| \over 3-|x| } \]</p>
+                </div>
+
+                <p>
+                    Now, armed with the tools of graph combination and domain restriction, if you can graph it, you can make an equation for it. Whether it be line art so intricate it deserves a place in the Louvre or a secret message encoded in an equation, the bounds for your creativity are limitless!
+                </p>
+            </div>
+
+            <div class="highlightDiv" id="footnoteContainer">
+                <p id="footnote">
+                    Note: For some graphing utilities, the equation will not produce a correct graph. When restricting the domain of a graph, the equation produces a complex number where the graph should be undefined. This is all fine and dandy, but as soon as you start combining graphs, it falls apart. Combining graphs relies on the zero product property, and if a given point satisfies one equation but falls out of the domain of another, it produces 0(a+bi), which clearly equals 0 regardless of the complex factor and should check out with the zero-product property. However, some graphing utilities freak out when they see any imaginary number, even if it is multiplied by 0, and automatically mark it undefined. Thus domain restrictions, even if they only apply to one component of the equation, will instead apply to the entire graph because the graphing utility fails to realize that 0i is still 0. For these cases, you will have to split the equation into multiple components for the graph to render properly.
+                </p>
+            </div>
+
+            <div class="highlightDiv">
+                <h2>
+                    Thank you for your time.
+                </h2>
+                <div class="smallGraphContainer">
+                    <svg class="smallGraph" viewBox="0 0 100 100">
+                        <line class="smallAxis" x1="0%" y1="50%" x2="100%" y2="50%" />
+                        <line class="smallAxis" x1="50%" y1="0%" x2="50%" y2="100%" />
+                        <circle class="smallComponent" cx="30%" cy="30%" r="10%" />
+                        <circle class="smallComponent" cx="70%" cy="30%" r="10%" />
+                        <path class="smallComponent" d="M 20 60 C 30 80, 30 80, 50 80 C 70 80, 70 80, 80 60" />
+                    </svg>
+                    <p>\[ \left( (|x|-2)^2 + (y-2)^2 - 1 \right) \left( y - {x^4 \over 27} + 3 \sqrt{ \left| -(y+1) \right| \over -(y+1) } \right) = 0 \]</p>
+                </div>
+
+
+                <p>This project was inspired by <a href="https://www.reddit.com/r/pics/comments/j2qjc/do_you_like_batman_do_you_like_math_my_math/" target="_blank">The Batman Equation</a>! Check it out!</p>
+
+                <p>Equations rendered with MathJax and LaTeX. Graphs rendered with SVG. Color choosers created using jscolor.</p>
+            </div>
+
+            <p><a href="#header">Return to top</a></p>
         </article>
+
+        <footer>
+            <div id="coolButtons">
+                <a href="https://github.com/alansheu2004"><img src="icons/github.png" /></a>
+                <a href="https://linkedin.com/in/alansheu2004"><img src="icons/linkedin.png" style="filter: invert()" /></a>
+            </div>
+            <p>Phone: 1 (408)-218-0411</p>
+            <p>Email: <a href="mailto:alansheu2004@gmail.com">alansheu2004@gmail.com</a></p>
+            <p>Check out some other projects at <a href="https://alansheu2004.github.io">alansheu2004.github.io</a></p>
+        </footer>
 
     </body>
 
@@ -408,21 +397,6 @@
     <script src="scripts/entries.js"></script>
     <script src="scripts/save.js"></script>
     <script src="scripts/jscolor.js"></script>
-
-
-    <script>
-        var howItWorksExpanded = false;
-        function toggleHowItWorks() {
-            if (howItWorksExpanded) {
-                document.getElementById("howItWorks").classList.remove("expanded");
-                document.getElementById("expandHowItWorks").classList.remove("expanded");
-            } else{
-                document.getElementById("howItWorks").classList.add("expanded");
-                document.getElementById("expandHowItWorks").classList.add("expanded");
-            }
-            howItWorksExpanded = !howItWorksExpanded;
-        }
-    </script>
 
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async

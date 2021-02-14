@@ -1,11 +1,11 @@
 var generateButton = document.getElementById("generate");
-var hiddenDiv = document.getElementById("hiddenDiv");
+var hidden = document.getElementById("hidden");
 var equationP = document.getElementById("equation");
 
-function setUpHiddenDiv() {
+function setUpHidden() {
     generateButton.addEventListener("click", function() {
-        hiddenDiv.style.display = "initial";
-        window.scrollTo(0, hiddenDiv.getBoundingClientRect().top - 15);
+        hidden.style.display = "block";
+        window.scrollTo(0, hidden.getBoundingClientRect().top - 15);
         setUpEquation();
     });
 }

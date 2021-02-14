@@ -276,7 +276,7 @@ window.onload = function() {
         newButtonDiv.appendChild(button);
     }
 
-    setUpHiddenDiv();
+    setUpHidden();
 
     setUpSampleSets();
 
