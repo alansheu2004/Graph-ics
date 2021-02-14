@@ -4,7 +4,7 @@ div#sidePanel {
     background-color: var(--light-theme-background);
     flex: 0 0 25%;
     max-width: 25%;
-    box-shadow: 0 0 1vw;
+    box-shadow: 0 0 5px;
     text-align: center;
     z-index: 1;
 }

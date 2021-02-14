@@ -1,28 +1,29 @@
 div#zoomGroup {
     position: absolute;
-    top: 2vh;
-    left: 2vh;
-    width: 6vh;
-    height: 12vh;
+    top: 15px;
+    left: 15px;
+    width: 40px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0 0 5px;
+    overflow: hidden;
 }
 
 button.zoomButton {
-    position: absolute;
+    flex: 1 0 0;
     text-align: center;
-    left: 0;
     width: 100%;
-    height: 50%;
-    padding: 25%;
+    padding: 30%;
     margin: 0;
     background-color: var(--light-theme-background);
-    border: 1px solid var(--light-theme-dark);
-    font-size: 6vh;
     line-height: 0;
-    vertical-align: middle;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     transition: 0.15s;
+    border: none;
 }
 
 button.zoomButton:hover:not(:disabled) {
@@ -40,13 +41,10 @@ button.zoomButton:disabled {
 }
 
 button#zoomIn {
-    top: 0;
-    border-radius: 25% 25% 0 0;
 }
 
 button#zoomOut {
-    bottom: 1px;
-    border-radius: 0 0 25% 25%;
+    border-top: 1px solid var(--light-theme-dark);
 }
 
 button.zoomButton img {

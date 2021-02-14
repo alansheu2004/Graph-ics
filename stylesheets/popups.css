@@ -7,17 +7,17 @@ div#glassPane {
     right: 0;
     top: 0;
     bottom: 0;
+    align-items: center;
+    justify-content: center;
 }
 
 div.popup {
+    position: relative;
     background-color: white;
-    position: fixed;
-    height: 90vh;
-    width: 60vw;
-    top: 5vh;
-    left: 20vw;
-    padding: 3vw;
-    border-radius: 3vw;
+    height: 80vh;
+    width: 50vw;
+    padding: 30px;
+    border-radius: 20px;
     overflow-y: hidden;
     display: flex;
     flex-direction: column;
@@ -29,10 +29,10 @@ div.popup > button.delete {
     background-image: url("../icons/delete.svg");
     background-size: 100% 100%;
     border: none;
-    width: 3vh;
-    height: 3vh;
-    top: 3vw;
-    right: 3vw;
+    width: 20px;
+    height: 20px;
+    top: 30px;
+    right: 30px;
     filter: opacity(0.25);
     transition: 0.15s;
     cursor: pointer;
@@ -50,20 +50,20 @@ div.popup > img {
     flex: 0 0 auto;
     display: block;
     margin: auto;
-    height: 5vh;
+    height: 40px;
 }
 
 
 div.popup h2 {
     flex: 0 0 auto;
-    font-size: 24pt;
+    font-size: 20pt;
     text-align: center;
 }
 
 div.popup hr {
     flex: 0 0 auto;
-    border: 1px solid black;
-    margin-bottom: 3vh;
+    border-bottom: 1px solid black;
+    margin-bottom: 20px;
 }
 
 div#tutorialArticle {
@@ -72,22 +72,21 @@ div#tutorialArticle {
 }
 
 div#tutorialArticle p {
-    font-size: 18pt;
-    margin-bottom: 2vh;
+    font-size: 14pt;
+    margin-bottom: 20px;
 }
 
 div#ideaList {
     flex: 1 1 0;
     flex-direction: row;
     justify-content: center;
-    overflow-y: auto;
     flex-wrap: wrap;
 }
 
 div.idea {
     display: inline-block;
-    padding: 0.5vw;
-    width: 12vw;
+    padding: 10px;
+    width: 23%;
     text-align: center;
     transition: 0.15s;
     border-radius: 3px;
@@ -101,8 +100,7 @@ div.idea:hover {
 
 div.idea img {
     margin: auto;
-    width: 10vw;
-    height: 9vw;
+    width: 100%;
     object-fit: cover;
 }
 
@@ -113,34 +111,33 @@ div.idea p {
 
 div#saveDiv p {
     text-align: center;
-    font-size: 3vh;
+    font-size: 14pt;
 }
 
 textarea#saveText {
     flex: 1 1 auto;
     resize: none;
-    font-size: 3vh;
-    padding: 1vw;
-    margin: 0 4vw 1vh;
+    font-size: 12pt;
+    padding: 20px;
+    margin: 0 30px 20px;
     border-radius: 1vw;
     border: 1px solid black;
 }
 
 .saveButton {
-    font-size: 2vh;
-    padding: 1vh 2vh;
-    border-radius: 1vh;
+    font-size: 11pt;
+    padding: 5px;
+    border-radius: 5px;
     background-color: navy;
     color: white;
     border: none;
-    margin: 1vh 5vw 0;
+    margin: auto;
+    margin-bottom: 8px;
     transition: 0.15s;
     vertical-align: middle;
-}
-
-label[for="saveFileInput"] {
-    margin: 1vh 5vw 0;
-}
+    width: 60%;
+    display: block;
+}   
 
 .saveButton:hover:not(:disabled) {
     background-color: blue;
@@ -152,11 +149,6 @@ label[for="saveFileInput"] {
     cursor: default;
 }
 
-button#loadFile {
-    width: 100%;
-    margin: 0;
-}
-
 input#saveFileInput {
     display: none;
 }
@@ -164,7 +156,11 @@ input#saveFileInput {
 button#confirmSave {
     display: block;
     margin: auto;
-    margin-top: 1vh;
-    font-size: 3vh;
-    clear: both;
+    margin-top: 10px;
+    font-size: 14pt;
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: navy;
+    color: white;
+    border: none;
 }
