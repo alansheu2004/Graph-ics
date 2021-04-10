@@ -17,7 +17,7 @@ function setUpEquation() {
         equation += par(component.getEquation());
     }
     equationP.textContent = "\\[" + equation + "=0\\]";
-    MathJax.typesetPromise().then(function() {equationP.parentNode.children[1].style.display = "none";});
+    MathJax.typesetPromise()
 }
 
 function multiply() {

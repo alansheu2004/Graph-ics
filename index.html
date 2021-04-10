@@ -110,13 +110,12 @@
             </div>
         </div>
 
-        <article id="hidden">
-            <p>Here's your generated equation:</p>
-            <div class="highlightDiv">
-                <p style="margin-top: 0;"><small>
-                    Note: Some graphing utilities may not be able to display the graph. Check out <a href="#footnoteContainer">why</a>.
+        <article>
+            <div class="highlightDiv" id="hidden">
+                <p>Here's your generated equation:</p>
+                <p><small>
+                    Note: Some graphing utilities may not be able to display the graph. Here's <a href="#footnoteContainer">why</a>.
                 </small></p>
-                <div class="loading" style="filter: invert(); margin-top: 2vh"></div>
                 <p id="equation">
                     
                 </p>
@@ -314,7 +313,7 @@
 
             <div class="highlightDiv" id="footnoteContainer">
                 <p id="footnote">
-                    Note: For some graphing utilities, the equation will not produce a correct graph. When restricting the domain of a graph, the equation produces a complex number where the graph should be undefined. This is all fine and dandy, but as soon as you start combining graphs, it falls apart. Combining graphs relies on the zero product property, and if a given point satisfies one equation but falls out of the domain of another, it produces 0(a+bi), which clearly equals 0 regardless of the complex factor and should check out with the zero-product property. However, some graphing utilities freak out when they see any imaginary number, even if it is multiplied by 0, and automatically mark it undefined. Thus domain restrictions, even if they only apply to one component of the equation, will instead apply to the entire graph because the graphing utility fails to realize that 0i is still 0. For these cases, you will have to split the equation into multiple components for the graph to render properly.
+                    Here's the reason why some graphing utilities can't graph this properly. The domain is restricted by making parts of the graph map to complex numbers, and the graphs are combined with the zero-product property. This is theoretically fine, but if one factor is a complex number but another is 0, a graphing utility may tret it as just an error rather than what it should multiply to: 0. As a result, any component's domain restriction will apply to the entire graph rather than just its component.
                 </p>
             </div>
 
